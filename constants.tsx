@@ -49,7 +49,6 @@ const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
 const IMG_COLUMPIO_ESENCIA = 'https://i.postimg.cc/BnTM9MM0/COLUMPIO_A.png';
 const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
 const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.jpeg';
-const IMG_COLUMPIO_OLIVO = '/columpio-olivo.jpg';
 const IMG_FORRAJEO_CAJA = 'https://i.postimg.cc/kgQf3ffC/FORRAJEO.png';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
 const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
@@ -97,15 +96,6 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_ESENCIA,
     category: 'Columpios',
     badge: 'Clásico'
-  },
-  {
-    id: 'p15',
-    name: 'Columpio de Olivo',
-    price: 11.90,
-    description: 'Ramitas de olivo natural sobre sisal. Estimulación sonora y textural para trepar, balancear y picar. Incluye hojas de repuesto.',
-    image: IMG_COLUMPIO_OLIVO,
-    category: 'Columpios',
-    badge: 'Nuevo'
   },
   {
     id: 'p17',
