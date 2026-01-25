@@ -116,7 +116,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p12',
     name: 'Bolsita de Forrajeo',
-    price: 8.50,
+    price: 3.75,
     description: 'Heno natural de alta calidad (100gr). Perfecta para fomentar el instinto de búsqueda y mantener a tu ave entretenida y saludable.',
     image: IMG_FORRAJEO_CAJA,
     category: 'Forrajeo',
