@@ -45,6 +45,7 @@ export const IMG_CONTACT_MAIN = 'https://i.postimg.cc/DZbGhN5m/Whisk_e76e908bd2c
 const IMG_PROD_AVENTURA = 'https://i.postimg.cc/SRf3Zg0b/Whats_App_Image_2026_01_11_at_15_20_51.jpg';
 const IMG_PROD_RELAX = 'https://i.postimg.cc/NfQWyvTq/Whats_App_Image_2026_01_11_at_15_21_22.jpg';
 const IMG_PROD_NATURA = 'https://i.postimg.cc/ZKpqJs3w/Whats-App-Image-2026-01-25-at-12-13-58.jpg';
+const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
 const IMG_COLUMPIO_ESENCIA = 'https://i.postimg.cc/BnTM9MM0/COLUMPIO_A.png';
 const IMG_COLUMPIO_OLIVO = '/columpio-olivo.jpg';
 const IMG_FORRAJEO_CAJA = 'https://i.postimg.cc/kgQf3ffC/FORRAJEO.png';
@@ -76,6 +77,14 @@ export const PRODUCTS: Product[] = [
     image: IMG_PROD_NATURA,
     category: 'Packs',
     badge: 'Nuevo'
+  },
+  {
+    id: 'p16',
+    name: 'Pack Olivo',
+    price: 13.90,
+    description: 'Selección especial de accesorios artesanales con rama de olivo natural. Ideal para estimulación y enriquecimiento.',
+    image: IMG_PACK_OLIVO,
+    category: 'Packs'
   },
   {
     id: 'p11',
