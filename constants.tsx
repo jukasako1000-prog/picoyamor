@@ -115,9 +115,9 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p12',
-    name: 'Caja "Tesoro de Forrajeo"',
+    name: 'Bolsita de Forrajeo',
     price: 8.50,
-    description: 'Un desafío mental lleno de texturas y tesoros escondidos para tu ave.',
+    description: 'Heno natural de alta calidad (100gr). Perfecta para fomentar el instinto de búsqueda y mantener a tu ave entretenida y saludable.',
     image: IMG_FORRAJEO_CAJA,
     category: 'Forrajeo',
     badge: 'Recomendado'
