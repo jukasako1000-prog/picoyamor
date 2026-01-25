@@ -51,6 +51,7 @@ const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
 const IMG_COLUMPIO_OLIVO = '/columpio-olivo.jpg';
 const IMG_FORRAJEO_CAJA = 'https://i.postimg.cc/kgQf3ffC/FORRAJEO.png';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
+const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
 
 export const PRODUCTS: Product[] = [
   {
@@ -129,6 +130,15 @@ export const PRODUCTS: Product[] = [
     description: 'Materiales naturales que imitan el comportamiento de búsqueda en libertad.',
     image: IMG_FORRAJEO_BUSCADOR,
     category: 'Forrajeo'
+  },
+  {
+    id: 'p18',
+    name: 'Combo Forrajeo Natural',
+    price: 12.50,
+    description: 'Mezcla de cinco bolsas variadas para fondo de bandeja. Estimula el instinto natural de búsqueda y reduce el aburrimiento.',
+    image: IMG_FORRAJEO_COMBO,
+    category: 'Forrajeo',
+    badge: 'Ahorro'
   }
 ];
 
