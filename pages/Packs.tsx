@@ -16,8 +16,8 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
 
   const filteredProducts = PRODUCTS.filter(p => {
     const matchesCategory = filter === 'Todos' || p.category === filter;
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                          p.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -35,26 +35,25 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
           {/* Buscador */}
           <div className="relative w-full lg:max-w-md group">
             <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted group-focus-within:text-primary transition-colors">search</span>
-            <input 
-              type="text" 
-              placeholder="Buscar juguetes o packs..." 
+            <input
+              type="text"
+              placeholder="Buscar juguetes o packs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white border-2 border-background-light rounded-2xl pl-12 pr-4 py-4 focus:ring-4 focus:ring-primary/10 focus:border-primary transition-all text-text-main font-medium placeholder:text-text-muted/50 shadow-sm"
             />
           </div>
-          
+
           {/* Filtros de Categoría */}
           <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2 shrink-0 w-full lg:w-auto">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
-                className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
-                  filter === cat 
-                    ? 'bg-primary text-white shadow-lg shadow-primary/20 scale-105' 
-                    : 'bg-white hover:bg-background-light text-text-main border border-background-light shadow-sm'
-                }`}
+                className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 focus:outline-none ${filter === cat
+                    ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-105 ring-2 ring-primary ring-offset-2'
+                    : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm hover:border-primary/20'
+                  }`}
               >
                 {cat}
               </button>
@@ -78,8 +77,8 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
             <p className="text-2xl font-black text-text-main">No encontramos lo que buscas</p>
             <p className="text-text-muted font-medium">Prueba con otros términos o cambia el filtro.</p>
           </div>
-          <button 
-            onClick={() => { setFilter('Todos'); setSearchQuery(''); }} 
+          <button
+            onClick={() => { setFilter('Todos'); setSearchQuery(''); }}
             className="text-primary font-black text-lg underline underline-offset-8"
           >
             Ver toda la colección
