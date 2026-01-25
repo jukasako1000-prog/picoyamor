@@ -10,6 +10,7 @@ export interface Product {
   level?: string;
   isOffer?: boolean;
   oldPrice?: number;
+  scale?: number;
 }
 
 export interface CartItem extends Product {

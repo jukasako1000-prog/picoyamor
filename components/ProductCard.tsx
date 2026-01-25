@@ -19,7 +19,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
         <img
           src={product.image}
           alt=""
-          className="w-full h-full object-contain p-2 transition-transform duration-700 group-hover:scale-105"
+          className={`w-full h-full object-contain p-0 transition-transform duration-700 group-hover:scale-110`}
+          style={{ transform: product.scale ? `scale(${product.scale})` : 'scale(1)' }}
         />
 
         {/* Overlay de zoom sutil al hacer hover */}

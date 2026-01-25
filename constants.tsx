@@ -121,7 +121,8 @@ export const PRODUCTS: Product[] = [
     description: 'Corcho auténtico en formato tarta con bolita de enriquecimiento. Textura irresistible para picar y jugar. Un pastel de diversión natural.',
     image: IMG_COLUMPIO_CORCHO,
     category: 'Columpios',
-    badge: 'Premium'
+    badge: 'Premium',
+    scale: 1.30
   },
   {
     id: 'p12',
