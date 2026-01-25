@@ -36,13 +36,6 @@ export const HERO_SLIDES = [
     title: 'Seguridad\nY Confianza',
     subtitle: 'Amor\nPor Ellas',
     desc: 'Materiales libres de plásticos y tóxicos. La tranquilidad que tu bandada se merece.'
-  },
-  {
-    image: IMG_HERO_SLIDE_1,
-    type: 'image',
-    title: 'Artesanía\nDe Calidad',
-    subtitle: 'Pico\n& Amor',
-    desc: 'Cada pieza es única, hecha a mano con amor y dedicación para el bienestar de tu mascota.'
   }
 ];
 
