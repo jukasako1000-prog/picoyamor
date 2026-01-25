@@ -17,22 +17,32 @@ export const IMG_HERO_SLIDE_3 = 'https://i.postimg.cc/BQMFcJ17/Whisk_455674375a5
 // --- DEFINICIÓN DE SLIDES PARA EL HERO ---
 export const HERO_SLIDES = [
   {
-    image: IMG_HERO_SLIDE_1,
+    image: '/video1.mp4',
+    type: 'video',
     title: 'Esencia\nNatural',
     subtitle: 'Vuelo\nFeliz',
     desc: 'Juguetes artesanales diseñados para potenciar el instinto y la felicidad de tu agapornis, priorizando materiales de origen natural y la máxima seguridad en cada pieza.'
   },
   {
-    image: IMG_HERO_SLIDE_2,
+    image: '/video2.mp4',
+    type: 'video',
     title: 'Jugar,\nExplorar',
     subtitle: 'Y Disfrutar\nCada Día',
     desc: 'Diseños pensados para activar el instinto natural de búsqueda y juego de tus aves.'
   },
   {
-    image: IMG_HERO_SLIDE_3,
+    image: '/video3.mp4',
+    type: 'video',
     title: 'Seguridad\nY Confianza',
     subtitle: 'Amor\nPor Ellas',
     desc: 'Materiales libres de plásticos y tóxicos. La tranquilidad que tu bandada se merece.'
+  },
+  {
+    image: IMG_HERO_SLIDE_1,
+    type: 'image',
+    title: 'Artesanía\nDe Calidad',
+    subtitle: 'Pico\n& Amor',
+    desc: 'Cada pieza es única, hecha a mano con amor y dedicación para el bienestar de tu mascota.'
   }
 ];
 

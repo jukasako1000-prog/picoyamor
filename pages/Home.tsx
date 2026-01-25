@@ -60,36 +60,50 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
             {/* Logo de Marca Flotante - TAMAÑO REDUCIDO NUEVAMENTE */}
             <div className="absolute top-6 right-6 md:top-10 md:right-10 z-30 pointer-events-none select-none">
               <div className="size-16 md:size-28 lg:size-32 rounded-full border-[5px] md:border-[7px] border-white shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden animate-float-slow bg-white">
-                <img 
-                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg" 
-                  alt="Pico & Amor Seal" 
+                <img
+                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg"
+                  alt="Pico & Amor Seal"
                   className="w-full h-full object-cover"
                 />
               </div>
             </div>
 
             {HERO_SLIDES.map((slide, index) => (
-              <div 
+              <div
                 key={index}
                 className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'}`}
               >
-                <img 
-                  src={slide.image}
-                  alt={slide.title}
-                  loading="eager"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out"
-                  style={{ 
-                    transform: index === currentSlide ? 'scale(1.06)' : 'scale(1)',
-                    imageRendering: 'high-quality',
-                  }}
-                />
+                {slide.type === 'video' ? (
+                  <video
+                    src={slide.image}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out"
+                    style={{
+                      transform: index === currentSlide ? 'scale(1.1)' : 'scale(1)',
+                    }}
+                  />
+                ) : (
+                  <img
+                    src={slide.image}
+                    alt={slide.title}
+                    loading="eager"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out"
+                    style={{
+                      transform: index === currentSlide ? 'scale(1.06)' : 'scale(1)',
+                      imageRendering: 'high-quality',
+                    }}
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-transparent md:bg-gradient-to-br md:from-black/75 md:via-black/15 md:to-transparent"></div>
-                
+
                 <div className="relative h-full flex flex-col justify-start items-start p-8 md:p-16 lg:p-20 max-w-4xl pt-6 md:pt-10 lg:pt-12">
                   <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest mb-4">
                     <span className="material-symbols-outlined text-sm filled-icon text-accent">verified</span> Materiales Naturales y Seguros
                   </span>
-                  
+
                   <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black leading-[0.92] mb-5 tracking-tighter drop-shadow-2xl">
                     {slide.title.split('\n').map((line, i) => (
                       <span key={i} className="block whitespace-nowrap uppercase">{line}</span>
@@ -100,13 +114,13 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                       </span>
                     ))}
                   </h2>
-                  
+
                   <p className="text-white/90 text-sm md:text-base font-medium mb-8 max-w-sm leading-relaxed drop-shadow-lg">
                     {slide.desc}
                   </p>
-                  
+
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-                    <Link 
+                    <Link
                       to="/tienda"
                       className="bg-accent hover:bg-[#b8e030] text-text-main font-black text-base md:text-lg px-10 py-4 rounded-[1.6rem] transition-all duration-300 shadow-2xl shadow-black/20 active:scale-95 flex items-center justify-center gap-3 group"
                     >
@@ -120,8 +134,8 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
 
             <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
               {HERO_SLIDES.map((_, i) => (
-                <button 
-                  key={i} 
+                <button
+                  key={i}
                   onClick={() => setCurrentSlide(i)}
                   className={`h-1 rounded-full transition-all duration-1000 ${i === currentSlide ? 'w-12 bg-accent' : 'w-3 bg-white/30'}`}
                 />
@@ -192,19 +206,19 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
       <section className="py-24 bg-background-light/40 rounded-[4rem] mx-4 md:mx-8 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 md:px-12 space-y-12">
           <div className="text-center space-y-4">
-             <div className="inline-block bg-accent/20 text-accent px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Opiniones Reales</div>
-             <h2 className="text-4xl md:text-5xl font-black text-text-main tracking-tighter">La Bandada dice...</h2>
+            <div className="inline-block bg-accent/20 text-accent px-4 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">Opiniones Reales</div>
+            <h2 className="text-4xl md:text-5xl font-black text-text-main tracking-tighter">La Bandada dice...</h2>
           </div>
 
           <div className="relative group max-w-6xl mx-auto">
             <div className="hidden md:flex absolute top-1/2 -translate-y-1/2 -left-12 -right-12 justify-between z-30 pointer-events-none">
-              <button 
+              <button
                 onClick={prevTestimonial}
                 className="pointer-events-auto size-14 bg-white rounded-full shadow-xl flex items-center justify-center text-text-main hover:bg-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0"
               >
                 <span className="material-symbols-outlined">chevron_left</span>
               </button>
-              <button 
+              <button
                 onClick={nextTestimonial}
                 className="pointer-events-auto size-14 bg-white rounded-full shadow-xl flex items-center justify-center text-text-main hover:bg-primary hover:text-white transition-all opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0"
               >
@@ -213,25 +227,25 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
             </div>
 
             <div className="overflow-hidden">
-              <div 
+              <div
                 className="flex transition-transform duration-700 ease-in-out"
                 style={{ transform: `translateX(-${testimonialIndex * (isMobile ? 100 : 50)}%)` }}
               >
                 {TESTIMONIALS.map((t) => (
-                  <div 
-                    key={t.id} 
+                  <div
+                    key={t.id}
                     className="w-full md:w-1/2 px-2 md:px-4 shrink-0"
                   >
                     <div className="bg-white p-8 md:p-12 rounded-[3.5rem] shadow-soft border border-background-light flex flex-col md:flex-row gap-6 items-center md:items-start h-full">
                       {/* Avatar Busto Personalizado */}
                       <div className="size-20 md:size-16 rounded-full border-4 border-white shrink-0 shadow-sm flex items-center justify-center overflow-hidden bg-white">
-                        <img 
-                          src={t.avatar} 
-                          className="w-full h-full object-cover" 
-                          alt={t.name} 
+                        <img
+                          src={t.avatar}
+                          className="w-full h-full object-cover"
+                          alt={t.name}
                         />
                       </div>
-                      
+
                       <div className="space-y-4 text-center md:text-left flex-1">
                         <div className="flex justify-center md:justify-start text-accent">
                           {[...Array(5)].map((_, i) => <span key={i} className="material-symbols-outlined filled-icon text-[14px]">star</span>)}
@@ -252,8 +266,8 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
 
             <div className="flex justify-center gap-3 mt-12">
               {Array.from({ length: maxIndex + 1 }).map((_, i) => (
-                <button 
-                  key={i} 
+                <button
+                  key={i}
                   onClick={() => setTestimonialIndex(i)}
                   className={`h-2.5 rounded-full transition-all duration-500 ${i === testimonialIndex ? 'w-10 bg-primary' : 'w-2.5 bg-primary/20 hover:bg-primary/40'}`}
                 />
@@ -283,7 +297,7 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
           </div>
         </div>
       </section>
-      
+
       <style>{`
         @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
         @keyframes floatSlow { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-15px) rotate(1deg); } }
