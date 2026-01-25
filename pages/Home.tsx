@@ -57,17 +57,6 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
       <section className="relative w-full pt-28 md:pt-32 px-4 md:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="relative w-full min-h-[480px] md:min-h-[620px] rounded-[3rem] overflow-hidden group shadow-2xl bg-[#E8E1D6]">
-            {/* Logo de Marca Flotante - TAMAÑO REDUCIDO NUEVAMENTE */}
-            <div className="absolute top-6 right-6 md:top-10 md:right-10 z-30 pointer-events-none select-none">
-              <div className="size-16 md:size-28 lg:size-32 rounded-full border-[5px] md:border-[7px] border-white shadow-[0_20px_50px_rgba(0,0,0,0.3)] overflow-hidden animate-float-slow bg-white">
-                <img
-                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg"
-                  alt="Pico & Amor Seal"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-
             {HERO_SLIDES.map((slide, index) => (
               <div
                 key={index}
@@ -80,19 +69,15 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                     muted
                     loop
                     playsInline
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out"
-                    style={{
-                      transform: index === currentSlide ? 'scale(1.1)' : 'scale(1)',
-                    }}
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                   />
                 ) : (
                   <img
                     src={slide.image}
                     alt={slide.title}
                     loading="eager"
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[12000ms] ease-out"
+                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
                     style={{
-                      transform: index === currentSlide ? 'scale(1.06)' : 'scale(1)',
                       imageRendering: 'high-quality',
                     }}
                   />
@@ -100,10 +85,6 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                 <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-transparent md:bg-gradient-to-br md:from-black/75 md:via-black/15 md:to-transparent"></div>
 
                 <div className="relative h-full flex flex-col justify-start items-start p-8 md:p-16 lg:p-20 max-w-4xl pt-6 md:pt-10 lg:pt-12">
-                  <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-xl border border-white/20 text-white px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest mb-4">
-                    <span className="material-symbols-outlined text-sm filled-icon text-accent">verified</span> Materiales Naturales y Seguros
-                  </span>
-
                   <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black leading-[0.92] mb-5 tracking-tighter drop-shadow-2xl">
                     {slide.title.split('\n').map((line, i) => (
                       <span key={i} className="block whitespace-nowrap uppercase">{line}</span>
@@ -131,16 +112,6 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                 </div>
               </div>
             ))}
-
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-              {HERO_SLIDES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentSlide(i)}
-                  className={`h-1 rounded-full transition-all duration-1000 ${i === currentSlide ? 'w-12 bg-accent' : 'w-3 bg-white/30'}`}
-                />
-              ))}
-            </div>
           </div>
         </div>
       </section>
