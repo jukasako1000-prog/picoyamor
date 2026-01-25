@@ -49,6 +49,7 @@ const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
 const IMG_COLUMPIO_ESENCIA = 'https://i.postimg.cc/BnTM9MM0/COLUMPIO_A.png';
 const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
 const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.jpeg';
+const IMG_COLUMPIO_CORCHO = '/columpio-AVE.png';
 const IMG_FORRAJEO_CAJA = 'https://i.postimg.cc/kgQf3ffC/FORRAJEO.png';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
 const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
@@ -112,6 +113,15 @@ export const PRODUCTS: Product[] = [
     description: 'La esencia de la sencillez. Percha de madera natural y cuerda de sisal resistente. Un clásico imprescindible para el descanso diario.',
     image: IMG_COLUMPIO_BASICO,
     category: 'Columpios'
+  },
+  {
+    id: 'p20',
+    name: 'Tarta de Corcho',
+    price: 17.50,
+    description: 'Corcho auténtico en formato tarta con bolita de enriquecimiento. Textura irresistible para picar y jugar. Un pastel de diversión natural.',
+    image: IMG_COLUMPIO_CORCHO,
+    category: 'Columpios',
+    badge: 'Premium'
   },
   {
     id: 'p12',
