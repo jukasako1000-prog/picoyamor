@@ -125,7 +125,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p13',
     name: 'Buscador de Semillas "Raíces"',
-    price: 10.90,
+    price: 8.50,
     description: 'Materiales naturales que imitan el comportamiento de búsqueda en libertad.',
     image: IMG_FORRAJEO_BUSCADOR,
     category: 'Forrajeo'
