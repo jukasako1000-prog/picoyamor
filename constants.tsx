@@ -133,7 +133,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p18',
     name: 'Combo Forrajeo Natural',
-    price: 12.50,
+    price: 16.75,
     description: 'Mezcla de cinco bolsas variadas para fondo de bandeja. Estimula el instinto natural de búsqueda y reduce el aburrimiento.',
     image: IMG_FORRAJEO_COMBO,
     category: 'Forrajeo',
