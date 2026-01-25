@@ -45,14 +45,14 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
           </div>
 
           {/* Filtros de Categoría */}
-          <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2 shrink-0 w-full lg:w-auto">
+          <div className="flex gap-3 overflow-x-auto hide-scrollbar py-2 shrink-0 w-full lg:w-auto">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 focus:outline-none ${filter === cat
-                    ? 'bg-primary text-white shadow-lg shadow-primary/30 scale-105 ring-2 ring-primary ring-offset-2'
-                    : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm hover:border-primary/20'
+                    ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
+                    : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm'
                   }`}
               >
                 {cat}
