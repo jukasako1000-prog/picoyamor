@@ -1,14 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="es" class="light">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pico & Amor - Diversión Natural para tu Agapornis</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script>
         tailwind.config = {
@@ -50,31 +52,35 @@
             font-family: 'Plus Jakarta Sans', sans-serif;
             scroll-behavior: smooth;
         }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .filled-icon {
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
         }
+
         .hide-scrollbar {
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
-        
+
         /* SOLUCIÓN AL PROBLEMA DEL EMAIL GRIS/BLANCO */
         input:-webkit-autofill,
-        input:-webkit-autofill:hover, 
-        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
         input:-webkit-autofill:active {
             -webkit-box-shadow: 0 0 0 30px #F2EDE4 inset !important;
             -webkit-text-fill-color: #3F3D3C !important;
             transition: background-color 5000s ease-in-out 0s;
         }
     </style>
-<script type="importmap">
+    <script type="importmap">
 {
   "imports": {
     "react/": "https://esm.sh/react@^19.2.3/",
@@ -85,82 +91,120 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/index.css">
 </head>
+
 <body class="bg-background-light text-text-main transition-colors duration-300">
     <!-- PANTALLA EN CONSTRUCCIÓN CON VIDEO - EL NIDO DE EVA -->
     <style id="maintenance-style-aves">
-      #root, body > div:not(#maintenance-screen) { display: none !important; }
-      
-      #maintenance-screen {
-        position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-        display: flex; flex-direction: column; align-items: center; justify-content: center;
-        z-index: 99999; font-family: sans-serif; text-align: center; color: #fff;
-        overflow: hidden;
-        background-color: #1b4332; 
-        padding-bottom: 15vh; /* ELEVA EL CONTENIDO */
-      }
-    
-      #bg-video {
-        position: absolute; top: 50%; left: 50%;
-        min-width: 100%; min-height: 100%;
-        width: auto; height: auto;
-        transform: translate(-50%, -50%);
-        z-index: -2;
-        object-fit: cover;
-        filter: brightness(0.6);
-      }
-    
-      .main-title { 
-        font-size: clamp(30px, 10vw, 50px); 
-        font-weight: bold; margin-bottom: 10px; 
-        text-shadow: 2px 2px 15px rgba(0,0,0,0.6); 
-      }
-      
-      .description { 
-        max-width: 500px; background: rgba(255,255,255,0.15); 
-        padding: 25px; border-radius: 25px; backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-        border: 1px solid rgba(255,255,255,0.2); line-height: 1.6; margin: 0 20px;
-      }
-      
-      .btn-owner {
-        margin-top: 40px; background: #fff; border: none; color: #1b4332;
-        padding: 12px 30px; border-radius: 30px; cursor: pointer; font-weight: bold;
-        text-transform: uppercase; font-size: 11px; transition: 0.3s;
-      }
-      .btn-owner:hover { transform: scale(1.1); background: #e8f5e9; }
+        #root,
+        body>div:not(#maintenance-screen) {
+            display: none !important;
+        }
+
+        #maintenance-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            font-family: sans-serif;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            background-color: #1b4332;
+            padding-bottom: 30vh;
+            /* SUBE EL CONTENIDO AÚN MÁS */
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            z-index: -2;
+            object-fit: cover;
+            filter: brightness(0.6);
+        }
+
+        .main-title {
+            font-size: clamp(30px, 10vw, 50px);
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 15px rgba(0, 0, 0, 0.6);
+        }
+
+        .description {
+            max-width: 500px;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 25px;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            line-height: 1.6;
+            margin: 0 20px;
+        }
+
+        .btn-owner {
+            margin-top: 40px;
+            background: #fff;
+            border: none;
+            color: #1b4332;
+            padding: 12px 30px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 11px;
+            transition: 0.3s;
+        }
+
+        .btn-owner:hover {
+            transform: scale(1.1);
+            background: #e8f5e9;
+        }
     </style>
-    
+
     <div id="maintenance-screen">
-      <video autoplay muted loop playsinline id="bg-video">
-        <source src="/VIDEOINDEX.mp4" type="video/mp4">
-      </video>
-    
-      <div style="font-size: 60px; margin-bottom: 15px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));">🦜</div>
-      <h1 class="main-title">Preparando el nido</h1>
-      <div class="description">
-        Estamos volando rápido para abrir la mejor tienda de juguetes y accesorios para tus aves.<br>
-        <strong>¡Vuelve pronto!</strong>
-      </div>
-      <button class="btn-owner" onclick="accesoAves()">Acceso Propietario</button>
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="/VIDEOINDEX.mp4" type="video/mp4">
+        </video>
+
+        <div style="font-size: 60px; margin-bottom: 15px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));">🦜</div>
+        <h1 class="main-title">Preparando el nido</h1>
+        <div class="description">
+            Estamos volando rápido para abrir la mejor tienda de juguetes y accesorios para tus aves.<br>
+            <strong>¡Vuelve pronto!</strong>
+        </div>
+        <button class="btn-owner" onclick="accesoAves()">Acceso Propietario</button>
     </div>
-    
+
     <script>
-      function accesoAves() {
-        var p = prompt("Introduce la contraseña para el Nido de Eva:");
-        if (p === "EVACASA") {
-          sessionStorage.setItem('acc_aves', 'true');
-          location.reload();
-        } else if (p !== null) { alert("Contraseña incorrecta. ¡Pio pio!"); }
-      }
-      if (sessionStorage.getItem('acc_aves') === 'true') {
-        document.getElementById('maintenance-screen').style.display = 'none';
-        document.getElementById('maintenance-style-aves').innerHTML = '';
-      }
+        function accesoAves() {
+            var p = prompt("Introduce la contraseña para el Nido de Eva:");
+            if (p === "EVACASA") {
+                sessionStorage.setItem('acc_aves', 'true');
+                location.reload();
+            } else if (p !== null) { alert("Contraseña incorrecta. ¡Pio pio!"); }
+        }
+        if (sessionStorage.getItem('acc_aves') === 'true') {
+            document.getElementById('maintenance-screen').style.display = 'none';
+            document.getElementById('maintenance-style-aves').innerHTML = '';
+        }
     </script>
 
     <div id="root"></div>
-<script type="module" src="/index.tsx"></script>
+    <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>
