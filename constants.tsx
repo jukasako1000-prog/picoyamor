@@ -74,7 +74,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p14',
     name: 'Pack Natura',
-    price: 9.75,
+    price: 11.75,
     description: 'La esencia de la diversión natural. Un lote artesanal con texturas para un entretenimiento seguro.',
     image: IMG_PROD_NATURA,
     category: 'Packs',
