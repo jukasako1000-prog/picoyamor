@@ -64,12 +64,23 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      // Ya no seleccionamos nada automáticamente.
-      // El cliente debe elegir qué comprar o pulsar "Seleccionar todo".
+      // Detectamos si hay items nuevos que no están en el Set
+      const cartIds = cart.map(item => item.id);
+      const newIds = cartIds.filter(id => !selectedIds.has(id));
+
+      if (newIds.length > 0) {
+        // En lugar de seleccionar TODO, seleccionamos solo lo nuevo que entra
+        // Esto hace que el total suba, pero respeta si el usuario desmarcó algo antes
+        setSelectedIds(prev => {
+          const next = new Set(prev);
+          newIds.forEach(id => next.add(id));
+          return next;
+        });
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isOpen]);
+  }, [isOpen, cart.length]); // Escuchamos cambios en la longitud del carrito
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
