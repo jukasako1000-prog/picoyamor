@@ -41,9 +41,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
-  // Cálculo de totales (ahora solo sobre seleccionados)
-  const selectedItems = useMemo(() => cart.filter(item => selectedIds.has(item.id)), [cart, selectedIds]);
-  const subtotal = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // Cálculo de totales (ahora sobre TODO el carrito, como pediste)
+  const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const isExtraPeninsular = useMemo(() => {
     if (!user) return false;
@@ -64,23 +63,12 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      // Detectamos si hay items nuevos que no están en el Set
-      const cartIds = cart.map(item => item.id);
-      const newIds = cartIds.filter(id => !selectedIds.has(id));
-
-      if (newIds.length > 0) {
-        // En lugar de seleccionar TODO, seleccionamos solo lo nuevo que entra
-        // Esto hace que el total suba, pero respeta si el usuario desmarcó algo antes
-        setSelectedIds(prev => {
-          const next = new Set(prev);
-          newIds.forEach(id => next.add(id));
-          return next;
-        });
-      }
+      // Mantenemos la selección vacía por defecto para que "Seleccionar Todo" 
+      // no esté marcado al empezar y el usuario tenga la "arbitrariedad" de elegir.
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isOpen, cart.length]); // Escuchamos cambios en la longitud del carrito
+  }, [isOpen]);
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -105,9 +93,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
     }
     setStatus('loading');
     setTimeout(() => {
-      onCompleteOrder(selectedItems, total);
-      // Solo eliminamos del carrito los items que se han comprado
-      selectedIds.forEach(id => onRemove(id));
+      onCompleteOrder(cart, total); // Tramitamos TODO el carrito
+      onClearCart();
       setStatus('success');
     }, 1500);
   };
