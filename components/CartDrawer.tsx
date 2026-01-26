@@ -14,9 +14,10 @@ interface CartDrawerProps {
   onCompleteOrder: (items: CartItem[], total: number) => void;
 }
 
-const MIN_ORDER = 20;
-const PENINSULA_SHIPPING_FEE = 3.50;
-const EXTRA_PENINSULAR_FEE = 5;
+const FREE_SHIPPING_PENINSULA = 20;
+const FREE_SHIPPING_EXTRA = 25;
+const SHIPPING_PENINSULA = 4;
+const SHIPPING_EXTRA = 8;
 
 // Listado de provincias por nombre para detección automática
 const EXTRA_PENINSULAR_PROVINCES = [
@@ -54,10 +55,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
     return hasExtraProv || hasExtraCP;
   }, [user]);
 
-  const isBelowMinimum = subtotal > 0 && subtotal < MIN_ORDER;
-  const remainingForMinimum = (MIN_ORDER - subtotal).toFixed(2);
-
-  const shippingFee = isExtraPeninsular ? EXTRA_PENINSULAR_FEE : (subtotal < MIN_ORDER ? PENINSULA_SHIPPING_FEE : 0);
+  const shippingFee = isExtraPeninsular
+    ? (subtotal >= FREE_SHIPPING_EXTRA ? 0 : SHIPPING_EXTRA)
+    : (subtotal >= FREE_SHIPPING_PENINSULA ? 0 : SHIPPING_PENINSULA);
   const total = subtotal + shippingFee;
 
   useEffect(() => {
@@ -85,7 +85,6 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   const handleCheckout = () => {
-    if (isBelowMinimum) return;
     if (!user) {
       onOpenAuth();
       return;
@@ -227,30 +226,19 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     </span>
                   </div>
 
-                  {isBelowMinimum && (
-                    <div className="bg-[#FFF1F1] py-4 px-6 rounded-full border border-[#FFE4E4] animate-pulse mt-4">
-                      <p className="text-center text-[11px] font-black text-[#FF6363] uppercase tracking-wider">
-                        ¡Faltan {remainingForMinimum}€ para el pedido mínimo!
-                      </p>
-                    </div>
-                  )}
+
                 </div>
 
                 <div className="flex flex-col gap-3 pt-2">
                   <button
                     onClick={handleCheckout}
-                    disabled={status === 'loading' || isBelowMinimum}
-                    className={`w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg
-                      ${isBelowMinimum
-                        ? 'bg-[#D1D1D1] text-white cursor-not-allowed opacity-80 shadow-none'
-                        : 'bg-primary hover:bg-primary-hover text-white shadow-primary/20'
-                      }
-                    `}
+                    disabled={status === 'loading'}
+                    className={`w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg bg-primary hover:bg-primary-hover text-white shadow-primary/20`}
                   >
                     {status === 'loading' ? (
                       <div className="size-6 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
                     ) : (
-                      isBelowMinimum ? `Pedido Mínimo ${MIN_ORDER}€` : 'Tramitar Pedido'
+                      'Tramitar Pedido'
                     )}
                   </button>
 
@@ -263,16 +251,22 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
 
                 {/* Info de Envío - Se quitan los paréntesis según instrucción */}
-                <div className="text-center pt-2 space-y-1.5">
-                  <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    Envío Peninsular: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS CON PEDIDO MÍNIMO' : `${PENINSULA_SHIPPING_FEE.toFixed(2)}€`}</span>
-                  </p>
-                  <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    BALEARES, CANARIAS, CEUTA Y MELILLA: <span className="text-[#3F3D3C]">{EXTRA_PENINSULAR_FEE.toFixed(2)}€</span>
-                  </p>
-                  <p className="text-[15px] mt-4 text-[#3F3D3C] font-black uppercase tracking-wider">
-                    PEDIDO MÍNIMO {MIN_ORDER}€
-                  </p>
+                <div className="text-center pt-2 space-y-2">
+                  <div className="space-y-1">
+                    <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
+                      Península: <span className="text-primary">{SHIPPING_PENINSULA.toFixed(2)}€</span>
+                      <span className="text-[10px] text-gray-400 ml-1">(GRATIS desde {FREE_SHIPPING_PENINSULA}€)</span>
+                    </p>
+                    <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
+                      Fuera Península: <span className="text-[#3F3D3C]">{SHIPPING_EXTRA.toFixed(2)}€</span>
+                      <span className="text-[10px] text-gray-400 ml-1">(GRATIS desde {FREE_SHIPPING_EXTRA}€)</span>
+                    </p>
+                  </div>
+                  <div className="pt-2 border-t border-gray-100">
+                    <p className="text-[13px] font-black text-primary uppercase tracking-[0.1em]">
+                      ¡ENVÍO GRATIS SEGÚN TU PEDIDO!
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
