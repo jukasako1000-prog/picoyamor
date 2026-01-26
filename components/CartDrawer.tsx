@@ -63,11 +63,11 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      setSelectedIds(new Set(cart.map(item => item.id)));
+      // Ya no seleccionamos todo por defecto
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isOpen, cart.length]);
+  }, [isOpen]);
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
