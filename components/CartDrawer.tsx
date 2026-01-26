@@ -41,8 +41,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
-  // Cálculo de totales
-  const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+  // Cálculo de totales (ahora solo sobre seleccionados)
+  const selectedItems = useMemo(() => cart.filter(item => selectedIds.has(item.id)), [cart, selectedIds]);
+  const subtotal = selectedItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   const isExtraPeninsular = useMemo(() => {
     if (!user) return false;
@@ -63,11 +64,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      setSelectedIds(new Set(cart.map(item => item.id)));
+      // Solo seleccionamos por defecto los que no estuvieran ya en el Set para no sobreescribir
+      // Pero para cumplir con la petición de "desactivar" la opción de seleccionar todo de golpe:
+      // Si el Set está vacío (primera vez o se vació), seleccionamos lo que haya.
+      // Si ya hay cosas, no forzamos la selección de TODO el carrito de nuevo.
+      if (selectedIds.size === 0 && cart.length > 0) {
+        setSelectedIds(new Set(cart.map(item => item.id)));
+      }
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isOpen, cart.length]);
+  }, [isOpen]); // Quitamos cart.length para que no se resetee al añadir items
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
@@ -92,9 +99,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
     }
     setStatus('loading');
     setTimeout(() => {
-      onCompleteOrder(cart, total);
+      onCompleteOrder(selectedItems, total);
+      // Solo eliminamos del carrito los items que se han comprado
+      selectedIds.forEach(id => onRemove(id));
       setStatus('success');
-      onClearCart();
     }, 1500);
   };
 
