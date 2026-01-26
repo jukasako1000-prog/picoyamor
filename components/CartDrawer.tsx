@@ -14,35 +14,36 @@ interface CartDrawerProps {
   onCompleteOrder: (items: CartItem[], total: number) => void;
 }
 
-const MIN_ORDER = 15;
+const MIN_ORDER = 20;
+const PENINSULA_SHIPPING_FEE = 3.50;
 const EXTRA_PENINSULAR_FEE = 5;
 
 // Listado de provincias por nombre para detección automática
 const EXTRA_PENINSULAR_PROVINCES = [
-  'ceuta', 'melilla', 'baleares', 'islas baleares', 
+  'ceuta', 'melilla', 'baleares', 'islas baleares',
   'las palmas', 'santa cruz de tenerife', 'canarias', 'tenerife'
 ];
 
 // Prefijos de Códigos Postales extrapeninsulares
 const EXTRA_PENINSULAR_CP_PREFIXES = ['07', '35', '38', '51', '52'];
 
-const CartDrawer: React.FC<CartDrawerProps> = ({ 
-  isOpen, 
-  onClose, 
-  cart, 
+const CartDrawer: React.FC<CartDrawerProps> = ({
+  isOpen,
+  onClose,
+  cart,
   user,
   onOpenAuth,
-  onRemove, 
-  onUpdateQuantity, 
+  onRemove,
+  onUpdateQuantity,
   onClearCart,
-  onCompleteOrder 
+  onCompleteOrder
 }) => {
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   // Cálculo de totales
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  
+
   const isExtraPeninsular = useMemo(() => {
     if (!user) return false;
     const prov = (user.province || '').toLowerCase().trim();
@@ -56,7 +57,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const isBelowMinimum = subtotal > 0 && subtotal < MIN_ORDER;
   const remainingForMinimum = (MIN_ORDER - subtotal).toFixed(2);
 
-  const shippingFee = subtotal >= MIN_ORDER ? (isExtraPeninsular ? EXTRA_PENINSULAR_FEE : 0) : 0;
+  const shippingFee = isExtraPeninsular ? EXTRA_PENINSULAR_FEE : (subtotal < MIN_ORDER ? PENINSULA_SHIPPING_FEE : 0);
   const total = subtotal + shippingFee;
 
   useEffect(() => {
@@ -108,10 +109,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
     <div className="fixed inset-0 z-[100] flex justify-end">
       {/* Overlay */}
       <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" onClick={handleClose} />
-      
+
       {/* Panel del Carrito */}
       <div className="relative w-full max-w-[440px] bg-white h-full shadow-2xl flex flex-col overflow-hidden animate-slide-left md:m-4 md:rounded-[2.5rem] border border-gray-100">
-        
+
         {status === 'success' ? (
           <div className="flex-1 flex flex-col items-center justify-center p-8 text-center space-y-6 animate-fade-in">
             <div className="size-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mb-2">
@@ -140,8 +141,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
             {cart.length > 0 && (
               <div className="px-8 py-3.5 bg-[#F9F9F8] flex items-center">
                 <label className="flex items-center gap-3 cursor-pointer">
-                  <input 
-                    type="checkbox" 
+                  <input
+                    type="checkbox"
                     className="peer sr-only"
                     checked={cart.length > 0 && selectedIds.size === cart.length}
                     onChange={handleSelectAll}
@@ -172,7 +173,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                         </div>
                       </label>
                     </div>
-                    
+
                     <div className="size-24 rounded-full overflow-hidden shrink-0 border border-gray-100 bg-white flex items-center justify-center">
                       <img src={item.image} alt={item.name} className="w-4/5 h-4/5 object-contain" />
                     </div>
@@ -184,7 +185,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                           <span className="material-symbols-outlined text-xl">close</span>
                         </button>
                       </div>
-                      
+
                       <div className="flex items-center justify-between mt-3">
                         <div className="flex items-center gap-4 bg-[#F5F5F3] rounded-full px-3 py-1">
                           <button onClick={() => onUpdateQuantity(item.id, -1)} className="text-[#A1A1A1] hover:text-primary transition-colors flex items-center">
@@ -211,18 +212,18 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     <span className="font-black uppercase tracking-widest text-[11px]">Subtotal Productos</span>
                     <span className="font-black text-[16px] text-[#3F3D3C]">{subtotal.toFixed(2)}€</span>
                   </div>
-                  
+
                   <div className="flex justify-between items-center text-[#6c7a6e]">
                     <span className="font-black uppercase tracking-widest text-[11px]">Gastos de Envío</span>
                     <span className="font-black text-[16px] text-[#3F3D3C]">
-                      {isBelowMinimum ? '—' : (shippingFee === 0 ? '0.00€' : `${shippingFee.toFixed(2)}€`)}
+                      {shippingFee === 0 ? '0.00€' : `${shippingFee.toFixed(2)}€`}
                     </span>
                   </div>
 
                   <div className="pt-2 flex justify-between items-center text-[#3F3D3C]">
                     <span className="font-black uppercase tracking-[0.15em] text-[13px]">Total Pedido</span>
                     <span className="font-black text-[22px]">
-                      {isBelowMinimum ? '—' : `${total.toFixed(2)}€`}
+                      {total.toFixed(2)}€
                     </span>
                   </div>
 
@@ -234,14 +235,14 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     </div>
                   )}
                 </div>
-                
+
                 <div className="flex flex-col gap-3 pt-2">
-                  <button 
+                  <button
                     onClick={handleCheckout}
                     disabled={status === 'loading' || isBelowMinimum}
                     className={`w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg
-                      ${isBelowMinimum 
-                        ? 'bg-[#D1D1D1] text-white cursor-not-allowed opacity-80 shadow-none' 
+                      ${isBelowMinimum
+                        ? 'bg-[#D1D1D1] text-white cursor-not-allowed opacity-80 shadow-none'
                         : 'bg-primary hover:bg-primary-hover text-white shadow-primary/20'
                       }
                     `}
@@ -249,11 +250,11 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     {status === 'loading' ? (
                       <div className="size-6 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
                     ) : (
-                      isBelowMinimum ? 'Pedido Mínimo 15€' : 'Tramitar Pedido'
+                      isBelowMinimum ? `Pedido Mínimo ${MIN_ORDER}€` : 'Tramitar Pedido'
                     )}
                   </button>
 
-                  <button 
+                  <button
                     onClick={onClose}
                     className="w-full h-[64px] bg-[#F9F9F8] text-[#6c7a6e] rounded-full font-black text-[12px] uppercase tracking-[0.2em] hover:bg-gray-100 transition-all active:scale-[0.97]"
                   >
@@ -264,13 +265,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 {/* Info de Envío - Se quitan los paréntesis según instrucción */}
                 <div className="text-center pt-2 space-y-1.5">
                   <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    Envío Peninsular: <span className="text-primary font-black">GRATIS</span>
+                    Envío Peninsular: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS' : `${PENINSULA_SHIPPING_FEE.toFixed(2)}€`}</span>
                   </p>
                   <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    BALEARES, CANARIAS, CEUTA Y MELILLA: <span className="text-[#3F3D3C]">5,00€</span>
+                    BALEARES, CANARIAS, CEUTA Y MELILLA: <span className="text-[#3F3D3C]">{EXTRA_PENINSULAR_FEE.toFixed(2)}€</span>
                   </p>
                   <p className="text-[11px] mt-2.5 text-[#A1A1A1] italic font-bold">
-                    (Pedido mínimo de 15€ para poder tramitar la compra)
+                    (Pedido mínimo de {MIN_ORDER}€ para poder tramitar la compra)
                   </p>
                 </div>
               </div>
@@ -278,7 +279,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
           </>
         )}
       </div>
-      
+
       <style>{`
         @keyframes slide-left { 
           from { transform: translateX(100%); } 
