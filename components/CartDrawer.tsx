@@ -264,7 +264,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Info de Envío */}
                 <div className="text-center pt-2 space-y-2">
-                  <div className="space-y-1">
+                  <p className="text-[13px] font-black text-primary uppercase tracking-[0.1em] pb-2 border-b border-gray-100">
+                    ¡ENVÍO GRATIS SEGÚN TU PEDIDO!
+                  </p>
+                  <div className="space-y-1 pt-1">
                     <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
                       Península: <span className="text-primary">{SHIPPING_PENINSULA.toFixed(2)}€</span>
                       <span className="text-[10px] text-gray-400 ml-1">(GRATIS desde {FREE_SHIPPING_PENINSULA}€)</span>
@@ -272,11 +275,6 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
                       Fuera Península: <span className="text-[#3F3D3C]">{SHIPPING_EXTRA.toFixed(2)}€</span>
                       <span className="text-[10px] text-gray-400 ml-1">(GRATIS desde {FREE_SHIPPING_EXTRA}€)</span>
-                    </p>
-                  </div>
-                  <div className="pt-2 border-t border-gray-100">
-                    <p className="text-[13px] font-black text-primary uppercase tracking-[0.1em]">
-                      ¡ENVÍO GRATIS SEGÚN TU PEDIDO!
                     </p>
                   </div>
                 </div>
