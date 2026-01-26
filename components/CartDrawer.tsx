@@ -265,13 +265,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 {/* Info de Envío - Se quitan los paréntesis según instrucción */}
                 <div className="text-center pt-2 space-y-1.5">
                   <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    Envío Peninsular: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS' : `${PENINSULA_SHIPPING_FEE.toFixed(2)}€`}</span>
+                    Envío Peninsular: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS CON PEDIDO MÍNIMO' : `${PENINSULA_SHIPPING_FEE.toFixed(2)}€`}</span>
                   </p>
                   <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
                     BALEARES, CANARIAS, CEUTA Y MELILLA: <span className="text-[#3F3D3C]">{EXTRA_PENINSULAR_FEE.toFixed(2)}€</span>
                   </p>
-                  <p className="text-[11px] mt-2.5 text-[#A1A1A1] italic font-bold">
-                    (Pedido mínimo de {MIN_ORDER}€ para poder tramitar la compra)
+                  <p className="text-[15px] mt-4 text-[#3F3D3C] font-black uppercase tracking-wider">
+                    PEDIDO MÍNIMO {MIN_ORDER}€
                   </p>
                 </div>
               </div>
