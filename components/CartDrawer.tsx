@@ -151,6 +151,20 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
                   <span className="text-[11px] font-black uppercase tracking-[0.15em] text-[#6c7a6e]">Seleccionar todo</span>
                 </label>
+
+                {selectedIds.size > 0 && (
+                  <button
+                    onClick={() => {
+                      if (selectedIds.size === cart.length) onClearCart();
+                      else selectedIds.forEach(id => onRemove(id));
+                      setSelectedIds(new Set());
+                    }}
+                    className="flex items-center gap-1 text-red-400 hover:text-red-600 transition-colors animate-fade-in"
+                    title="Eliminar seleccionados"
+                  >
+                    <span className="material-symbols-outlined text-xl">delete</span>
+                  </button>
+                )}
               </div>
             )}
 
