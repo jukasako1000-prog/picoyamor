@@ -58,7 +58,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const isBelowMinimum = subtotal > 0 && subtotal < MIN_ORDER;
   const remainingForMinimum = (MIN_ORDER - subtotal).toFixed(2);
 
-  const shippingFee = isExtraPeninsular ? EXTRA_PENINSULAR_FEE : (subtotal < MIN_ORDER ? PENINSULA_SHIPPING_FEE : 0);
+  const shippingFee = subtotal === 0 ? 0 : (isExtraPeninsular ? EXTRA_PENINSULAR_FEE : (subtotal < MIN_ORDER ? PENINSULA_SHIPPING_FEE : 0));
   const total = subtotal + shippingFee;
 
   useEffect(() => {
