@@ -147,7 +147,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
             {/* Selector SELECCIONAR TODO */}
             {cart.length > 0 && (
-              <div className="px-8 py-3.5 bg-[#F9F9F8] flex items-center">
+              <div className="px-8 py-3.5 bg-[#F9F9F8] flex items-center justify-between group/selectall">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
                     type="checkbox"
@@ -160,6 +160,21 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   </div>
                   <span className="text-[11px] font-black uppercase tracking-[0.15em] text-[#6c7a6e]">Seleccionar todo</span>
                 </label>
+
+                {selectedIds.size > 0 && (
+                  <button
+                    onClick={() => {
+                      if (selectedIds.size === cart.length) onClearCart();
+                      else selectedIds.forEach(id => onRemove(id));
+                      setSelectedIds(new Set());
+                    }}
+                    className="flex items-center gap-1.5 text-red-400 hover:text-red-600 transition-colors animate-fade-in"
+                    title="Eliminar seleccionados"
+                  >
+                    <span className="text-[10px] font-black uppercase tracking-wider">Eliminar</span>
+                    <span className="material-symbols-outlined text-xl">delete_sweep</span>
+                  </button>
+                )}
               </div>
             )}
 
