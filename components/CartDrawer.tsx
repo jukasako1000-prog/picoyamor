@@ -64,17 +64,12 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-      // Solo seleccionamos por defecto los que no estuvieran ya en el Set para no sobreescribir
-      // Pero para cumplir con la petición de "desactivar" la opción de seleccionar todo de golpe:
-      // Si el Set está vacío (primera vez o se vació), seleccionamos lo que haya.
-      // Si ya hay cosas, no forzamos la selección de TODO el carrito de nuevo.
-      if (selectedIds.size === 0 && cart.length > 0) {
-        setSelectedIds(new Set(cart.map(item => item.id)));
-      }
+      // Ya no seleccionamos nada automáticamente.
+      // El cliente debe elegir qué comprar o pulsar "Seleccionar todo".
     } else {
       document.body.style.overflow = 'unset';
     }
-  }, [isOpen]); // Quitamos cart.length para que no se resetee al añadir items
+  }, [isOpen]);
 
   const handleSelectAll = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
