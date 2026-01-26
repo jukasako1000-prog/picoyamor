@@ -57,7 +57,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const isBelowMinimum = subtotal > 0 && subtotal < MIN_ORDER;
   const remainingForMinimum = (MIN_ORDER - subtotal).toFixed(2);
 
-  const shippingFee = subtotal === 0 ? 0 : (isExtraPeninsular ? EXTRA_PENINSULAR_FEE : (subtotal < MIN_ORDER ? PENINSULA_SHIPPING_FEE : 0));
+  // Gastos de envío: GRATIS si >= 20€ para todos. Si < 20€, se aplica la tarifa por zona.
+  const shippingFee = subtotal === 0 || subtotal >= MIN_ORDER ? 0 : (isExtraPeninsular ? EXTRA_PENINSULAR_FEE : PENINSULA_SHIPPING_FEE);
   const total = subtotal + shippingFee;
 
   useEffect(() => {
@@ -86,7 +87,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   const handleCheckout = () => {
-    if (isBelowMinimum) return;
+    if (subtotal === 0) return;
     if (!user) {
       onOpenAuth();
       return;
@@ -255,9 +256,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 <div className="flex flex-col gap-3 pt-2">
                   <button
                     onClick={handleCheckout}
-                    disabled={status === 'loading' || isBelowMinimum}
+                    disabled={status === 'loading' || cart.length === 0}
                     className={`w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg
-                      ${isBelowMinimum
+                      ${cart.length === 0
                         ? 'bg-[#D1D1D1] text-white cursor-not-allowed opacity-80 shadow-none'
                         : 'bg-primary hover:bg-primary-hover text-white shadow-primary/20'
                       }
@@ -266,7 +267,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     {status === 'loading' ? (
                       <div className="size-6 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
                     ) : (
-                      isBelowMinimum ? `Pedido Mínimo ${MIN_ORDER}€` : 'Tramitar Pedido'
+                      'Tramitar Pedido'
                     )}
                   </button>
 
@@ -281,13 +282,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 {/* Info de Envío - Se quitan los paréntesis según instrucción */}
                 <div className="text-center pt-2 space-y-1.5">
                   <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    Envío Peninsular: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS CON PEDIDO MÍNIMO' : `${PENINSULA_SHIPPING_FEE.toFixed(2)}€`}</span>
+                    Envío Peninsular: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS' : `${PENINSULA_SHIPPING_FEE.toFixed(2)}€`}</span>
                   </p>
                   <p className="text-[13px] font-black text-[#5a5a5a] tracking-[0.06em] uppercase leading-tight">
-                    BALEARES, CANARIAS, CEUTA Y MELILLA: <span className="text-[#3F3D3C]">{EXTRA_PENINSULAR_FEE.toFixed(2)}€</span>
+                    BALEARES, CANARIAS, CEUTA Y MELILLA: <span className="text-primary font-black">{subtotal >= MIN_ORDER ? 'GRATIS' : `${EXTRA_PENINSULAR_FEE.toFixed(2)}€`}</span>
                   </p>
                   <p className="text-[15px] mt-4 text-[#3F3D3C] font-black uppercase tracking-wider">
-                    PEDIDO MÍNIMO {MIN_ORDER}€
+                    {subtotal >= MIN_ORDER ? '¡ENVÍO GRATUITO APLICADO!' : `¡ENVÍO GRATIS DESDE ${MIN_ORDER}€!`}
                   </p>
                 </div>
               </div>
