@@ -11,7 +11,7 @@ const Contact: React.FC = () => {
 
     const formData = new FormData(e.currentTarget);
     try {
-      const response = await fetch('https://formspree.io/f/picoyamor@gmail.com', {
+      const response = await fetch('https://formspree.io/f/infopicoyamor@gmail.com', {
         method: 'POST',
         body: formData,
         headers: {
@@ -35,9 +35,9 @@ const Contact: React.FC = () => {
       {/* Logo de Marca Flotante - TAMAÑO REDUCIDO */}
       <div className="absolute top-40 right-6 md:top-60 md:right-16 lg:right-32 z-30 pointer-events-none select-none">
         <div className="size-16 md:size-32 lg:size-36 rounded-full border-[5px] md:border-[7px] border-white shadow-[0_30px_70px_rgba(0,0,0,0.2)] overflow-hidden animate-float-slow bg-white">
-          <img 
-            src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg" 
-            alt="Pico & Amor Seal" 
+          <img
+            src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg"
+            alt="Pico & Amor Seal"
             className="w-full h-full object-cover"
           />
         </div>
@@ -97,8 +97,8 @@ const Contact: React.FC = () => {
                   <label className="text-xs font-black uppercase text-text-muted ml-4 tracking-widest">Mensaje</label>
                   <textarea required name="mensaje" placeholder="¿En qué podemos ayudarte hoy?" rows={5} className="w-full bg-background-light border-none rounded-[1.5rem] px-8 py-5 focus:ring-4 focus:ring-primary/20 transition-all shadow-inner text-lg font-medium resize-none" />
                 </div>
-                <button 
-                  type="submit" 
+                <button
+                  type="submit"
                   disabled={status === 'sending'}
                   className="w-full md:w-auto bg-primary hover:bg-primary-hover text-white font-black text-xl px-16 py-6 rounded-[2rem] transition-all shadow-2xl shadow-primary/30 active:scale-95 flex items-center justify-center gap-3 group disabled:opacity-70 disabled:cursor-not-allowed"
                 >
@@ -128,13 +128,13 @@ const Contact: React.FC = () => {
               </div>
               <div>
                 <p className="text-[10px] font-black uppercase text-text-muted mb-1 tracking-widest">Escríbenos</p>
-                <p className="font-bold text-xl tracking-tight text-text-main">picoyamor@gmail.com</p>
+                <p className="font-bold text-xl tracking-tight text-text-main">infopicoyamor@gmail.com</p>
               </div>
             </div>
           </div>
 
           <div className="relative group rounded-[3.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.3)] aspect-[4/5]">
-            <img 
+            <img
               src={IMG_CONTACT_MAIN}
               className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-110"
               alt="Contacto Agapornis"

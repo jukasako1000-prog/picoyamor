@@ -125,7 +125,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
           </div>
         ) : (
           <>
-            {/* Cabecera idéntica a la imagen */}
+            {/* Cabecera */}
             <div className="px-8 py-8 flex items-center justify-between bg-white shrink-0">
               <h2 className="text-2xl font-black text-[#3F3D3C] flex items-baseline gap-1.5">
                 Tu Carrito
@@ -138,7 +138,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
             {/* Selector SELECCIONAR TODO */}
             {cart.length > 0 && (
-              <div className="px-8 py-3.5 bg-[#F9F9F8] flex items-center">
+              <div className="px-8 py-3.5 bg-[#F9F9F8] flex items-center justify-between">
                 <label className="flex items-center gap-3 cursor-pointer">
                   <input
                     type="checkbox"
@@ -225,15 +225,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                       {total.toFixed(2)}€
                     </span>
                   </div>
-
-
                 </div>
 
                 <div className="flex flex-col gap-3 pt-2">
                   <button
                     onClick={handleCheckout}
                     disabled={status === 'loading'}
-                    className={`w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg bg-primary hover:bg-primary-hover text-white shadow-primary/20`}
+                    className="w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg bg-primary hover:bg-primary-hover text-white shadow-primary/20"
                   >
                     {status === 'loading' ? (
                       <div className="size-6 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
@@ -250,7 +248,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   </button>
                 </div>
 
-                {/* Info de Envío - Se quitan los paréntesis según instrucción */}
+                {/* Info de Envío */}
                 <div className="text-center pt-2 space-y-2">
                   <div className="space-y-1">
                     <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
