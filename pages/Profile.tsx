@@ -1,6 +1,6 @@
-
 import React, { useState } from 'react';
 import { UserProfile, Order } from '../types';
+import { saveProfile } from '../lib/db';
 
 interface ProfileProps {
   user: UserProfile | null;
@@ -14,6 +14,7 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
   });
   const [activeTab, setActiveTab] = useState<'details' | 'orders'>('details');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
+  const [loading, setLoading] = useState(false);
 
   if (!user) {
     return (
@@ -25,10 +26,34 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
     );
   }
 
-  const handleUpdate = (e: React.FormEvent) => {
+  const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    onUpdateUser(formData);
-    alert('¡Perfil actualizado con éxito! 🦜');
+    if (!user.id) {
+      alert('Error: ID de usuario no encontrado. Reintenta iniciar sesión.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const dbData = {
+        name: formData.name,
+        email: formData.email,
+        address: formData.address,
+        city: formData.city,
+        province: formData.province,
+        postal_code: formData.postalCode,
+        phone: formData.phone
+      };
+
+      await saveProfile(user.id, dbData);
+      onUpdateUser(formData);
+      alert('¡Perfil actualizado con éxito! 🦜✨');
+    } catch (error: any) {
+      console.error('Error updating profile:', error);
+      alert('Error al actualizar el perfil: ' + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -122,9 +147,17 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                 ) : (
                   <button
                     type="submit"
-                    className="mt-8 bg-primary hover:bg-primary-hover text-white font-black px-12 py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-95 text-sm"
+                    disabled={loading}
+                    className="mt-8 bg-primary hover:bg-primary-hover text-white font-black px-12 py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-95 text-sm disabled:opacity-50 flex items-center gap-3"
                   >
-                    Guardar Cambios
+                    {loading ? (
+                      <>
+                        <div className="size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Guardando...
+                      </>
+                    ) : (
+                      'Guardar Cambios'
+                    )}
                   </button>
                 )}
               </form>

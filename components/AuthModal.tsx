@@ -91,7 +91,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
 
           await saveProfile(authData.user.id, profileData);
 
-          onLogin({ ...formData, isGuest: false });
+          onLogin({ ...formData, id: authData.user.id, isGuest: false });
           alert('¡Cuenta creada con éxito! Bienvenido a la bandada 🦜✨');
           onClose();
         }
@@ -114,6 +114,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
 
           if (!profileError && profile) {
             onLogin({
+              id: authData.user.id,
               name: profile.name,
               email: profile.email,
               address: profile.address,
@@ -125,7 +126,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
             });
           } else {
             // Fallback if profile not found
-            onLogin({ ...formData, email: authData.user.email || '', isGuest: false });
+            onLogin({ ...formData, id: authData.user.id, email: authData.user.email || '', isGuest: false });
           }
           onClose();
         }
