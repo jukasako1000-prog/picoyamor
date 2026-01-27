@@ -230,6 +230,12 @@ const Admin: React.FC = () => {
                 >
                     Pedidos Realizados
                 </button>
+                <button
+                    onClick={() => setActiveTab('users')}
+                    className={`flex-1 md:flex-none px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'users' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
+                >
+                    Gestión de Clientes
+                </button>
             </div>
 
             {activeTab === 'stock' ? (
