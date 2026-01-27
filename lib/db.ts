@@ -80,3 +80,14 @@ export const getProfiles = async () => {
     if (error) throw error;
     return data;
 };
+
+export const getUserOrders = async (email: string) => {
+    const { data, error } = await supabase
+        .from('orders')
+        .select('*')
+        .eq('customer_email', email)
+        .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+};
