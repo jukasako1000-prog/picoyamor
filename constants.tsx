@@ -49,6 +49,7 @@ const IMG_PROD_AVENTURA = 'https://i.postimg.cc/SRf3Zg0b/Whats_App_Image_2026_01
 const IMG_PROD_RELAX = 'https://i.postimg.cc/NfQWyvTq/Whats_App_Image_2026_01_11_at_15_21_22.jpg';
 const IMG_PROD_NATURA = 'https://i.postimg.cc/ZKpqJs3w/Whats-App-Image-2026-01-25-at-12-13-58.jpg';
 const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
+const IMG_COLUMPIO_PLATAFORMA = '/COLUMPIOA.png';
 const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
 const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.jpeg';
 const IMG_COLUMPIO_CORCHO = '/columpio-AVE.png';
@@ -116,6 +117,15 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Premium',
     scale: 1.30
+  },
+  {
+    id: 'p21',
+    name: 'Columpio Plataforma "Rincón Zen"',
+    price: 13.50,
+    description: 'Plataforma de madera natural con base de cuerda de yute tejida y cuentas geométricas. Medidas: 19cm alto x 14cm ancho. Diseño robusto y seguro para aves pequeñas.',
+    image: IMG_COLUMPIO_PLATAFORMA,
+    category: 'Columpios',
+    badge: 'Popular'
   },
   {
     id: 'p12',
