@@ -16,6 +16,7 @@ import LegalNotice from './pages/LegalNotice';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import ShippingReturns from './pages/ShippingReturns';
+import FAQ from './pages/FAQ';
 import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import ImageModal from './components/ImageModal';
@@ -148,6 +149,7 @@ const App: React.FC = () => {
             <Route path="/privacidad" element={<PrivacyPolicy />} />
             <Route path="/terminos" element={<Terms />} />
             <Route path="/envios-devoluciones" element={<ShippingReturns />} />
+            <Route path="/faq" element={<FAQ />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

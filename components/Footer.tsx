@@ -54,7 +54,7 @@ const Footer: React.FC = () => {
             <h5 className="font-bold text-white mb-6 uppercase tracking-widest text-xs opacity-70">Ayuda</h5>
             <ul className="flex flex-col gap-3 text-sm text-white/60">
               <li><Link to="/envios-devoluciones" className="hover:text-white transition-colors">Envíos y Devoluciones</Link></li>
-              <li><button onClick={scrollToTop} className="text-left hover:text-white transition-colors">FAQ</button></li>
+              <li><Link to="/faq" className="hover:text-white transition-colors">FAQ</Link></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contacto</Link></li>
               <li><Link to="/privacidad" className="hover:text-white transition-colors">Privacidad</Link></li>
             </ul>
