@@ -298,7 +298,7 @@ const Admin: React.FC = () => {
                         </div>
                     )}
                 </>
-            ) : (
+            ) : activeTab === 'orders' ? (
                 <div className="space-y-6">
                     {orders.length === 0 ? (
                         <div className="bg-white rounded-[3rem] p-20 text-center border border-background-light shadow-soft">
@@ -344,8 +344,8 @@ const Admin: React.FC = () => {
                                             </div>
                                             <div>
                                                 <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Dirección de Envío</p>
-                                                <p className="font-bold text-text-main">{order.shipping_address}</p>
-                                                <p className="text-text-muted font-medium">{order.shipping_city}, {order.shipping_province}, {order.shipping_zip}</p>
+                                                <p className="font-bold text-text-main">{order.customer_address}</p>
+                                                <p className="text-text-muted font-medium">{order.customer_city}, {order.customer_province}, {order.customer_postal_code}</p>
                                             </div>
                                             <div>
                                                 <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Teléfono</p>
@@ -367,8 +367,8 @@ const Admin: React.FC = () => {
                                                 </div>
                                             ))}
                                             <div className="pt-4 border-t border-background-light flex justify-between items-center text-xs">
-                                                <span className="font-black text-text-muted uppercase tracking-widest lowercase">Envío ({order.shipping_method})</span>
-                                                <span className="font-black text-text-main">{order.shipping_cost.toFixed(2)}€</span>
+                                                <span className="font-black text-text-muted uppercase tracking-widest">Total Artículos</span>
+                                                <span className="font-black text-text-main">{(order.total - (order.shipping_cost || 0)).toFixed(2)}€</span>
                                             </div>
                                         </div>
                                     </div>
@@ -376,6 +376,27 @@ const Admin: React.FC = () => {
                             </div>
                         ))
                     )}
+                </div>
+            ) : (
+                <div className="bg-white rounded-[3rem] p-12 md:p-20 text-center border border-background-light shadow-soft space-y-6">
+                    <div className="size-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto">
+                        <span className="material-symbols-outlined text-4xl filled-icon">group</span>
+                    </div>
+                    <div className="space-y-2">
+                        <h2 className="text-3xl font-black text-text-main uppercase tracking-tight">Gestión de Clientes</h2>
+                        <p className="text-text-muted max-w-lg mx-auto font-medium">
+                            Actualmente, el registro de clientes es local. Para verlos aquí de forma persistente, necesitamos conectar el sistema de autenticación real de Supabase y crear una tabla de perfiles.
+                        </p>
+                    </div>
+                    <div className="pt-8 flex flex-col items-center gap-4">
+                        <div className="bg-background-light/50 px-6 py-4 rounded-2xl border-2 border-dashed border-background-light">
+                            <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Estado del Sistema</p>
+                            <p className="text-sm font-bold text-orange-500 uppercase mt-1 flex items-center gap-2 justify-center">
+                                <span className="size-2 bg-orange-500 rounded-full animate-pulse" />
+                                Pendiente de Integración DB
+                            </p>
+                        </div>
+                    </div>
                 </div>
             )}
             <style>{`
