@@ -224,7 +224,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
             {/* Footer de Totales */}
             {cart.length > 0 && (
               <div className="px-8 pt-6 pb-14 space-y-8 shrink-0 bg-white">
-                <div className="space-y-4">
+                {/* Resumen de Totales */}
+                <div className="space-y-3 bg-background-light/30 rounded-[2rem] p-5 border border-background-light">
                   <div className="flex justify-between items-center text-[#6c7a6e]">
                     <span className="font-black uppercase tracking-widest text-[11px]">Subtotal Productos</span>
                     <span className="font-black text-[16px] text-[#3F3D3C]">{subtotal.toFixed(2)}€</span>
@@ -251,21 +252,19 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
 
                 {user && remainingForFree > 0 && (
-                  <div className="bg-primary/5 border border-primary/10 rounded-2xl p-4 flex items-center gap-3 animate-fade-in">
-                    <div className="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
-                      <span className="material-symbols-outlined text-xl filled-icon">redeem</span>
+                  <div className="bg-primary/5 border border-primary/10 rounded-xl p-3 flex items-center gap-3 animate-fade-in my-3">
+                    <div className="size-8 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                      <span className="material-symbols-outlined text-lg filled-icon">redeem</span>
                     </div>
-                    <p className="text-[13px] text-[#3F3D3C] font-medium leading-tight">
-                      ¡Solo te faltan <span className="font-black text-primary">{remainingForFree.toFixed(2)}€</span> para tener <span className="font-black uppercase">envío gratis</span>! 🦜✨
-                    </p>
+                    <p className="text-[11px] leading-tight">¡Solo te faltan <span className="font-black text-primary">{remainingForFree.toFixed(2)}€</span> para tener <span className="font-black uppercase">envío gratis</span>! 🦜✨</p>
                   </div>
                 )}
 
-                <div className="flex flex-col gap-3 pt-2">
+                <div className="flex flex-col gap-2 mt-2">
                   <button
                     onClick={handleCheckout}
                     disabled={status === 'loading'}
-                    className="w-full h-[64px] rounded-full font-black text-[16px] transition-all active:scale-[0.97] shadow-lg bg-primary hover:bg-primary-hover text-white shadow-primary/20"
+                    className="w-full bg-primary hover:bg-primary-hover text-white font-black py-4 rounded-2xl shadow-lg shadow-primary/10 transition-all active:scale-[0.98] text-sm uppercase tracking-widest"
                   >
                     {status === 'loading' ? (
                       <div className="size-6 border-2 border-white/30 border-t-white rounded-full animate-spin mx-auto" />
@@ -273,35 +272,30 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                       'Tramitar Pedido'
                     )}
                   </button>
-
                   <button
                     onClick={onClose}
-                    className="w-full h-[64px] bg-[#F9F9F8] text-[#6c7a6e] rounded-full font-black text-[12px] uppercase tracking-[0.2em] hover:bg-gray-100 transition-all active:scale-[0.97]"
+                    className="w-full bg-background-light hover:bg-gray-100 text-text-main font-black py-4 rounded-2xl transition-all active:scale-[0.98] text-[10px] uppercase tracking-widest"
                   >
-                    Seguir comprando
+                    Seguir Comprando
                   </button>
                 </div>
 
-                {/* Info de Envío */}
-                <div className="text-center pt-2 space-y-2">
-                  <p className="text-[13px] font-black text-primary uppercase tracking-[0.1em] pb-2 border-b border-gray-100">
-                    ¡ENVÍO GRATIS SEGÚN TU PEDIDO!
-                  </p>
-                  <div className="space-y-1 pt-1">
-                    <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
-                      Península: <span className="text-primary">{SHIPPING_PENINSULA.toFixed(2)}€</span>
-                      <span className="text-[10px] text-gray-400 ml-1">(GRATIS desde {FREE_SHIPPING_PENINSULA}€)</span>
+                {/* Info de Envío Compacta */}
+                <div className="mt-4 pt-4 border-t border-background-light">
+                  <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] text-center mb-3">¡Envío gratis según tu pedido!</p>
+                  <div className="flex flex-col gap-1.5 items-center">
+                    <p className="text-[9px] font-medium text-text-muted">
+                      <span className="font-black uppercase tracking-wider text-text-main">Península:</span> {SHIPPING_PENINSULA.toFixed(2)}€ <span className="text-[8px] opacity-60">(GRATIS DESDE {FREE_SHIPPING_PENINSULA}€)</span>
                     </p>
-                    <p className="text-[12px] font-black text-[#5a5a5a] uppercase tracking-wider">
-                      Fuera Península: <span className="text-[#3F3D3C]">{SHIPPING_EXTRA.toFixed(2)}€</span>
-                      <span className="text-[10px] text-gray-400 ml-1">(GRATIS desde {FREE_SHIPPING_EXTRA}€)</span>
+                    <p className="text-[9px] font-medium text-text-muted">
+                      <span className="font-black uppercase tracking-wider text-text-main">Fuera Península:</span> {SHIPPING_EXTRA.toFixed(2)}€ <span className="text-[8px] opacity-60">(GRATIS DESDE {FREE_SHIPPING_EXTRA}€)</span>
                     </p>
                   </div>
                 </div>
 
                 {user?.isGuest && (
-                  <div className="mt-4 p-5 bg-primary/10 rounded-2xl border border-primary/20 flex flex-col gap-3 animate-pulse-subtle">
-                    <p className="text-[12px] text-text-main font-black uppercase tracking-widest text-center">
+                  <div className="mt-3 p-3 bg-primary/10 rounded-xl border border-primary/20 flex flex-col gap-2 animate-pulse-subtle">
+                    <p className="text-[10px] text-text-main font-black uppercase tracking-widest text-center">
                       ¿Quieres guardar tus datos?
                     </p>
                     <button
@@ -309,9 +303,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                         onClose();
                         onOpenAuth();
                       }}
-                      className="text-[11px] font-black text-primary hover:text-primary-hover uppercase tracking-[0.2em] flex items-center justify-center gap-1.5 transition-all hover:scale-105 active:scale-95"
+                      className="text-[9px] font-black text-primary hover:text-primary-hover uppercase tracking-[0.2em] flex items-center justify-center gap-1 transition-all hover:scale-105 active:scale-95"
                     >
-                      <span className="material-symbols-outlined text-[18px] filled-icon">person_add</span>
+                      <span className="material-symbols-outlined text-[14px] filled-icon">person_add</span>
                       Crear una cuenta ahora
                     </button>
                   </div>
