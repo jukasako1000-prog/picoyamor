@@ -11,6 +11,7 @@ import Profile from './pages/Profile';
 import Blog from './pages/Blog';
 import BlogPostDetail from './pages/BlogPostDetail';
 import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
 import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import ImageModal from './components/ImageModal';
@@ -138,6 +139,7 @@ const App: React.FC = () => {
                 onOpenAuth={(mode?: 'login' | 'register' | 'guest') => handleOpenAuth(mode)}
               />
             } />
+            <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
