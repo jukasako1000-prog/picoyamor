@@ -300,8 +300,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
 
                 {user?.isGuest && (
-                  <div className="mt-4 p-4 bg-background-light/50 rounded-2xl border border-gray-100 flex flex-col gap-3">
-                    <p className="text-[11px] text-text-muted font-bold uppercase tracking-wider text-center">
+                  <div className="mt-4 p-5 bg-primary/10 rounded-2xl border border-primary/20 flex flex-col gap-3 animate-pulse-subtle">
+                    <p className="text-[12px] text-text-main font-black uppercase tracking-widest text-center">
                       ¿Quieres guardar tus datos?
                     </p>
                     <button
@@ -309,9 +309,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                         onClose();
                         onOpenAuth();
                       }}
-                      className="text-[10px] font-black text-primary hover:text-primary-hover uppercase tracking-widest flex items-center justify-center gap-1.5 transition-colors"
+                      className="text-[11px] font-black text-primary hover:text-primary-hover uppercase tracking-[0.2em] flex items-center justify-center gap-1.5 transition-all hover:scale-105 active:scale-95"
                     >
-                      <span className="material-symbols-outlined text-sm">person_add</span>
+                      <span className="material-symbols-outlined text-[18px] filled-icon">person_add</span>
                       Crear una cuenta ahora
                     </button>
                   </div>

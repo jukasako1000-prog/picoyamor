@@ -105,17 +105,17 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                   </div>
                 </div>
                 {user.isGuest ? (
-                  <div className="mt-8 p-6 bg-primary/5 rounded-3xl border border-primary/10 flex flex-col md:flex-row items-center justify-between gap-6 animate-fade-in">
-                    <div className="flex items-center gap-4">
-                      <div className="size-12 bg-primary/20 rounded-full flex items-center justify-center text-primary">
-                        <span className="material-symbols-outlined text-2xl">person_add</span>
+                  <div className="mt-8 p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-8 animate-fade-in shadow-xl shadow-primary/5">
+                    <div className="flex items-center gap-5">
+                      <div className="size-14 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/20">
+                        <span className="material-symbols-outlined text-3xl filled-icon">person_add</span>
                       </div>
                       <div>
-                        <p className="font-black text-text-main text-sm uppercase tracking-wide">¿Quieres que guardemos tus datos?</p>
-                        <p className="text-xs text-text-muted">Crea una cuenta para no tener que rellenar esto en tu próximo pedido.</p>
+                        <p className="font-black text-text-main text-lg uppercase tracking-tight">¿Quieres guardar tus datos?</p>
+                        <p className="text-sm text-text-muted font-medium">Crea una cuenta para no tener que rellenar esto en tu próximo pedido.</p>
                       </div>
                     </div>
-                    <button onClick={() => window.location.reload()} className="bg-primary hover:bg-primary-hover text-white font-black px-8 py-4 rounded-2xl transition-all shadow-lg shadow-primary/20 active:scale-95 text-xs uppercase tracking-widest whitespace-nowrap">
+                    <button onClick={() => window.location.reload()} className="bg-primary hover:bg-primary-hover text-white font-black px-10 py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 active:scale-95 text-xs uppercase tracking-widest whitespace-nowrap">
                       Registrarme ahora
                     </button>
                   </div>
@@ -150,8 +150,8 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                         <div className="text-right">
                           <p className="text-xl font-black">{order.total.toFixed(2)}€</p>
                           <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${order.status === 'Entregado' ? 'bg-green-100 text-green-600' :
-                              order.status === 'Procesando' ? 'bg-blue-100 text-blue-600' :
-                                'bg-yellow-100 text-yellow-600'
+                            order.status === 'Procesando' ? 'bg-blue-100 text-blue-600' :
+                              'bg-yellow-100 text-yellow-600'
                             }`}>
                             {order.status}
                           </span>
@@ -201,8 +201,8 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                 <div className="text-right">
                   <p className="text-[10px] font-black text-text-muted uppercase">Estado</p>
                   <span className={`text-xs font-bold px-3 py-1 rounded-full ${selectedOrder.status === 'Entregado' ? 'bg-green-100 text-green-600' :
-                      selectedOrder.status === 'Procesando' ? 'bg-blue-100 text-blue-600' :
-                        'bg-yellow-100 text-yellow-600'
+                    selectedOrder.status === 'Procesando' ? 'bg-blue-100 text-blue-600' :
+                      'bg-yellow-100 text-yellow-600'
                     }`}>
                     {selectedOrder.status}
                   </span>
