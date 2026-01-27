@@ -34,6 +34,11 @@ const App: React.FC = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
+  const handleOpenAuth = (mode: 'login' | 'register' | 'guest' = 'login') => {
+    setAuthInitialMode(mode);
+    setIsAuthOpen(true);
+  };
+
   useEffect(() => {
     if (user && !user.isGuest) {
       localStorage.setItem('pico_user', JSON.stringify(user));

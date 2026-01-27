@@ -171,7 +171,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
               {mode === 'login' ? '¿Eres nuevo? Regístrate aquí' : '¿Ya tienes cuenta? Entra aquí'}
             </button>
 
-            {mode === 'login' && (
+            {mode !== 'guest' && (
               <div className="pt-2 border-t border-gray-100">
                 <button type="button" onClick={() => setMode('guest')} className="text-sm font-black text-primary hover:text-primary-hover transition-colors flex items-center justify-center gap-1 mx-auto">
                   <span className="material-symbols-outlined text-lg">arrow_forward</span>

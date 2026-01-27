@@ -140,7 +140,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                             <div className="py-12 text-center bg-background-light/50 rounded-3xl border-2 border-dashed border-background-light">
                                 <p className="text-text-muted font-bold mb-6">Para calcular los gastos exactos y completar el envío, necesitamos tus datos.</p>
                                 <button
-                                    onClick={onOpenAuth}
+                                    onClick={() => onOpenAuth('login')}
                                     className="bg-white text-text-main px-10 py-4 rounded-2xl font-black uppercase tracking-widest shadow-sm hover:shadow-md transition-all border border-background-light"
                                 >
                                     Rellenar datos ahora
