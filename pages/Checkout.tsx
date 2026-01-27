@@ -158,34 +158,21 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                             <h3 className="text-xl font-black text-text-main uppercase tracking-tight">Método de Pago</h3>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <button className="flex items-center justify-between p-6 rounded-2xl border-2 border-primary bg-primary/5 transition-all text-left">
+                        <div className="grid grid-cols-1 gap-4">
+                            <div className="flex items-center justify-between p-6 rounded-3xl border-2 border-primary bg-primary/5 transition-all text-left">
                                 <div className="flex items-center gap-4">
-                                    <div className="size-10 bg-white rounded-full flex items-center justify-center text-primary shadow-sm">
-                                        <span className="material-symbols-outlined">credit_card</span>
+                                    <div className="size-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm">
+                                        <span className="material-symbols-outlined text-2xl">credit_card</span>
                                     </div>
                                     <div>
-                                        <p className="font-black text-sm uppercase">Tarjeta de Crédito</p>
-                                        <p className="text-[10px] text-text-muted">Pago seguro con Stripe</p>
+                                        <p className="font-black text-base uppercase tracking-tight">Tarjeta de Crédito</p>
+                                        <p className="text-xs text-text-muted font-bold">Pago seguro y encriptado con Stripe</p>
                                     </div>
                                 </div>
-                                <div className="size-6 rounded-full bg-primary flex items-center justify-center">
-                                    <div className="size-2 rounded-full bg-white" />
+                                <div className="size-8 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
+                                    <div className="size-3 rounded-full bg-white shadow-inner" />
                                 </div>
-                            </button>
-
-                            <button className="flex items-center justify-between p-6 rounded-2xl border-2 border-background-light hover:border-accent group transition-all text-left">
-                                <div className="flex items-center gap-4">
-                                    <div className="size-10 bg-background-light rounded-full flex items-center justify-center text-text-muted group-hover:text-accent shadow-sm">
-                                        <span className="material-symbols-outlined">smartphone</span>
-                                    </div>
-                                    <div>
-                                        <p className="font-black text-sm uppercase">Bizum</p>
-                                        <p className="text-[10px] text-text-muted">Transferencia inmediata</p>
-                                    </div>
-                                </div>
-                                <div className="size-6 rounded-full border-2 border-background-light" />
-                            </button>
+                            </div>
                         </div>
                     </div>
                 </div>
