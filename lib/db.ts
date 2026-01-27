@@ -68,3 +68,28 @@ export const saveOrder = async (orderData: any) => {
     if (error) throw error;
     return data;
 };
+
+export const saveProfile = async (userId: string, profileData: any) => {
+    const { data, error } = await supabase
+        .from('profiles')
+        .upsert({
+            id: userId,
+            ...profileData,
+            updated_at: new Date().toISOString()
+        })
+        .select()
+        .single();
+
+    if (error) throw error;
+    return data;
+};
+
+export const getProfiles = async () => {
+    const { data, error } = await supabase
+        .from('profiles')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+};

@@ -1,6 +1,7 @@
-
 import React, { useState, useEffect } from 'react';
 import { UserProfile } from '../types';
+import { supabase } from '../lib/supabase';
+import { saveProfile } from '../lib/db';
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -56,23 +57,89 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
     setLoading(true);
 
-    if (mode === 'register') {
-      if (!validatePassword(formData.password || '')) {
-        setLoading(false);
-        return;
+    try {
+      if (mode === 'register') {
+        if (!validatePassword(formData.password || '')) {
+          setLoading(false);
+          return;
+        }
+
+        // 1. Supabase Auth Sign Up
+        const { data: authData, error: authError } = await supabase.auth.signUp({
+          email: formData.email,
+          password: formData.password || '',
+        });
+
+        if (authError) throw authError;
+
+        if (authData.user) {
+          // 2. Save Profile Data
+          const profileData = {
+            name: formData.name,
+            email: formData.email,
+            address: formData.address,
+            city: formData.city,
+            province: formData.province,
+            postal_code: formData.postalCode,
+            phone: formData.phone
+          };
+
+          await saveProfile(authData.user.id, profileData);
+
+          onLogin({ ...formData, isGuest: false });
+          alert('¡Cuenta creada! Por favor, revisa tu email para confirmar tu cuenta.');
+          onClose();
+        }
+      } else if (mode === 'login') {
+        // Supabase Auth Sign In
+        const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+          email: formData.email,
+          password: formData.password || '',
+        });
+
+        if (authError) throw authError;
+
+        if (authData.user) {
+          // Fetch Profile Data
+          const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', authData.user.id)
+            .single();
+
+          if (!profileError && profile) {
+            onLogin({
+              name: profile.name,
+              email: profile.email,
+              address: profile.address,
+              city: profile.city,
+              province: profile.province,
+              postalCode: profile.postal_code,
+              phone: profile.phone,
+              isGuest: false
+            });
+          } else {
+            // Fallback if profile not found
+            onLogin({ ...formData, email: authData.user.email || '', isGuest: false });
+          }
+          onClose();
+        }
+      } else if (mode === 'guest') {
+        // Invitado sigue siendo local para velocidad
+        onLogin({ ...formData, isGuest: true });
+        onClose();
       }
-    }
-    setTimeout(() => {
-      const isGuest = mode === 'guest';
-      onLogin({ ...formData, isGuest });
+    } catch (err: any) {
+      console.error('Auth error:', err);
+      setError(err.message || 'Error en la autenticación');
+    } finally {
       setLoading(false);
-      onClose();
-    }, 1500);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

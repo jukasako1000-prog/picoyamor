@@ -14,6 +14,7 @@ const Admin: React.FC = () => {
     const [orders, setOrders] = useState<any[]>([]);
     const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users'>('stock');
 
+    const [users, setUsers] = useState<any[]>([]);
     const navigate = useNavigate();
     const ADMIN_EMAIL = 'infopicoyamor@gmail.com';
 
@@ -61,6 +62,13 @@ const Admin: React.FC = () => {
                 .order('created_at', { ascending: false });
             if (ordersError) throw ordersError;
             setOrders(ordersData);
+
+            // Fetch Users
+            const { data: usersData, error: usersError } = await supabase
+                .from('profiles')
+                .select('*')
+                .order('created_at', { ascending: false });
+            if (!usersError) setUsers(usersData || []);
 
         } catch (error) {
             console.error('Error fetching admin data:', error);
@@ -378,25 +386,65 @@ const Admin: React.FC = () => {
                     )}
                 </div>
             ) : (
-                <div className="bg-white rounded-[3rem] p-12 md:p-20 text-center border border-background-light shadow-soft space-y-6">
-                    <div className="size-20 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto">
-                        <span className="material-symbols-outlined text-4xl filled-icon">group</span>
-                    </div>
-                    <div className="space-y-2">
-                        <h2 className="text-3xl font-black text-text-main uppercase tracking-tight">Gestión de Clientes</h2>
-                        <p className="text-text-muted max-w-lg mx-auto font-medium">
-                            Actualmente, el registro de clientes es local. Para verlos aquí de forma persistente, necesitamos conectar el sistema de autenticación real de Supabase y crear una tabla de perfiles.
-                        </p>
-                    </div>
-                    <div className="pt-8 flex flex-col items-center gap-4">
-                        <div className="bg-background-light/50 px-6 py-4 rounded-2xl border-2 border-dashed border-background-light">
-                            <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Estado del Sistema</p>
-                            <p className="text-sm font-bold text-orange-500 uppercase mt-1 flex items-center gap-2 justify-center">
-                                <span className="size-2 bg-orange-500 rounded-full animate-pulse" />
-                                Pendiente de Integración DB
-                            </p>
+                <div className="space-y-8">
+                    <div className="bg-white rounded-[3rem] p-8 border border-background-light shadow-soft flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div className="flex gap-4 items-center">
+                            <div className="size-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                                <span className="material-symbols-outlined text-3xl filled-icon">group</span>
+                            </div>
+                            <div>
+                                <h3 className="text-xl font-black text-text-main uppercase tracking-tight">Clientes Registrados</h3>
+                                <p className="text-sm text-text-muted font-medium">Gestiona tu base de datos de usuarios.</p>
+                            </div>
+                        </div>
+                        <div className="bg-background-light/50 px-6 py-3 rounded-2xl border border-background-light">
+                            <p className="text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Total Clientes</p>
+                            <p className="text-2xl font-black text-primary text-center leading-none mt-1">{users.length}</p>
                         </div>
                     </div>
+
+                    {users.length === 0 ? (
+                        <div className="bg-white rounded-[3rem] p-20 text-center border border-background-light shadow-soft">
+                            <p className="text-xl font-black text-text-main">No hay clientes todavía</p>
+                            <p className="text-text-muted mt-2">Los nuevos usuarios aparecerán aquí automáticamente.</p>
+                        </div>
+                    ) : (
+                        <div className="bg-white rounded-[3rem] overflow-hidden border border-background-light shadow-soft">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left border-collapse">
+                                    <thead>
+                                        <tr className="bg-background-light/50 border-b border-background-light">
+                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Nombre</th>
+                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Email</th>
+                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Localidad</th>
+                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Teléfono</th>
+                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Registro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-background-light">
+                                        {users.map((user) => (
+                                            <tr key={user.id} className="hover:bg-background-light/20 transition-colors">
+                                                <td className="px-8 py-6">
+                                                    <p className="font-bold text-text-main">{user.name}</p>
+                                                </td>
+                                                <td className="px-8 py-6 text-text-muted font-medium">{user.email}</td>
+                                                <td className="px-8 py-6">
+                                                    <p className="text-sm font-bold text-text-main">{user.city}</p>
+                                                    <p className="text-[10px] text-text-muted uppercase font-black">{user.province}</p>
+                                                </td>
+                                                <td className="px-8 py-6 text-text-muted font-medium">{user.phone}</td>
+                                                <td className="px-8 py-6">
+                                                    <p className="text-xs font-bold text-text-main">
+                                                        {new Date(user.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    )}
                 </div>
             )}
             <style>{`
