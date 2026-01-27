@@ -8,42 +8,91 @@ const ShippingReturns: React.FC = () => {
 
     return (
         <div className="pt-40 pb-20 px-4 md:px-8 max-w-4xl mx-auto animate-fade-in">
-            <h1 className="text-4xl font-black text-text-main uppercase tracking-tighter mb-12">Envíos y Devoluciones</h1>
+            <div className="text-center mb-16 space-y-4">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-[10px] uppercase tracking-widest">
+                    <span className="material-symbols-outlined text-sm">local_shipping</span> Logística y Confianza
+                </div>
+                <h1 className="text-5xl font-black text-text-main uppercase tracking-tighter">Envíos y Devoluciones</h1>
+                <p className="text-xl text-text-muted font-medium max-w-2xl mx-auto italic">
+                    Nos encargamos de que cada paquete llegue seguro a su destino, como si fuera para nuestras propias aves. 📦🦜
+                </p>
+            </div>
 
-            <div className="prose prose-slate max-w-none space-y-8 text-text-main/80 leading-relaxed font-medium">
-                <section className="bg-white rounded-[2rem] p-8 shadow-soft border border-background-light">
-                    <h2 className="text-xl font-black text-text-main uppercase tracking-tight mb-4 flex items-center gap-2">
-                        <span className="material-symbols-outlined text-primary">local_shipping</span>
-                        Política de Envíos
+            <div className="prose prose-slate max-w-none space-y-12 text-text-main/80 leading-relaxed font-medium">
+                {/* Sección Envíos */}
+                <section className="bg-white rounded-[2rem] p-8 md:p-12 shadow-soft border border-background-light">
+                    <h2 className="text-2xl font-black text-text-main uppercase tracking-tight mb-6 flex items-center gap-3">
+                        <span className="material-symbols-outlined text-primary text-3xl">package_2</span>
+                        Gestión de tu Pedido
                     </h2>
-                    <p>En Pico & Amor preparamos cada paquete con el mismo cariño con el que fabricamos nuestros juguetes.</p>
-                    <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="bg-background-light p-5 rounded-2xl">
-                            <h4 className="font-black text-xs uppercase tracking-widest text-text-muted mb-2">Península</h4>
-                            <p className="font-bold text-text-main">4,00€ tarifa plana</p>
-                            <p className="text-sm text-primary font-black uppercase mt-1 italic">Gratis en pedidos +15€</p>
+
+                    <div className="space-y-6">
+                        <div className="bg-background-light/50 p-6 rounded-2xl border border-background-light">
+                            <h4 className="font-black text-sm uppercase tracking-widest text-text-main mb-2">Preparación con minto</h4>
+                            <p>Cada juguete se revisa individualmente antes de ser empaquetado. El tiempo de procesamiento suele ser de **24 a 48 horas laborables** tras la confirmación del pago.</p>
                         </div>
-                        <div className="bg-background-light p-5 rounded-2xl">
-                            <h4 className="font-black text-xs uppercase tracking-widest text-text-muted mb-2">Otros Destinos</h4>
-                            <p className="font-bold text-text-main">7,00€ tarifa plana</p>
-                            <p className="text-sm text-primary font-black uppercase mt-1 italic">Gratis en pedidos +25€</p>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
+                            <div className="space-y-2">
+                                <h4 className="font-black text-xs uppercase tracking-widest text-primary mb-2">Destino Península</h4>
+                                <ul className="list-none p-0 space-y-1">
+                                    <li className="flex items-center gap-2 font-bold"><span className="size-1.5 rounded-full bg-primary" /> Tarifa Plana: 4,00€</li>
+                                    <li className="flex items-center gap-2 text-primary font-black"><span className="size-1.5 rounded-full bg-primary" /> Gratis desde 15€</li>
+                                    <li className="flex items-center gap-2 opacity-70"><span className="size-1.5 rounded-full bg-text-muted" /> Entrega: 24-72h</li>
+                                </ul>
+                            </div>
+                            <div className="space-y-2">
+                                <h4 className="font-black text-xs uppercase tracking-widest text-accent mb-2">Otros Destinos</h4>
+                                <ul className="list-none p-0 space-y-1">
+                                    <li className="flex items-center gap-2 font-bold"><span className="size-1.5 rounded-full bg-accent" /> Tarifa Plana: 7,00€</li>
+                                    <li className="flex items-center gap-2 text-accent font-black"><span className="size-1.5 rounded-full bg-accent" /> Gratis desde 25€</li>
+                                    <li className="flex items-center gap-2 opacity-70"><span className="size-1.5 rounded-full bg-text-muted" /> Entrega: 3-5 días</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="pt-6 border-t border-background-light">
+                            <p className="text-sm italic">Recibirás un número de seguimiento por correo electrónico en cuanto tu paquete salga de nuestras manos.</p>
                         </div>
                     </div>
                 </section>
 
-                <section className="space-y-4">
-                    <h2 className="text-xl font-black text-text-main uppercase tracking-tight">1. Plazos de Entrega</h2>
-                    <p>Los pedidos se procesan en un plazo de 24-48 horas laborables. Una vez enviado, el tiempo de entrega suele ser de 24-72 horas adicionales, dependiendo del destino.</p>
-                </section>
+                {/* Sección Devoluciones */}
+                <section className="bg-white rounded-[2rem] p-8 md:p-12 shadow-soft border border-background-light">
+                    <h2 className="text-2xl font-black text-text-main uppercase tracking-tight mb-6 flex items-center gap-3">
+                        <span className="material-symbols-outlined text-primary text-3xl">assignment_return</span>
+                        Devoluciones y Cambios
+                    </h2>
 
-                <section className="space-y-4">
-                    <h2 className="text-xl font-black text-text-main uppercase tracking-tight">2. Devoluciones</h2>
-                    <p>Tiene un plazo de 14 días naturales para devolver un producto si no está satisfecho. Por motivos de higiene y seguridad de las aves, solo se aceptarán devoluciones de productos en su embalaje original y sin haber sido utilizados o estar en contacto con aves.</p>
-                </section>
+                    <div className="space-y-8">
+                        <div>
+                            <h3 className="text-lg font-black text-text-main uppercase mb-4">Periodo de Desistimiento</h3>
+                            <p>Tienes **14 días naturales** desde la recepción del producto para solicitar una devolución si has cambiado de opinión.</p>
+                        </div>
 
-                <section className="space-y-4">
-                    <h2 className="text-xl font-black text-text-main uppercase tracking-tight">3. Productos Defectuosos</h2>
-                    <p>Si recibe un juguete con algún defecto de fabricación evidente, nos haremos cargo de la sustitución o reembolso íntegro, incluyendo los gastos de envío de la devolución.</p>
+                        <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
+                            <h3 className="text-lg font-black text-red-900 uppercase mb-4 flex items-center gap-2">
+                                <span className="material-symbols-outlined">warning</span>
+                                Higiene y Seguridad Aviar
+                            </h3>
+                            <p className="text-red-800">Por motivos estrictos de salud y seguridad aviar, **solo se aceptarán devoluciones de juguetes y accesorios que conserven su precinto original intacto** y no hayan sido expuestos al ambiente de ninguna ave.</p>
+                        </div>
+
+                        <div>
+                            <h3 className="text-lg font-black text-text-main uppercase mb-4">¿Cómo realizar una devolución?</h3>
+                            <ol className="list-decimal pl-6 space-y-2">
+                                <li>Escríbenos a <span className="text-primary font-bold">infopicoyamor@gmail.com</span> con tu número de pedido.</li>
+                                <li>Empaqueta el producto de forma segura en su embalaje original.</li>
+                                <li>Envía el paquete a la dirección que te indicaremos (los gastos de envío en devoluciones voluntarias corren a cargo del cliente).</li>
+                                <li>Tras inspeccionar el producto, emitiremos el reembolso en un plazo de 7 días.</li>
+                            </ol>
+                        </div>
+
+                        <div className="bg-primary/5 p-6 rounded-2xl border border-primary/10">
+                            <h3 className="text-lg font-black text-text-main uppercase mb-4">Productos Defectuosos</h3>
+                            <p>Si recibes un producto incorrecto o con algún defecto de fabricación, Pico & Amor se hará cargo de todos los gastos de recogida y sustitución sin coste alguno para ti.</p>
+                        </div>
+                    </div>
                 </section>
             </div>
         </div>
