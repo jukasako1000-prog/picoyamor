@@ -3,57 +3,14 @@ import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { PRODUCTS } from '../constants';
 
-// Helper component for manual stock input
-const StockInput = ({ initialValue, onSave }: { initialValue: number, onSave: (val: number) => void }) => {
-    const [localValue, setLocalValue] = useState(initialValue.toString());
-    const [isSaving, setIsSaving] = useState(false);
-
-    useEffect(() => {
-        setLocalValue(initialValue.toString());
-    }, [initialValue]);
-
-    const handleBlur = () => {
-        const val = parseInt(localValue);
-        if (!isNaN(val) && val !== initialValue) {
-            setIsSaving(true);
-            onSave(val);
-            setTimeout(() => setIsSaving(false), 1000);
-        } else {
-            setLocalValue(initialValue.toString());
-        }
-    };
-
-    const handleKeyDown = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter') {
-            (e.target as HTMLInputElement).blur();
-        }
-    };
-
-    return (
-        <div className="relative">
-            <input
-                type="number"
-                value={localValue}
-                onChange={(e) => setLocalValue(e.target.value)}
-                onBlur={handleBlur}
-                onKeyDown={handleKeyDown}
-                className={`text-xl font-black w-20 text-center bg-white/50 rounded-lg border-2 border-transparent focus:border-primary/30 focus:ring-0 transition-all ${parseInt(localValue) === 0 ? 'text-red-500' : 'text-text-main'} ${isSaving ? 'bg-green-50' : ''}`}
-            />
-            {isSaving && (
-                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-black text-green-500 uppercase animate-bounce">
-                    Guardado
-                </div>
-            )}
-        </div>
-    );
-};
-
 const Admin: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
+    const [saving, setSaving] = useState(false);
     const [session, setSession] = useState<any>(null);
     const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
+    const [editedStock, setEditedStock] = useState<Record<string, number>>({});
     const [orders, setOrders] = useState<any[]>([]);
     const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users'>('stock');
 
@@ -95,6 +52,7 @@ const Admin: React.FC = () => {
                 [curr.id]: curr.stock_quantity
             }), {});
             setStockLevels(levels);
+            setEditedStock(levels);
 
             // Fetch Orders
             const { data: ordersData, error: ordersError } = await supabase
@@ -108,6 +66,33 @@ const Admin: React.FC = () => {
             console.error('Error fetching admin data:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleSaveAllStock = async () => {
+        setSaving(true);
+        try {
+            const updates = Object.entries(editedStock)
+                .filter(([id, val]) => val !== stockLevels[id])
+                .map(([id, val]) => ({ id, stock_quantity: val }));
+
+            if (updates.length === 0) return;
+
+            for (const update of updates) {
+                const { error } = await supabase
+                    .from('products')
+                    .update({ stock_quantity: update.stock_quantity })
+                    .eq('id', update.id);
+                if (error) throw error;
+            }
+
+            setStockLevels({ ...editedStock });
+            alert('¡Cambios guardados correctamente!');
+        } catch (error: any) {
+            console.error('Error saving stock:', error);
+            alert('Error al guardar: ' + error.message);
+        } finally {
+            setSaving(false);
         }
     };
 
@@ -154,23 +139,12 @@ const Admin: React.FC = () => {
         setSession(null);
     };
 
-    const updateStockUI = async (productId: string, delta: number) => {
-        const currentStock = stockLevels[productId] || 0;
-        const newStock = Math.max(0, currentStock + delta);
-
-        try {
-            const { error } = await supabase
-                .from('products')
-                .update({ stock_quantity: newStock })
-                .eq('id', productId);
-
-            if (error) throw error;
-            setStockLevels(prev => ({ ...prev, [productId]: newStock }));
-        } catch (error) {
-            console.error('Error updating stock:', error);
-            alert('Error al actualizar el stock');
-        }
+    const updateEditedStock = (productId: string, newVal: number) => {
+        const val = Math.max(0, newVal);
+        setEditedStock(prev => ({ ...prev, [productId]: val }));
     };
+
+    const hasChanges = Object.entries(editedStock).some(([id, val]) => val !== stockLevels[id]);
 
     if (!session) {
         return (
@@ -219,7 +193,7 @@ const Admin: React.FC = () => {
     }
 
     return (
-        <div className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-8">
+        <div className="pt-32 pb-40 px-4 md:px-8 max-w-7xl mx-auto space-y-8">
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
                     <h1 className="text-4xl md:text-5xl font-black text-text-main tracking-tighter uppercase">Gestión de Tienda</h1>
@@ -251,48 +225,79 @@ const Admin: React.FC = () => {
             </div>
 
             {activeTab === 'stock' ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {PRODUCTS.map(product => {
-                        const stock = stockLevels[product.id] || 0;
-                        return (
-                            <div key={product.id} className="bg-white rounded-[2.5rem] p-6 shadow-soft border border-background-light group hover:border-primary/20 transition-all">
-                                <div className="flex gap-4 items-center mb-6">
-                                    <div className="size-14 rounded-2xl overflow-hidden bg-background-light/50 border border-background-light shrink-0">
-                                        <img src={product.image} alt="" className="w-full h-full object-contain" />
+                <>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {PRODUCTS.map(product => {
+                            const stock = editedStock[product.id] || 0;
+                            const isModified = stock !== stockLevels[product.id];
+                            return (
+                                <div key={product.id} className={`bg-white rounded-[2.5rem] p-6 shadow-soft border transition-all ${isModified ? 'border-orange-400 ring-2 ring-orange-100' : 'border-background-light'}`}>
+                                    <div className="flex gap-4 items-center mb-6">
+                                        <div className="size-14 rounded-2xl overflow-hidden bg-background-light/50 border border-background-light shrink-0">
+                                            <img src={product.image} alt="" className="w-full h-full object-contain" />
+                                        </div>
+                                        <div className="min-w-0">
+                                            <h4 className="font-black text-xs text-text-main uppercase truncate">{product.name}</h4>
+                                            <p className="text-[10px] text-text-muted font-bold">ID: {product.id}</p>
+                                        </div>
+                                        {isModified && (
+                                            <span className="bg-orange-100 text-orange-600 text-[8px] font-black px-2 py-1 rounded-md uppercase ml-auto">Modificado</span>
+                                        )}
                                     </div>
-                                    <div className="min-w-0">
-                                        <h4 className="font-black text-xs text-text-main uppercase truncate">{product.name}</h4>
-                                        <p className="text-[10px] text-text-muted font-bold">ID: {product.id}</p>
+
+                                    <div className="flex items-center justify-between bg-background-light/50 p-4 rounded-3xl">
+                                        <span className="text-[10px] font-black text-text-muted uppercase tracking-widest ml-2">Stock</span>
+                                        <div className="flex items-center gap-4">
+                                            <button
+                                                onClick={() => updateEditedStock(product.id, stock - 1)}
+                                                className="size-10 bg-white rounded-xl flex items-center justify-center text-text-main hover:bg-red-50 hover:text-red-500 transition-all border border-background-light"
+                                            >
+                                                <span className="material-symbols-outlined text-lg">remove</span>
+                                            </button>
+
+                                            <input
+                                                type="number"
+                                                value={stock}
+                                                onChange={(e) => updateEditedStock(product.id, parseInt(e.target.value) || 0)}
+                                                className={`text-xl font-black w-20 text-center bg-white/50 rounded-lg border-2 border-transparent focus:border-primary/30 focus:ring-0 transition-all ${stock === 0 ? 'text-red-500' : 'text-text-main'}`}
+                                            />
+
+                                            <button
+                                                onClick={() => updateEditedStock(product.id, stock + 1)}
+                                                className="size-10 bg-white rounded-xl flex items-center justify-center text-text-main hover:bg-primary/10 hover:text-primary transition-all border border-background-light"
+                                            >
+                                                <span className="material-symbols-outlined text-lg">add</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
+                            );
+                        })}
+                    </div>
 
-                                <div className="flex items-center justify-between bg-background-light/50 p-4 rounded-3xl">
-                                    <span className="text-[10px] font-black text-text-muted uppercase tracking-widest ml-2">Stock Actual</span>
-                                    <div className="flex items-center gap-4">
-                                        <button
-                                            onClick={() => updateStockUI(product.id, -1)}
-                                            className="size-10 bg-white rounded-xl flex items-center justify-center text-text-main hover:bg-red-50 hover:text-red-500 transition-all border border-background-light"
-                                        >
-                                            <span className="material-symbols-outlined text-lg">remove</span>
-                                        </button>
-
-                                        <StockInput
-                                            initialValue={stock}
-                                            onSave={(val) => updateStockUI(product.id, val - stock)}
-                                        />
-
-                                        <button
-                                            onClick={() => updateStockUI(product.id, 1)}
-                                            className="size-10 bg-white rounded-xl flex items-center justify-center text-text-main hover:bg-primary/10 hover:text-primary transition-all border border-background-light"
-                                        >
-                                            <span className="material-symbols-outlined text-lg">add</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        );
-                    })}
-                </div>
+                    {/* Botón Flotante de Guardar */}
+                    {hasChanges && (
+                        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 animate-bounce-in">
+                            <button
+                                onClick={handleSaveAllStock}
+                                disabled={saving}
+                                className="bg-orange-500 hover:bg-orange-600 text-white px-12 py-5 rounded-full font-black uppercase tracking-widest text-sm shadow-[0_20px_50px_rgba(249,115,22,0.3)] flex items-center gap-4 transition-all hover:scale-105 active:scale-95 disabled:opacity-50"
+                            >
+                                {saving ? (
+                                    <>
+                                        <div className="size-5 border-4 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                        Guardando...
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="material-symbols-outlined">save</span>
+                                        Guardar todos los cambios
+                                    </>
+                                )}
+                            </button>
+                        </div>
+                    )}
+                </>
             ) : (
                 <div className="space-y-6">
                     {orders.length === 0 ? (
@@ -373,6 +378,13 @@ const Admin: React.FC = () => {
                     )}
                 </div>
             )}
+            <style>{`
+                @keyframes bounceIn {
+                    from { opacity: 0; transform: translate(-50%, 20px); }
+                    to { opacity: 1; transform: translate(-50%, 0); }
+                }
+                .animate-bounce-in { animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+            `}</style>
         </div>
     );
 };
