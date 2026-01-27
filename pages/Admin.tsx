@@ -10,7 +10,7 @@ const Admin: React.FC = () => {
     const [session, setSession] = useState<any>(null);
     const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
     const [orders, setOrders] = useState<any[]>([]);
-    const [activeTab, setActiveTab] = useState<'stock' | 'orders'>('stock');
+    const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users'>('stock');
 
     const navigate = useNavigate();
     const ADMIN_EMAIL = 'infopicoyamor@gmail.com';
@@ -41,7 +41,8 @@ const Admin: React.FC = () => {
             // Fetch Stock
             const { data: stockData, error: stockError } = await supabase
                 .from('products')
-                .select('*');
+                .select('*')
+                .order('name');
             if (stockError) throw stockError;
 
             const levels = stockData.reduce((acc, curr) => ({
@@ -62,6 +63,23 @@ const Admin: React.FC = () => {
             console.error('Error fetching admin data:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDeleteOrder = async (orderId: string) => {
+        if (!window.confirm('¿Estás segura de que quieres borrar este pedido? Esta acción no se puede deshacer.')) return;
+
+        try {
+            const { error } = await supabase
+                .from('orders')
+                .delete()
+                .eq('id', orderId);
+
+            if (error) throw error;
+            setOrders(prev => prev.filter(o => o.id !== orderId));
+        } catch (error) {
+            console.error('Error deleting order:', error);
+            alert('No se pudo borrar el pedido.');
         }
     };
 
@@ -208,9 +226,15 @@ const Admin: React.FC = () => {
                                         >
                                             <span className="material-symbols-outlined text-lg">remove</span>
                                         </button>
-                                        <span className={`text-xl font-black w-8 text-center ${stock === 0 ? 'text-red-500' : 'text-text-main'}`}>
-                                            {stock}
-                                        </span>
+                                        <input
+                                            type="number"
+                                            value={stock}
+                                            onChange={(e) => {
+                                                const val = parseInt(e.target.value) || 0;
+                                                updateStockUI(product.id, val - stock);
+                                            }}
+                                            className={`text-xl font-black w-16 text-center bg-transparent border-none focus:ring-0 ${stock === 0 ? 'text-red-500' : 'text-text-main'}`}
+                                        />
                                         <button
                                             onClick={() => updateStockUI(product.id, 1)}
                                             className="size-10 bg-white rounded-xl flex items-center justify-center text-text-main hover:bg-primary/10 hover:text-primary transition-all border border-background-light"
@@ -232,7 +256,7 @@ const Admin: React.FC = () => {
                     ) : (
                         orders.map(order => (
                             <div key={order.id} className="bg-white rounded-[3rem] p-8 md:p-12 shadow-soft border border-background-light space-y-8">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-6 border-b border-background-light pb-8">
+                                <div className="flex flex-col md:flex-row justify-between items-start gap-6 border-b border-background-light pb-8 relative">
                                     <div>
                                         <div className="flex items-center gap-3 mb-2">
                                             <span className="bg-primary/10 text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase">PAGADO</span>
@@ -242,9 +266,18 @@ const Admin: React.FC = () => {
                                             {new Date(order.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
                                         </h3>
                                     </div>
-                                    <div className="text-right">
-                                        <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Total Pedido</p>
-                                        <p className="text-3xl font-black text-primary">{order.total.toFixed(2)}€</p>
+                                    <div className="flex items-center gap-8">
+                                        <div className="text-right">
+                                            <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Total Pedido</p>
+                                            <p className="text-3xl font-black text-primary">{order.total.toFixed(2)}€</p>
+                                        </div>
+                                        <button
+                                            onClick={() => handleDeleteOrder(order.id)}
+                                            className="size-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                            title="Borrar pedido"
+                                        >
+                                            <span className="material-symbols-outlined">delete</span>
+                                        </button>
                                     </div>
                                 </div>
 
