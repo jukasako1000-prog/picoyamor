@@ -274,15 +274,23 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   </button>
                 </div>
 
-                {/* Info de Envío Compacta */}
-                <div className="mt-4 pt-4 border-t border-background-light">
-                  <p className="text-[9px] font-black text-primary uppercase tracking-[0.2em] text-center mb-3">¡Envío gratis según tu pedido!</p>
-                  <div className="flex flex-col gap-1.5 items-center">
-                    <p className="text-[9px] font-medium text-text-muted">
-                      <span className="font-black uppercase tracking-wider text-text-main">Península:</span> {SHIPPING_PENINSULA.toFixed(2)}€ <span className="text-[8px] opacity-60">(GRATIS DESDE {FREE_SHIPPING_PENINSULA}€)</span>
+                {/* Info de Envío Mucho más clara */}
+                <div className="mt-5 pt-5 border-t-2 border-background-light">
+                  <p className="text-[13px] font-black text-primary uppercase tracking-[0.15em] text-center mb-4">
+                    ¡ENVÍO GRATIS SEGÚN TU PEDIDO!
+                  </p>
+                  <div className="flex flex-col gap-2.5 items-center">
+                    <p className="text-[11px] font-medium text-text-muted text-center leading-relaxed">
+                      <span className="font-black uppercase tracking-widest text-[12px] text-text-main">Península:</span>
+                      <span className="text-text-main ml-1">{SHIPPING_PENINSULA.toFixed(2)}€</span>
+                      <br />
+                      <span className="text-[11px] font-black text-primary uppercase tracking-widest">(GRATIS DESDE {FREE_SHIPPING_PENINSULA}€)</span>
                     </p>
-                    <p className="text-[9px] font-medium text-text-muted">
-                      <span className="font-black uppercase tracking-wider text-text-main">Fuera Península:</span> {SHIPPING_EXTRA.toFixed(2)}€ <span className="text-[8px] opacity-60">(GRATIS DESDE {FREE_SHIPPING_EXTRA}€)</span>
+                    <p className="text-[11px] font-medium text-text-muted text-center leading-relaxed">
+                      <span className="font-black uppercase tracking-widest text-[12px] text-text-main">Fuera Península:</span>
+                      <span className="text-text-main ml-1">{SHIPPING_EXTRA.toFixed(2)}€</span>
+                      <br />
+                      <span className="text-[11px] font-black text-primary uppercase tracking-widest">(GRATIS DESDE {FREE_SHIPPING_EXTRA}€)</span>
                     </p>
                   </div>
                 </div>
