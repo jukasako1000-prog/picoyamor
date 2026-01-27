@@ -3,6 +3,51 @@ import { supabase } from '../lib/supabase';
 import { useNavigate } from 'react-router-dom';
 import { PRODUCTS } from '../constants';
 
+// Helper component for manual stock input
+const StockInput = ({ initialValue, onSave }: { initialValue: number, onSave: (val: number) => void }) => {
+    const [localValue, setLocalValue] = useState(initialValue.toString());
+    const [isSaving, setIsSaving] = useState(false);
+
+    useEffect(() => {
+        setLocalValue(initialValue.toString());
+    }, [initialValue]);
+
+    const handleBlur = () => {
+        const val = parseInt(localValue);
+        if (!isNaN(val) && val !== initialValue) {
+            setIsSaving(true);
+            onSave(val);
+            setTimeout(() => setIsSaving(false), 1000);
+        } else {
+            setLocalValue(initialValue.toString());
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            (e.target as HTMLInputElement).blur();
+        }
+    };
+
+    return (
+        <div className="relative">
+            <input
+                type="number"
+                value={localValue}
+                onChange={(e) => setLocalValue(e.target.value)}
+                onBlur={handleBlur}
+                onKeyDown={handleKeyDown}
+                className={`text-xl font-black w-20 text-center bg-white/50 rounded-lg border-2 border-transparent focus:border-primary/30 focus:ring-0 transition-all ${parseInt(localValue) === 0 ? 'text-red-500' : 'text-text-main'} ${isSaving ? 'bg-green-50' : ''}`}
+            />
+            {isSaving && (
+                <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-black text-green-500 uppercase animate-bounce">
+                    Guardado
+                </div>
+            )}
+        </div>
+    );
+};
+
 const Admin: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -87,11 +132,16 @@ const Admin: React.FC = () => {
         e.preventDefault();
         setLoading(true);
         try {
-            if (email !== ADMIN_EMAIL) {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password
+            });
+
+            if (error) throw error;
+            if (data.user?.email !== ADMIN_EMAIL) {
+                await supabase.auth.signOut();
                 throw new Error('No tienes permisos de administrador.');
             }
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
-            if (error) throw error;
         } catch (error: any) {
             alert(error.message);
         } finally {
@@ -122,51 +172,6 @@ const Admin: React.FC = () => {
         }
     };
 
-    // Helper component for manual stock input
-    const StockInput = ({ initialValue, onSave }: { initialValue: number, onSave: (val: number) => void }) => {
-        const [localValue, setLocalValue] = useState(initialValue.toString());
-        const [isSaving, setIsSaving] = useState(false);
-
-        useEffect(() => {
-            setLocalValue(initialValue.toString());
-        }, [initialValue]);
-
-        const handleBlur = () => {
-            const val = parseInt(localValue);
-            if (!isNaN(val) && val !== initialValue) {
-                setIsSaving(true);
-                onSave(val);
-                setTimeout(() => setIsSaving(false), 1000);
-            } else {
-                setLocalValue(initialValue.toString());
-            }
-        };
-
-        const handleKeyDown = (e: React.KeyboardEvent) => {
-            if (e.key === 'Enter') {
-                (e.target as HTMLInputElement).blur();
-            }
-        };
-
-        return (
-            <div className="relative">
-                <input
-                    type="number"
-                    value={localValue}
-                    onChange={(e) => setLocalValue(e.target.value)}
-                    onBlur={handleBlur}
-                    onKeyDown={handleKeyDown}
-                    className={`text-xl font-black w-20 text-center bg-white/50 rounded-lg border-2 border-transparent focus:border-primary/30 focus:ring-0 transition-all ${parseInt(localValue) === 0 ? 'text-red-500' : 'text-text-main'} ${isSaving ? 'bg-green-50' : ''}`}
-                />
-                {isSaving && (
-                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-black text-green-500 uppercase animate-bounce">
-                        Guardado
-                    </div>
-                )}
-            </div>
-        );
-    };
-
     if (!session) {
         return (
             <div className="pt-40 pb-20 px-4 flex flex-col items-center justify-center min-h-screen bg-background-light/30">
@@ -186,8 +191,7 @@ const Admin: React.FC = () => {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-4 focus:ring-primary/10 transition-all font-bold"
-                                placeholder="tu@email.com"
+                                className="w-full bg-background-light/50 border-2 border-transparent rounded-2xl px-6 py-4 focus:bg-white focus:border-primary/20 focus:ring-0 transition-all font-bold text-text-main"
                                 required
                             />
                         </div>
@@ -197,14 +201,14 @@ const Admin: React.FC = () => {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-4 focus:ring-primary/10 transition-all font-bold"
+                                className="w-full bg-background-light/50 border-2 border-transparent rounded-2xl px-6 py-4 focus:bg-white focus:border-primary/20 focus:ring-0 transition-all font-bold text-text-main"
                                 required
                             />
                         </div>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-primary hover:bg-primary-hover text-white py-5 rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20 active:scale-95 disabled:opacity-50"
+                            className="w-full bg-primary hover:bg-primary-hover text-white font-black py-5 rounded-2xl shadow-xl shadow-primary/20 transition-all active:scale-95 uppercase tracking-widest text-xs disabled:opacity-50"
                         >
                             {loading ? 'Entrando...' : 'Entrar al Panel'}
                         </button>
@@ -215,11 +219,11 @@ const Admin: React.FC = () => {
     }
 
     return (
-        <div className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
+        <div className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-8">
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
                 <div>
-                    <h1 className="text-4xl font-black text-text-main tracking-tighter uppercase">Gestión de Tienda</h1>
-                    <p className="text-text-muted font-bold text-sm">Bienvenida, {session.user.email}</p>
+                    <h1 className="text-4xl md:text-5xl font-black text-text-main tracking-tighter uppercase">Gestión de Tienda</h1>
+                    <p className="text-text-muted font-medium">Gestiona el inventario y revisa los últimos pedidos.</p>
                 </div>
                 <button
                     onClick={handleLogout}
@@ -292,8 +296,9 @@ const Admin: React.FC = () => {
             ) : (
                 <div className="space-y-6">
                     {orders.length === 0 ? (
-                        <div className="bg-white rounded-[3rem] p-20 text-center border border-background-light">
-                            <p className="text-text-muted font-black uppercase tracking-widest">No hay pedidos registrados todavía</p>
+                        <div className="bg-white rounded-[3rem] p-20 text-center border border-background-light shadow-soft">
+                            <span className="material-symbols-outlined text-6xl text-text-muted mb-4">shopping_basket</span>
+                            <p className="text-xl font-black text-text-main">No hay pedidos todavía</p>
                         </div>
                     ) : (
                         orders.map(order => (
@@ -325,40 +330,41 @@ const Admin: React.FC = () => {
 
                                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                                     <div className="space-y-6">
-                                        <h4 className="text-xs font-black text-text-muted uppercase tracking-[0.2em]">Datos del Cliente</h4>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                            <div className="space-y-1">
-                                                <p className="text-[9px] font-black text-text-muted uppercase">Nombre</p>
-                                                <p className="font-bold text-text-main">{order.customer_name}</p>
+                                        <h4 className="text-xs font-black text-primary uppercase tracking-[0.2em]">Datos del Cliente</h4>
+                                        <div className="space-y-4">
+                                            <div>
+                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Nombre y Email</p>
+                                                <p className="text-lg font-bold text-text-main">{order.customer_name}</p>
+                                                <p className="text-text-muted font-medium">{order.customer_email}</p>
                                             </div>
-                                            <div className="space-y-1">
-                                                <p className="text-[9px] font-black text-text-muted uppercase">Teléfono</p>
+                                            <div>
+                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Dirección de Envío</p>
+                                                <p className="font-bold text-text-main">{order.shipping_address}</p>
+                                                <p className="text-text-muted font-medium">{order.shipping_city}, {order.shipping_province}, {order.shipping_zip}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Teléfono</p>
                                                 <p className="font-bold text-text-main">{order.customer_phone}</p>
-                                            </div>
-                                            <div className="md:col-span-2 space-y-1">
-                                                <p className="text-[9px] font-black text-text-muted uppercase">Email</p>
-                                                <p className="font-bold text-text-main">{order.customer_email}</p>
-                                            </div>
-                                            <div className="md:col-span-2 space-y-1">
-                                                <p className="text-[9px] font-black text-text-muted uppercase">Dirección</p>
-                                                <p className="font-bold text-text-main">{order.customer_address}</p>
-                                                <p className="text-xs text-text-muted font-medium">{order.customer_postal_code} - {order.customer_city} ({order.customer_province})</p>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="space-y-6">
-                                        <h4 className="text-xs font-black text-text-muted uppercase tracking-[0.2em]">Productos</h4>
+                                        <h4 className="text-xs font-black text-primary uppercase tracking-[0.2em]">Artículos</h4>
                                         <div className="bg-background-light/30 rounded-3xl p-6 space-y-4">
                                             {order.items.map((item: any, idx: number) => (
                                                 <div key={idx} className="flex justify-between items-center text-sm">
-                                                    <div className="flex items-center gap-3">
-                                                        <span className="font-black text-primary">x{item.quantity}</span>
-                                                        <span className="font-bold text-text-main uppercase text-[11px]">{item.name}</span>
+                                                    <div className="flex gap-3 items-center">
+                                                        <span className="bg-white size-6 flex items-center justify-center rounded-lg font-black text-[10px] text-primary select-none">{item.quantity}x</span>
+                                                        <span className="font-bold text-text-main">{item.name}</span>
                                                     </div>
-                                                    <span className="font-black text-text-muted">{item.price.toFixed(2)}€</span>
+                                                    <span className="font-black text-text-main">{(item.price * item.quantity).toFixed(2)}€</span>
                                                 </div>
                                             ))}
+                                            <div className="pt-4 border-t border-background-light flex justify-between items-center text-xs">
+                                                <span className="font-black text-text-muted uppercase tracking-widest lowercase">Envío ({order.shipping_method})</span>
+                                                <span className="font-black text-text-main">{order.shipping_cost.toFixed(2)}€</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
