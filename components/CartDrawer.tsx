@@ -21,8 +21,8 @@ const SHIPPING_EXTRA = 7;
 
 // Listado de provincias por nombre para detección automática
 const EXTRA_PENINSULAR_PROVINCES = [
-  'ceuta', 'melilla', 'baleares', 'islas baleares',
-  'las palmas', 'santa cruz de tenerife', 'canarias', 'tenerife'
+  'ceuta', 'melilla', 'baleares', 'islas baleares', 'illes balears',
+  'las palmas', 'santa cruz de tenerife', 'canarias', 'tenerife', 'gran canaria'
 ];
 
 // Prefijos de Códigos Postales extrapeninsulares
@@ -282,6 +282,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     </p>
                     <p className="text-[11px] font-black uppercase tracking-widest text-center">
                       <span className="text-text-main">Otros:</span> <span className="text-primary">Gratis desde {FREE_SHIPPING_EXTRA}€</span>
+                    </p>
+                    <p className="text-[9px] font-bold text-gray-400 uppercase tracking-tighter text-center -mt-1 leading-none">
+                      (Sólo Baleares, Canarias, Ceuta y Melilla)
                     </p>
                   </div>
                 </div>
