@@ -96,9 +96,9 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p17',
-    name: 'Columpio Corteza de Pino Piñonero',
-    price: 14.80,
-    description: 'Corteza de pino piñonero natural con fibra de coco y piña. Medidas: 29cm alto x 20cm ancho. Ideal para aves medianas y pequeñas. Desgaste de pico y limado de uñas natural.',
+    name: 'Columpio de Corteza de Pino Natural',
+    price: 16.50,
+    description: 'Elaborado con corteza de pino natural de España con lacito de rafia para mayor diversión. Cuerda regulable (se puede acortar con un nudo inferior) para adaptarse a cualquier jaula. Medidas aprox: 27cm alto x 19cm ancho (al ser natural, cada pieza es única).',
     image: IMG_COLUMPIO_CORTEZA,
     category: 'Columpios'
   },
