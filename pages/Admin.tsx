@@ -15,6 +15,7 @@ const Admin: React.FC = () => {
     const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users'>('stock');
 
     const [users, setUsers] = useState<any[]>([]);
+    const [userSearch, setUserSearch] = useState('');
     const navigate = useNavigate();
     const ADMIN_EMAIL = 'infopicoyamor@gmail.com';
 
@@ -88,6 +89,40 @@ const Admin: React.FC = () => {
             console.error('Error fetching admin data:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleDeleteUser = async (userId: string) => {
+        if (!window.confirm('¿Estás seguro de que quieres borrar este cliente? Se borrará su perfil permanentemente.')) return;
+
+        try {
+            const { error } = await supabase
+                .from('profiles')
+                .delete()
+                .eq('id', userId);
+
+            if (error) throw error;
+            setUsers(users.filter(u => u.id !== userId));
+            alert('Cliente borrado con éxito.');
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            alert('No se pudo borrar el cliente.');
+        }
+    };
+
+    const handleUpdateOrderStatus = async (orderId: string, newStatus: string) => {
+        try {
+            const { error } = await supabase
+                .from('orders')
+                .update({ status: newStatus })
+                .eq('id', orderId);
+
+            if (error) throw error;
+
+            setOrders(orders.map(o => o.id === orderId ? { ...o, status: newStatus } : o));
+        } catch (error) {
+            console.error('Error updating order status:', error);
+            alert('No se pudo actualizar el estado del pedido.');
         }
     };
 
@@ -338,8 +373,19 @@ const Admin: React.FC = () => {
                             <div key={order.id} className="bg-white rounded-[3rem] p-8 md:p-12 shadow-soft border border-background-light space-y-8">
                                 <div className="flex flex-col md:flex-row justify-between items-start gap-6 border-b border-background-light pb-8 relative">
                                     <div>
-                                        <div className="flex items-center gap-3 mb-2">
-                                            <span className="bg-primary/10 text-primary text-[10px] font-black px-3 py-1 rounded-full uppercase">PAGADO</span>
+                                        <div className="flex flex-wrap items-center gap-3 mb-2">
+                                            <select
+                                                value={order.status || 'pagado'}
+                                                onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
+                                                className={`text-[10px] font-black px-3 py-1.5 rounded-full uppercase border-none focus:ring-2 focus:ring-primary cursor-pointer transition-all
+                                                    ${order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
+                                                        order.status === 'entregado' ? 'bg-green-100 text-green-600' :
+                                                            'bg-primary/10 text-primary'}`}
+                                            >
+                                                <option value="pagado">🟢 Pagado (Procesando)</option>
+                                                <option value="enviado">🔵 Enviado</option>
+                                                <option value="entregado">✅ Entregado</option>
+                                            </select>
                                             <p className="text-[10px] text-text-muted font-black uppercase tracking-widest">ID PEDIDO: {order.id.slice(0, 8)}</p>
                                         </div>
                                         <h3 className="text-2xl font-black text-text-main uppercase tracking-tighter">
@@ -407,19 +453,27 @@ const Admin: React.FC = () => {
                 </div>
             ) : (
                 <div className="space-y-8">
-                    <div className="bg-white rounded-[3rem] p-8 border border-background-light shadow-soft flex flex-col md:flex-row justify-between items-center gap-6">
-                        <div className="flex gap-4 items-center">
-                            <div className="size-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                    <div className="bg-white rounded-[3rem] p-8 border border-background-light shadow-soft flex flex-col lg:flex-row justify-between items-center gap-6">
+                        <div className="flex gap-4 items-center flex-1">
+                            <div className="size-14 bg-primary/10 rounded-2xl flex items-center justify-center text-primary shrink-0">
                                 <span className="material-symbols-outlined text-3xl filled-icon">group</span>
                             </div>
-                            <div>
-                                <h3 className="text-xl font-black text-text-main uppercase tracking-tight">Clientes Registrados</h3>
-                                <p className="text-sm text-text-muted font-medium">Gestiona tu base de datos de usuarios.</p>
+                            <div className="flex-1 max-w-md relative">
+                                <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-muted text-xl">search</span>
+                                <input
+                                    type="text"
+                                    placeholder="Buscar cliente por nombre o email..."
+                                    className="w-full bg-background-light border-none rounded-2xl pl-12 pr-6 py-4 focus:ring-2 focus:ring-primary text-sm font-medium"
+                                    value={userSearch}
+                                    onChange={(e) => setUserSearch(e.target.value)}
+                                />
                             </div>
                         </div>
-                        <div className="bg-background-light/50 px-6 py-3 rounded-2xl border border-background-light">
-                            <p className="text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Total Clientes</p>
-                            <p className="text-2xl font-black text-primary text-center leading-none mt-1">{users.length}</p>
+                        <div className="flex gap-4">
+                            <div className="bg-background-light/50 px-6 py-3 rounded-2xl border border-background-light min-w-[120px]">
+                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Clientes</p>
+                                <p className="text-2xl font-black text-primary text-center leading-none mt-1">{users.length}</p>
+                            </div>
                         </div>
                     </div>
 
@@ -434,32 +488,60 @@ const Admin: React.FC = () => {
                                 <table className="w-full text-left border-collapse">
                                     <thead>
                                         <tr className="bg-background-light/50 border-b border-background-light">
-                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Nombre</th>
-                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Email</th>
-                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Localidad</th>
-                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Teléfono</th>
-                                            <th className="px-8 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Registro</th>
+                                            <th className="px-8 py-5 text-[10px] font-black text-text-muted uppercase tracking-widest">Cliente</th>
+                                            <th className="px-8 py-5 text-[10px] font-black text-text-muted uppercase tracking-widest">Ubicación</th>
+                                            <th className="px-8 py-5 text-[10px] font-black text-text-muted uppercase tracking-widest text-center">Pedidos</th>
+                                            <th className="px-8 py-5 text-[10px] font-black text-text-muted uppercase tracking-widest">Registro</th>
+                                            <th className="px-8 py-5 text-[10px] font-black text-text-muted uppercase tracking-widest text-right">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-background-light">
-                                        {users.map((user) => (
-                                            <tr key={user.id} className="hover:bg-background-light/20 transition-colors">
-                                                <td className="px-8 py-6">
-                                                    <p className="font-bold text-text-main">{user.name}</p>
-                                                </td>
-                                                <td className="px-8 py-6 text-text-muted font-medium">{user.email}</td>
-                                                <td className="px-8 py-6">
-                                                    <p className="text-sm font-bold text-text-main">{user.city}</p>
-                                                    <p className="text-[10px] text-text-muted uppercase font-black">{user.province}</p>
-                                                </td>
-                                                <td className="px-8 py-6 text-text-muted font-medium">{user.phone}</td>
-                                                <td className="px-8 py-6">
-                                                    <p className="text-xs font-bold text-text-main">
-                                                        {new Date(user.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' })}
-                                                    </p>
-                                                </td>
-                                            </tr>
-                                        ))}
+                                        {users
+                                            .filter(u => u.name?.toLowerCase().includes(userSearch.toLowerCase()) || u.email?.toLowerCase().includes(userSearch.toLowerCase()))
+                                            .map(u => {
+                                                const userOrdersCount = orders.filter(o => o.customer_email === u.email).length;
+                                                return (
+                                                    <tr key={u.id} className="hover:bg-background-light/20 transition-colors">
+                                                        <td className="px-8 py-6">
+                                                            <p className="font-bold text-text-main text-sm">{u.name}</p>
+                                                            <p className="text-xs text-text-muted">{u.email}</p>
+                                                            <p className="text-[10px] text-text-muted font-medium mt-1 uppercase tracking-tighter">{u.phone}</p>
+                                                        </td>
+                                                        <td className="px-8 py-6">
+                                                            <p className="text-xs font-bold text-text-main uppercase">{u.city}</p>
+                                                            <p className="text-[10px] text-text-muted uppercase">{u.province}</p>
+                                                        </td>
+                                                        <td className="px-8 py-6 text-center">
+                                                            <span className={`inline-flex items-center justify-center size-8 rounded-full font-black text-xs ${userOrdersCount > 0 ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'bg-background-light text-text-muted'}`}>
+                                                                {userOrdersCount}
+                                                            </span>
+                                                        </td>
+                                                        <td className="px-8 py-6">
+                                                            <p className="text-xs font-medium text-text-muted">
+                                                                {new Date(u.created_at).toLocaleDateString()}
+                                                            </p>
+                                                        </td>
+                                                        <td className="px-8 py-6 text-right">
+                                                            <div className="flex justify-end gap-2">
+                                                                <button
+                                                                    onClick={() => alert(`Dirección Completa:\n${u.address}\n${u.postal_code} ${u.city}, ${u.province}`)}
+                                                                    className="size-10 bg-background-light text-text-main rounded-xl flex items-center justify-center hover:bg-primary hover:text-white transition-all"
+                                                                    title="Ver dirección completa"
+                                                                >
+                                                                    <span className="material-symbols-outlined text-lg">location_on</span>
+                                                                </button>
+                                                                <button
+                                                                    onClick={() => handleDeleteUser(u.id)}
+                                                                    className="size-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
+                                                                    title="Borrar cliente"
+                                                                >
+                                                                    <span className="material-symbols-outlined text-lg">delete</span>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            })}
                                     </tbody>
                                 </table>
                             </div>

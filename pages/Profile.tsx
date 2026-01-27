@@ -259,12 +259,16 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                       <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
                         <div className="text-right">
                           <p className="text-xl font-black">{order.total.toFixed(2)}€</p>
-                          <span className={`text-[10px] font-bold px-2 py-1 rounded-full ${order.status === 'Entregado' ? 'bg-green-100 text-green-600' :
-                            order.status === 'Procesando' ? 'bg-blue-100 text-blue-600' :
-                              'bg-yellow-100 text-yellow-600'
-                            }`}>
-                            {order.status}
-                          </span>
+                          <div className="flex items-center gap-3">
+                            <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase
+                              ${order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
+                                order.status === 'entregado' ? 'bg-green-100 text-green-600' :
+                                  'bg-primary/10 text-primary'}`}>
+                              {order.status === 'enviado' ? 'Enviado 📦' :
+                                order.status === 'entregado' ? 'Entregado ✅' :
+                                  'Pagado (Procesando) 🦜'}
+                            </span>
+                          </div>
                         </div>
                         <button
                           onClick={() => setSelectedOrder(order)}
