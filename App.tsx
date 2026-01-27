@@ -21,6 +21,7 @@ const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [authInitialMode, setAuthInitialMode] = useState<'login' | 'register' | 'guest'>('login');
   const [viewingImage, setViewingImage] = useState<string | null>(null);
 
   const [user, setUser] = useState<UserProfile | null>(() => {
@@ -109,7 +110,7 @@ const App: React.FC = () => {
         <Navbar
           cart={cart}
           onOpenCart={() => setIsCartOpen(true)}
-          onOpenAuth={() => setIsAuthOpen(true)}
+          onOpenAuth={() => handleOpenAuth('login')}
           user={user}
           onLogout={handleLogout}
         />
@@ -129,7 +130,7 @@ const App: React.FC = () => {
                 user={user}
                 onClearCart={handleClearCart}
                 onCompleteOrder={handleCompleteOrder}
-                onOpenAuth={() => setIsAuthOpen(true)}
+                onOpenAuth={(mode?: 'login' | 'register' | 'guest') => handleOpenAuth(mode)}
               />
             } />
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -143,7 +144,7 @@ const App: React.FC = () => {
           onClose={() => setIsCartOpen(false)}
           cart={cart}
           user={user}
-          onOpenAuth={() => setIsAuthOpen(true)}
+          onOpenAuth={(mode?: 'login' | 'register' | 'guest') => handleOpenAuth(mode)}
           onRemove={handleRemoveFromCart}
           onUpdateQuantity={handleUpdateQuantity}
           onClearCart={handleClearCart}
@@ -154,6 +155,7 @@ const App: React.FC = () => {
           isOpen={isAuthOpen}
           onClose={() => setIsAuthOpen(false)}
           onLogin={handleLogin}
+          initialMode={authInitialMode}
         />
 
         {/* Modal de Imagen Global */}

@@ -7,7 +7,7 @@ interface CheckoutProps {
     user: UserProfile | null;
     onClearCart: () => void;
     onCompleteOrder: (items: CartItem[], total: number) => void;
-    onOpenAuth: () => void;
+    onOpenAuth: (mode?: 'login' | 'register' | 'guest') => void;
 }
 
 const SHIPPING_PENINSULA = 4;
@@ -130,7 +130,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                                             <p className="font-black text-text-main text-sm uppercase tracking-wide">Estás comprando como Invitado</p>
                                             <p className="text-xs text-text-muted">Tus datos no se guardarán para futuros pedidos.</p>
                                         </div>
-                                        <button onClick={onOpenAuth} className="text-xs font-black text-primary hover:text-primary-hover uppercase tracking-widest underline decoration-2 underline-offset-4">
+                                        <button onClick={() => onOpenAuth('register')} className="text-xs font-black text-primary hover:text-primary-hover uppercase tracking-widest underline decoration-2 underline-offset-4">
                                             Crear cuenta ahora
                                         </button>
                                     </div>

@@ -6,10 +6,11 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   onLogin: (user: UserProfile) => void;
+  initialMode?: 'login' | 'register' | 'guest';
 }
 
-const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }) => {
-  const [mode, setMode] = useState<'login' | 'register' | 'guest'>('login');
+const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initialMode = 'login' }) => {
+  const [mode, setMode] = useState<'login' | 'register' | 'guest'>(initialMode);
   const [formData, setFormData] = useState<UserProfile & { password?: string }>({
     name: '',
     email: '',
@@ -27,6 +28,13 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }) => {
   useEffect(() => {
     setError(null);
   }, [mode]);
+
+  // Sincronizar modo inicial cuando se abre el modal
+  useEffect(() => {
+    if (isOpen && initialMode) {
+      setMode(initialMode);
+    }
+  }, [isOpen, initialMode]);
 
   if (!isOpen) return null;
 
