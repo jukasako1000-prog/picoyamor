@@ -20,8 +20,9 @@ const LegalNotice: React.FC = () => {
                     <ul className="mt-4 space-y-2 list-none p-0">
                         <li><strong className="text-text-main uppercase text-xs tracking-widest">Titular:</strong> Eva Maria Casanova Coll</li>
                         <li><strong className="text-text-main uppercase text-xs tracking-widest">NIF:</strong> 48484517B</li>
+                        <li><strong className="text-text-main uppercase text-xs tracking-widest">Domicilio:</strong> RNDA. Hist. Lluis Duart Alabarta 1, P02-11. Almussafes (Valencia)</li>
                         <li><strong className="text-text-main uppercase text-xs tracking-widest">Nombre Comercial:</strong> Pico & Amor</li>
-                        <li><strong className="text-text-main uppercase text-xs tracking-widest">Email:</strong> hola@picoyamor.com (Provisional)</li>
+                        <li><strong className="text-text-main uppercase text-xs tracking-widest">Email:</strong> hola@picoyamor.com</li>
                     </ul>
                 </section>
 
