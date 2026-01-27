@@ -56,6 +56,7 @@ const IMG_COLUMPIO_CORCHO = '/columpio-AVE.png';
 const IMG_FORRAJEO_CAJA = 'https://i.postimg.cc/kgQf3ffC/FORRAJEO.png';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
 const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
+const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -152,6 +153,15 @@ export const PRODUCTS: Product[] = [
     image: IMG_FORRAJEO_COMBO,
     category: 'Forrajeo',
     badge: 'Ahorro'
+  },
+  {
+    id: 'p22',
+    name: 'Bolsita de Rafia Natural',
+    price: 3.75,
+    description: '50g de bolsita de rafia natural seca para fondo de bandeja y actividades de forrajeo. Material 100% biodegradable y seguro.',
+    image: IMG_FORRAJEO_RAFIA,
+    category: 'Forrajeo',
+    badge: 'Nuevo'
   }
 ];
 
