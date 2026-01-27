@@ -64,8 +64,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
     const handleFinalizeOrder = () => {
         onCompleteOrder(cart, total);
         onClearCart();
-        alert('¡Pedido realizado con éxito! 🦜✨\nEn breve recibirás un email con los detalles.');
-        navigate('/');
+        navigate('/order-success');
     };
 
     return (
