@@ -62,7 +62,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const activeThreshold = isExtraPeninsular ? FREE_SHIPPING_EXTRA : FREE_SHIPPING_PENINSULA;
   const remainingForFree = Math.max(0, activeThreshold - subtotal);
 
-  const total = subtotal + shippingFee;
+  const total = user ? (subtotal + shippingFee) : subtotal;
 
   useEffect(() => {
     if (isOpen) {
@@ -233,7 +233,11 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   <div className="flex justify-between items-center text-[#6c7a6e]">
                     <span className="font-black uppercase tracking-widest text-[11px]">Gastos de Envío</span>
                     <span className="font-black text-[16px] text-[#3F3D3C]">
-                      {shippingFee === 0 ? '0.00€' : `${shippingFee.toFixed(2)}€`}
+                      {!user ? (
+                        <span className="text-[10px] text-gray-400 font-bold italic uppercase tracking-wider">Calculados al tramitar</span>
+                      ) : (
+                        shippingFee === 0 ? '0.00€' : `${shippingFee.toFixed(2)}€`
+                      )}
                     </span>
                   </div>
 
@@ -241,11 +245,12 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     <span className="font-black uppercase tracking-[0.15em] text-[13px]">Total Pedido</span>
                     <span className="font-black text-[22px]">
                       {total.toFixed(2)}€
+                      {!user && <span className="text-[10px] text-gray-400 ml-1 font-bold">*</span>}
                     </span>
                   </div>
                 </div>
 
-                {remainingForFree > 0 && (
+                {user && remainingForFree > 0 && (
                   <div className="bg-primary/5 border border-primary/10 rounded-2xl p-4 flex items-center gap-3 animate-fade-in">
                     <div className="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
                       <span className="material-symbols-outlined text-xl filled-icon">redeem</span>
