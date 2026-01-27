@@ -167,7 +167,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
             )}
 
             {/* Lista de Productos */}
-            <div className="flex-1 overflow-y-auto p-8 space-y-10 hide-scrollbar">
+            <div className="flex-1 overflow-y-auto p-8 space-y-0 hide-scrollbar scroll-smooth">
               {cart.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center space-y-4 opacity-40">
                   <span className="material-symbols-outlined text-6xl">shopping_cart</span>
@@ -175,8 +175,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
               ) : (
                 cart.map((item) => (
-                  <div key={item.id} className="flex gap-5 relative group">
-                    <div className="flex items-start pt-3">
+                  <div key={item.id} className="flex gap-6 relative group py-8 border-b border-background-light last:border-0 transition-colors hover:bg-background-light/20 -mx-4 px-4 rounded-3xl">
+                    <div className="flex items-center pt-1 shrink-0">
                       <label className="cursor-pointer">
                         <input type="checkbox" className="peer sr-only" checked={selectedIds.has(item.id)} onChange={() => toggleSelect(item.id)} />
                         <div className="size-5 border-2 border-[#6c9371]/20 rounded-full peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center transition-all">
@@ -189,9 +189,9 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                       <img src={item.image} alt={item.name} className="w-4/5 h-4/5 object-contain" />
                     </div>
 
-                    <div className="flex-1 flex flex-col justify-between pt-1">
-                      <div className="flex justify-between items-start">
-                        <h4 className="font-black text-[14px] text-[#3F3D3C] leading-snug pr-6 max-w-[160px]">{item.name}</h4>
+                    <div className="flex-1 flex flex-col justify-center min-w-0">
+                      <div className="flex justify-between items-start gap-3">
+                        <h4 className="font-black text-[15px] text-text-main leading-tight uppercase tracking-tight">{item.name}</h4>
                         <button onClick={() => onRemove(item.id)} className="text-[#D1D1D1] hover:text-red-500 transition-colors">
                           <span className="material-symbols-outlined text-xl">close</span>
                         </button>
