@@ -82,6 +82,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                     quantity: item.quantity,
                     price: item.price
                 })),
+                shipping_cost: shippingFee,
+                shipping_method: isExtraPeninsular ? 'Extra-Peninsular' : 'Península',
                 total: total,
                 status: 'pagado' // Assuming Stripe success for now
             };
