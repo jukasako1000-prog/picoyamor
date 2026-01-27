@@ -45,9 +45,9 @@ const Footer: React.FC = () => {
             <h5 className="font-bold text-white mb-6 uppercase tracking-widest text-xs opacity-70">Explora</h5>
             <ul className="flex flex-col gap-3 text-sm text-white/60">
               <li><Link to="/tienda" className="hover:text-white transition-colors">Toda la Tienda</Link></li>
-              <li><button onClick={scrollToTop} className="text-left hover:text-white transition-colors">Novedades</button></li>
+              <li><Link to="/novedades" className="hover:text-white transition-colors">Novedades</Link></li>
               <li><Link to="/blog" className="hover:text-white transition-colors">Blog de Cuidados</Link></li>
-              <li><button onClick={scrollToTop} className="text-left hover:text-white transition-colors">Club Pico</button></li>
+              <li><Link to="/club-pico" className="hover:text-white transition-colors">Club Pico</Link></li>
             </ul>
           </div>
           <div>
