@@ -57,6 +57,7 @@ const IMG_FORRAJEO_CAJA = 'https://i.postimg.cc/kgQf3ffC/FORRAJEO.png';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
 const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
 const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
+const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -162,6 +163,15 @@ export const PRODUCTS: Product[] = [
     image: IMG_FORRAJEO_RAFIA,
     category: 'Forrajeo',
     badge: 'Nuevo'
+  },
+  {
+    id: 'p23',
+    name: 'Ramillete de Olivo Forrajeo Natural',
+    price: 8.00,
+    description: '12 ramitas de Olivo seleccionadas. Estimula el instinto de forrajeo y proporciona vitaminas naturales. ¡El entretenimiento más saludable y divertido para tu loro!',
+    image: IMG_RAMILLETE_OLIVO,
+    category: 'Forrajeo',
+    badge: 'Súper Natural'
   }
 ];
 
