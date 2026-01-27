@@ -2,49 +2,56 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🚀 Estado Actual (27 de Enero, 2026)
-La aplicación es un e-commerce funcional con persistencia en tiempo real mediante **Supabase**.
+## 🚀 Estado Actual (28 de Enero, 2026)
+La aplicación es un e-commerce robusto con sincronización bidireccional en tiempo real mediante **Supabase**.
 
-### 1. Infraestructura Supabase
-- **Tablas**:
+### 1. Infraestructura de Datos (Supabase)
+- **Tablas Clave**:
     - `products`: Referencia de stock (`id`, `name`, `stock_quantity`).
-    - `orders`: Registro de transacciones con detalles de cliente y artículos.
-    - `reviews`: Reseñas del "Club Pico" con soporte para imágenes.
-- **Políticas de Seguridad (RLS)**:
-    - `products`: **Lectura pública** habilitada (para que la tienda vea el stock). **Actualización restringida** al email del administrador.
-    - `orders`: **Inserción pública** (para clientes) y **Control total** para el administrador.
-    - `reviews`: **Lectura e Inserción pública**.
+    - `orders`: Transacciones (`id`, `customer_email`, `total`, `shipping_cost`, `items` como JSONB, `status`).
+    - `profiles`: Datos de usuario extendidos (`id`, `name`, `email`, `address`, `city`, `province`, `postal_code`, `phone`).
+- **Seguridad y Lógica de Negocio**:
+    - **RPC `decrement_stock`**: Función del lado del servidor que descuenta stock de forma atómica al finalizar un pedido. Soluciona las restricciones RLS para clientes.
+    - **Políticas (RLS)**:
+        - `products`: Lectura pública. Actualización solo para el Admin.
+        - `orders`: Inserción para clientes. Lectura filtrada (`email` del JWT = `customer_email`). Control total para el Admin.
+        - `profiles`: Lectura/Escritura propia para el usuario. Control total para el Admin.
 
-### 2. Funcionalidades de Administración (Rediseñadas)
+### 2. Panel de Administración (`/admin`)
+Protegido para el email: `infopicoyamor@gmail.com`.
 
-#### **Gestión de Stock Robusta**
-- **Modelo de Guardado por Lotes**: Ya no se sincroniza cada cambio al instante (para evitar bloqueos o errores de red).
-- **Flujo de Trabajo**:
-    1. El admin modifica las cantidades localmente.
-    2. Los productos cambiados se marcan visualmente como "Modificados".
-    3. Aparece un **botón flotante naranja ("Guardar todos los cambios")** que persiste todo de una vez.
-- **Acceso**: Ruta `#/admin` protegida para `infopicoyamor@gmail.com`.
+- **Control de Stock**:
+    - Sistema de edición por lotes con guardado mediante botón flotante.
+    - Indicadores visuales de productos modificados.
+- **Pedidos Realizados (Optimizado)**:
+    - **Gestión de Estados**: Selector dinámico para cambiar entre `Pagado (Procesando)`, `Enviado` y `Entregado`.
+    - **Transparencia**: Desglose claro de *Subtotal + Gastos de Envío = Total Final*.
+    - **Compacto**: Tarjetas de pedido rediseñadas para ver más información en menos espacio.
+    - **Orden**: Los pedidos más recientes aparecen siempre arriba.
+- **Gestión de Clientes**:
+    - Buscador por nombre/email.
+    - Contador de pedidos por cliente (Fidelidad).
+    - Acciones: Ver dirección completa y Borrar cliente.
 
-#### **Visualización de Pedidos**
-- Lista completa de pedidos ordenados por fecha.
-- Desglose de artículos, datos de contacto del cliente y dirección de envío.
-- Opción de borrar pedidos antiguos o de prueba.
-
-### 3. Frontend y Tienda
-- **Stock en Tiempo Real**: Los componentes `Packs.tsx` y `Home.tsx` solicitan el stock a Supabase en cada carga.
-- **Lógica de Bloqueo**: Si el stock es 0, el producto se marca automáticamente como "Agotado" y el botón de compra se desactiva.
-- **Alertas**: Badge de "Solo X unidades" automático cuando el stock baja de 5.
+### 3. Experiencia del Cliente
+- **Perfil de Usuario (`/profile`)**:
+    - **Modo Edición**: Doble estado (Lectura/Edición) para evitar cambios accidentales.
+    - **Sincronización de Pedidos**: Los pedidos ya no se guardan solo en local, se descargan de Supabase en cada inicio de sesión, permitiendo ver cambios de estado (ej. "Enviado") en tiempo real.
+    - **IDs Humanizados**: Los IDs de pedido se muestran acortados (8 caracteres) para mayor elegancia.
+- **Checkout**:
+    - Prioriza el guardado de la orden. Si el stock falla por RLS, el pedido se procesa y se avisa internamente al admin.
+    - Soporte completo para gastos de envío diferenciados (Península/Extra-peninsular).
 
 ## 📂 Estructura de Archivos Clave
-- `lib/supabase.ts`: Cliente de conexión.
-- `lib/db.ts`: Servicios de sincronización y guardado.
-- `pages/Admin.tsx`: Panel de control (Stock + Pedidos).
-- `constants.tsx`: Catálogo maestro y rutas de recursos.
+- `lib/db.ts`: Capa de servicios. Incluye `getUserOrders`, `saveOrder`, `updateStock` (RPC) y `saveProfile`.
+- `pages/Admin.tsx`: Lógica compleja de gestión de pedidos y clientes.
+- `pages/Profile.tsx`: Gestión de datos personales e historial de pedidos.
+- `App.tsx`: Centraliza la carga inicial de datos y la sincronización del estado del usuario.
 
 ## ⚠️ Notas Críticas para el Siguiente Agente
-1. **Error de "Agotado"**: Si la tienda muestra todo agotado a pesar de haber stock, revisa que la tabla `products` en Supabase no esté vacía y que la política de `SELECT` para usuarios `anon` esté activa.
-2. **Sincronización Inicial**: El script SQL de inserción manual es necesario si se borra la base de datos, ya que el código de `syncProducts` puede fallar si el RLS está muy restringido.
-3. **Credenciales**: Los tokens están en `lib/supabase.ts`. Sería ideal moverlos a variables de entorno si el proyecto escala.
+1. **RPC decrement_stock**: Es Vital. Si el stock no baja solo, verifica que la función SQL esté definida en Supabase con `security definer`.
+2. **UUIDs**: En el frontend usamos `.slice(0, 8)` para mostrar los IDs, pero para buscar en la DB o pasar props se debe usar el ID completo.
+3. **Sincronización de Pedidos**: Al cambiar el estado de un pedido en Admin, el cliente lo verá la próxima vez que entre en su perfil (o refresque), gracias al `useEffect` en `App.tsx` que llama a `getUserOrders`.
 
 ---
 *Documento actualizado para asegurar la continuidad del proyecto.* 🦜✨
