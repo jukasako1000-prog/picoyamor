@@ -45,6 +45,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
   const navLinks = [
     { name: 'Inicio', path: '/' },
     { name: 'Tienda', path: '/tienda' },
+    { name: 'Novedades', path: '/novedades' },
     { name: 'Blog', path: '/blog' },
     { name: 'Sobre Nosotros', path: '/about' },
     { name: 'Contacto', path: '/contact' },
@@ -94,8 +95,8 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
                 to={link.path}
                 onClick={() => handleNavClick(link.path)}
                 className={`px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center ${location.pathname === link.path || (link.path === '/blog' && location.pathname.startsWith('/blog'))
-                    ? 'bg-primary text-white shadow-sm'
-                    : 'text-text-main hover:text-primary hover:bg-white/50'
+                  ? 'bg-primary text-white shadow-sm'
+                  : 'text-text-main hover:text-primary hover:bg-white/50'
                   }`}
               >
                 {link.name}
@@ -174,8 +175,8 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
                 to={link.path}
                 onClick={() => setIsMenuOpen(false)}
                 className={`block w-full text-left px-6 py-5 rounded-[2rem] font-black uppercase tracking-[0.15em] text-lg transition-all ${location.pathname === link.path
-                    ? 'bg-primary text-white shadow-lg shadow-primary/20 translate-x-2'
-                    : 'text-text-main hover:bg-background-light active:scale-95'
+                  ? 'bg-primary text-white shadow-lg shadow-primary/20 translate-x-2'
+                  : 'text-text-main hover:bg-background-light active:scale-95'
                   }`}
               >
                 {link.name}

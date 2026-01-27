@@ -10,27 +10,24 @@ const NewArrivals: React.FC = () => {
     const upcomingProducts = [
         {
             id: 'up-1',
-            name: 'Columpio "Nube Natural"',
-            description: 'Estamos diseñando un columpio extra suave con base de corcho natural y fibras de coco. ¡Ideal para las siestas más cómodas!',
-            image: 'https://images.unsplash.com/photo-1601610815313-178f564be656?auto=format&fit=crop&q=80&w=400',
-            status: 'En fase de prototipo',
-            date: 'Muy pronto'
+            name: 'Proyecto "Nube"',
+            description: 'Explorando texturas ultrasuaves y materiales biodegradables para el descanso perfecto. El confort que tu ave merece está en camino.',
+            status: 'Fase de Prototipo',
+            date: 'Próximamente'
         },
         {
             id: 'up-2',
-            name: 'Piruleta Gourmet Gigante',
-            description: 'Una explosión de texturas y sabores. Estamos probando nuevas mezclas de flores secas y semillas premium.',
-            image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&q=80&w=400',
-            status: 'Pruebas de calidad',
-            date: 'Próxima semana'
+            name: 'Colección "Forrajeo 2026"',
+            description: 'Rediseñando la forma en que juegan. Nuevos retos intelectuales basados en el comportamiento natural de búsqueda.',
+            status: 'Pruebas de Seguridad',
+            date: 'Edición limitada'
         },
         {
             id: 'up-3',
-            name: 'Gimnasio "Aventura Total"',
-            description: 'El proyecto más grande hasta la fecha. Un parque de juegos modular que podrás ampliar según las necesidades de tu ave.',
-            image: 'https://images.unsplash.com/photo-1620694563886-c3a80ec55f41?auto=format&fit=crop&q=80&w=400',
-            status: 'Diseño estructural',
-            date: 'Marzo 2026'
+            name: 'Línea "Artesanía Pura"',
+            description: 'Trabajando mano a mano con la naturaleza. Juguetes modulares tallados en maderas nobles y seguras.',
+            status: 'Diseño Final',
+            date: 'Muy muy pronto'
         }
     ];
 
@@ -43,46 +40,51 @@ const NewArrivals: React.FC = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent font-black text-xs uppercase tracking-[0.2em]">
                     <span className="material-symbols-outlined text-sm filled-icon animate-spin-slow">settings</span> En el Taller
                 </div>
-                <h1 className="text-6xl md:text-8xl font-black text-text-main uppercase tracking-tighter leading-none">
-                    Próximos <span className="text-primary italic">Lanzamientos</span> <br />
-                    exclusivos 🦜✨
+                <h1 className="text-5xl md:text-7xl font-black text-text-main uppercase tracking-tighter leading-[0.9]">
+                    Estamos creando <br />
+                    <span className="text-primary italic">algo mágico</span> <br />
+                    para tu ave 🦜✨
                 </h1>
-                <p className="text-2xl text-text-muted font-medium max-w-3xl mx-auto leading-relaxed italic">
-                    "En nuestro taller no solo fabricamos juguetes, diseñamos momentos de felicidad." Echa un vistazo privado a lo que estamos creando ahora mismo.
+                <p className="text-xl text-text-muted font-medium max-w-3xl mx-auto leading-relaxed italic">
+                    "La inspiración no descansa, y nosotros tampoco." Estamos inmersos en el diseño de la nueva colección de Pico & Amor. Aquí puedes ver en qué estamos trabajando entre bambalinas.
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                 {upcomingProducts.map((product) => (
                     <div key={product.id} className="group bg-white rounded-[4rem] overflow-hidden border border-background-light shadow-soft hover:shadow-2xl transition-all duration-700">
-                        <div className="aspect-[4/5] overflow-hidden relative">
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                className="w-full h-full object-cover transition-transform duration-[3s] group-hover:scale-125 sepia-[0.3] group-hover:sepia-0"
+                        <div className="aspect-[4/5] overflow-hidden relative bg-[#E8E1D6]">
+                            {/* Blueprints overlay effect replacing actual image */}
+                            <div className="absolute inset-0 opacity-40"
+                                style={{
+                                    backgroundImage: `
+                                        linear-gradient(rgba(108, 147, 113, 0.1) 1px, transparent 1px),
+                                        linear-gradient(90deg, rgba(108, 147, 113, 0.1) 1px, transparent 1px)
+                                    `,
+                                    backgroundSize: '30px 30px'
+                                }}
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-text-main via-text-main/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
-                            {/* Blueprints overlay effect */}
-                            <div className="absolute inset-0 opacity-20 pointer-events-none group-hover:opacity-10 transition-opacity"
-                                style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
+                            <div className="absolute inset-0 flex items-center justify-center">
+                                <span className="material-symbols-outlined text-7xl text-primary/20 group-hover:scale-110 transition-transform duration-700">architecture</span>
+                            </div>
 
                             <div className="absolute top-8 left-8">
-                                <div className="bg-accent text-white px-5 py-2 rounded-full shadow-xl">
+                                <div className="bg-accent text-white px-5 py-3 rounded-2xl shadow-xl">
                                     <p className="text-[10px] font-black uppercase tracking-[0.2em]">{product.status}</p>
                                 </div>
                             </div>
 
-                            <div className="absolute bottom-8 left-8 right-8 text-white">
-                                <p className="text-xs font-black uppercase tracking-[0.3em] mb-2 opacity-70">Lanzamiento: {product.date}</p>
-                                <h3 className="text-4xl font-black uppercase tracking-tighter leading-none">{product.name}</h3>
+                            <div className="absolute bottom-8 left-8 right-8 text-text-main">
+                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-60">Proyecto confidencial: {product.date}</p>
+                                <h3 className="text-3xl font-black uppercase tracking-tighter leading-none">{product.name}</h3>
                             </div>
                         </div>
                         <div className="p-10 space-y-6">
-                            <p className="text-xl text-text-muted font-medium leading-relaxed">
+                            <p className="text-lg text-text-muted font-medium leading-relaxed">
                                 {product.description}
                             </p>
-                            <div className="flex items-center gap-4 text-primary font-black uppercase text-xs tracking-widest">
+                            <div className="flex items-center gap-4 text-primary font-black uppercase text-[10px] tracking-[0.2em]">
                                 <div className="h-px flex-1 bg-background-light" />
                                 <span>I+D Pico & Amor</span>
                                 <div className="h-px flex-1 bg-background-light" />
