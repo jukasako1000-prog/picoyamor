@@ -91,16 +91,21 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
             // 2. Save to Orders table
             await saveOrder(orderData);
 
-            // 3. Update Stock
-            await updateStock(cart.map(item => ({ id: item.id, quantity: item.quantity })));
+            // 3. Update Stock (Optional - Don't block order if RLS fails)
+            try {
+                await updateStock(cart.map(item => ({ id: item.id, quantity: item.quantity })));
+            } catch (stockError) {
+                console.warn('Stock update failed (possibly RLS limitation):', stockError);
+                // We proceed since the order itself was saved successfully
+            }
 
             // 4. Client side updates
             onCompleteOrder(cart, total);
             onClearCart();
             navigate('/order-success');
         } catch (error) {
-            console.error('Error processing order:', error);
-            alert('Hubo un error al procesar tu pedido. Por favor, inténtalo de nuevo.');
+            console.error('Error saving order:', error);
+            alert('Hubo un error al guardar tu pedido. Por favor, contacta con nosotros si el problema persiste.');
         }
     };
 

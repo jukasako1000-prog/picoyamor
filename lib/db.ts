@@ -33,28 +33,17 @@ export const syncProducts = async () => {
 };
 
 export const updateStock = async (items: { id: string, quantity: number }[]) => {
-    for (const item of items) {
-        try {
-            // Using RPC for atomic decrement would be better, but for simplicity:
-            const { data, error: fetchError } = await supabase
-                .from('products')
-                .select('stock_quantity')
-                .eq('id', item.id)
-                .single();
+    try {
+        const { error } = await supabase.rpc('decrement_stock', {
+            items_to_update: items
+        });
 
-            if (fetchError) throw fetchError;
-
-            const newStock = Math.max(0, (data.stock_quantity || 0) - item.quantity);
-
-            const { error: updateError } = await supabase
-                .from('products')
-                .update({ stock_quantity: newStock })
-                .eq('id', item.id);
-
-            if (updateError) throw updateError;
-        } catch (error) {
-            console.error(`Error updating stock for ${item.id}:`, error);
-        }
+        if (error) throw error;
+        return { success: true };
+    } catch (error) {
+        console.error('Error updating stock via RPC:', error);
+        // We catch here but the checkout flow handles the failure gracefully
+        throw error;
     }
 };
 
