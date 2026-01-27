@@ -1,49 +1,50 @@
 # 🦜 Pico & Amor - Resumen de Integración (Supabase + Gestión)
 
-Este archivo sirve como guía para cualquier desarrollador o agente de IA que continúe este proyecto.
+Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🚀 Estado Actual
-La aplicación ha evolucionado de un catálogo estático a una plataforma de e-commerce dinámica conectada a **Supabase**.
+## 🚀 Estado Actual (27 de Enero, 2026)
+La aplicación es un e-commerce funcional con persistencia en tiempo real mediante **Supabase**.
 
 ### 1. Infraestructura Supabase
-- **Base de Datos**: 
-    - `reviews`: Almacena reseñas de clientes con nombre, pájaro, texto y URL de imagen.
-    - `products`: Gestiona el inventario en tiempo real (`stock_quantity`).
-    - `orders`: Guarda detalles de transacciones (cliente, dirección, artículos, total).
-- **Storage**: Bucket `reviews` configurado para fotos comprimidas de las reseñas.
-- **Auth**: Sistema de autenticación habilitado para el panel de administración.
+- **Tablas**:
+    - `products`: Referencia de stock (`id`, `name`, `stock_quantity`).
+    - `orders`: Registro de transacciones con detalles de cliente y artículos.
+    - `reviews`: Reseñas del "Club Pico" con soporte para imágenes.
+- **Políticas de Seguridad (RLS)**:
+    - `products`: **Lectura pública** habilitada (para que la tienda vea el stock). **Actualización restringida** al email del administrador.
+    - `orders`: **Inserción pública** (para clientes) y **Control total** para el administrador.
+    - `reviews`: **Lectura e Inserción pública**.
 
-### 2. Funcionalidades Clave Implementadas
+### 2. Funcionalidades de Administración (Rediseñadas)
 
-#### **Muro de Reseñas (Club Pico)**
-- Componente `ClubPico.tsx`: Muestra reseñas en tiempo real y permite subidas con **compresión automática de imagen** en el cliente para ahorrar espacio.
+#### **Gestión de Stock Robusta**
+- **Modelo de Guardado por Lotes**: Ya no se sincroniza cada cambio al instante (para evitar bloqueos o errores de red).
+- **Flujo de Trabajo**:
+    1. El admin modifica las cantidades localmente.
+    2. Los productos cambiados se marcan visualmente como "Modificados".
+    3. Aparece un **botón flotante naranja ("Guardar todos los cambios")** que persiste todo de una vez.
+- **Acceso**: Ruta `#/admin` protegida para `infopicoyamor@gmail.com`.
 
-#### **Control de Stock Profesional**
-- **Sincronización Automática**: Al iniciar la app (`App.tsx`), los productos definidos en `constants.tsx` se registran automáticamente en la base de datos si no existen.
-- **Frontend Dinámico**: Las tarjetas de producto muestran:
-    - Botón "Agotado" y desactivado si el stock es 0.
-    - Badge de "Solo X unidades" si el stock es ≤ 5.
-- **Descuento de Inventario**: Al finalizar una compra en `Checkout.tsx`, el stock se resta automáticamente en Supabase.
+#### **Visualización de Pedidos**
+- Lista completa de pedidos ordenados por fecha.
+- Desglose de artículos, datos de contacto del cliente y dirección de envío.
+- Opción de borrar pedidos antiguos o de prueba.
 
-#### **Panel de Administración Seguro**
-- **Acceso Discreto**: Enlace "Gestión" en el pie de página (Footer).
-- **Ruta**: `#/admin` protegida por `Admin.tsx`.
-- **Seguridad**: Solo el email `infopicoyamor@gmail.com` tiene permisos. Requiere configuración previa en Supabase Auth.
-- **Capacidades**:
-    - Edición de stock (manual o con botones).
-    - Visualización de pedidos con datos completos de envío.
-    - Borrado de pedidos para limpieza.
+### 3. Frontend y Tienda
+- **Stock en Tiempo Real**: Los componentes `Packs.tsx` y `Home.tsx` solicitan el stock a Supabase en cada carga.
+- **Lógica de Bloqueo**: Si el stock es 0, el producto se marca automáticamente como "Agotado" y el botón de compra se desactiva.
+- **Alertas**: Badge de "Solo X unidades" automático cuando el stock baja de 5.
 
-## 📂 Archivos Críticos
-- `src/lib/supabase.ts`: Configuración del cliente Supabase.
-- `src/lib/db.ts`: Lógica centralizada de interacción con base de datos (sync, updateStock, saveOrder).
-- `src/pages/Admin.tsx`: El cerebro de la gestión de la tienda.
-- `src/pages/Checkout.tsx`: Proceso de persistencia de pedidos.
+## 📂 Estructura de Archivos Clave
+- `lib/supabase.ts`: Cliente de conexión.
+- `lib/db.ts`: Servicios de sincronización y guardado.
+- `pages/Admin.tsx`: Panel de control (Stock + Pedidos).
+- `constants.tsx`: Catálogo maestro y rutas de recursos.
 
-## 🛠️ Instrucciones para el Próximo Agente
-1. **Credenciales**: Actualmente están en `lib/supabase.ts`. Se recomienda moverlas a `.env` en producción.
-2. **Políticas RLS**: Las tablas `reviews`, `products` y `orders` tienen políticas activas. Para pedidos y reseñas se permite `anon insert`.
-3. **Escalabilidad**: Si se añaden nuevos productos a `constants.tsx`, la base de datos se actualizará sola gracias a `syncProducts()` en `App.tsx`.
+## ⚠️ Notas Críticas para el Siguiente Agente
+1. **Error de "Agotado"**: Si la tienda muestra todo agotado a pesar de haber stock, revisa que la tabla `products` en Supabase no esté vacía y que la política de `SELECT` para usuarios `anon` esté activa.
+2. **Sincronización Inicial**: El script SQL de inserción manual es necesario si se borra la base de datos, ya que el código de `syncProducts` puede fallar si el RLS está muy restringido.
+3. **Credenciales**: Los tokens están en `lib/supabase.ts`. Sería ideal moverlos a variables de entorno si el proyecto escala.
 
 ---
-*Documento generado por Antigravity el 27 de enero de 2026.* 🦜✨
+*Documento actualizado para asegurar la continuidad del proyecto.* 🦜✨
