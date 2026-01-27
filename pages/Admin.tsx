@@ -369,87 +369,92 @@ const Admin: React.FC = () => {
                             <p className="text-xl font-black text-text-main">No hay pedidos todavía</p>
                         </div>
                     ) : (
-                        orders.map(order => (
-                            <div key={order.id} className="bg-white rounded-[3rem] p-8 md:p-12 shadow-soft border border-background-light space-y-8">
-                                <div className="flex flex-col md:flex-row justify-between items-start gap-6 border-b border-background-light pb-8 relative">
-                                    <div>
-                                        <div className="flex flex-wrap items-center gap-3 mb-2">
-                                            <select
-                                                value={order.status || 'pagado'}
-                                                onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
-                                                className={`text-[10px] font-black px-3 py-1.5 rounded-full uppercase border-none focus:ring-2 focus:ring-primary cursor-pointer transition-all
+                        <div className="space-y-6">
+                            {orders.map((order) => (
+                                <div key={order.id} className="bg-white rounded-[2.5rem] p-6 md:p-8 shadow-soft border border-background-light space-y-6">
+                                    <div className="flex flex-col md:flex-row justify-between items-start gap-4 border-b border-background-light pb-6 relative">
+                                        <div>
+                                            <div className="flex flex-wrap items-center gap-3 mb-1">
+                                                <select
+                                                    value={order.status || 'pagado'}
+                                                    onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
+                                                    className={`text-[10px] font-black px-3 py-1.5 rounded-full uppercase border-none focus:ring-2 focus:ring-primary cursor-pointer transition-all
                                                     ${order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
-                                                        order.status === 'entregado' ? 'bg-green-100 text-green-600' :
-                                                            'bg-primary/10 text-primary'}`}
+                                                            order.status === 'entregado' ? 'bg-green-100 text-green-600' :
+                                                                'bg-primary/10 text-primary'}`}
+                                                >
+                                                    <option value="pagado">🟢 Pagado (Procesando)</option>
+                                                    <option value="enviado">🔵 Enviado</option>
+                                                    <option value="entregado">✅ Entregado</option>
+                                                </select>
+                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest">ID: {order.id.slice(0, 8)}</p>
+                                            </div>
+                                            <h3 className="text-xl font-black text-text-main uppercase tracking-tighter">
+                                                {order.created_at ? new Date(order.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' }) : 'Fecha no disponible'}
+                                            </h3>
+                                        </div>
+                                        <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">
+                                            <div className="text-right">
+                                                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Total Pedido</p>
+                                                <p className="text-2xl font-black text-primary leading-none">{order.total.toFixed(2)}€</p>
+                                            </div>
+                                            <button
+                                                onClick={() => handleDeleteOrder(order.id)}
+                                                className="size-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
+                                                title="Borrar Pedido"
                                             >
-                                                <option value="pagado">🟢 Pagado (Procesando)</option>
-                                                <option value="enviado">🔵 Enviado</option>
-                                                <option value="entregado">✅ Entregado</option>
-                                            </select>
-                                            <p className="text-[10px] text-text-muted font-black uppercase tracking-widest">ID PEDIDO: {order.id.slice(0, 8)}</p>
+                                                <span className="material-symbols-outlined text-xl">delete</span>
+                                            </button>
                                         </div>
-                                        <h3 className="text-2xl font-black text-text-main uppercase tracking-tighter">
-                                            {new Date(order.created_at).toLocaleDateString('es-ES', { day: '2-digit', month: 'long', year: 'numeric' })}
-                                        </h3>
                                     </div>
-                                    <div className="flex items-center gap-8">
-                                        <div className="text-right">
-                                            <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Total Pedido</p>
-                                            <p className="text-3xl font-black text-primary">{order.total.toFixed(2)}€</p>
-                                        </div>
-                                        <button
-                                            onClick={() => handleDeleteOrder(order.id)}
-                                            className="size-12 bg-red-50 text-red-500 rounded-2xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all shadow-sm"
-                                            title="Borrar pedido"
-                                        >
-                                            <span className="material-symbols-outlined">delete</span>
-                                        </button>
-                                    </div>
-                                </div>
 
-                                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                                    <div className="space-y-6">
-                                        <h4 className="text-xs font-black text-primary uppercase tracking-[0.2em]">Datos del Cliente</h4>
+                                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                                         <div className="space-y-4">
                                             <div>
-                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Nombre y Email</p>
-                                                <p className="text-lg font-bold text-text-main">{order.customer_name}</p>
-                                                <p className="text-text-muted font-medium">{order.customer_email}</p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Dirección de Envío</p>
-                                                <p className="font-bold text-text-main">{order.customer_address}</p>
-                                                <p className="text-text-muted font-medium">{order.customer_city}, {order.customer_province}, {order.customer_postal_code}</p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[10px] text-text-muted font-black uppercase tracking-widest mb-1">Teléfono</p>
-                                                <p className="font-bold text-text-main">{order.customer_phone}</p>
+                                                <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-3">Datos del Cliente</p>
+                                                <div className="space-y-3">
+                                                    <div>
+                                                        <p className="text-[10px] font-black text-text-muted uppercase tracking-tighter">Nombre y Email</p>
+                                                        <p className="text-sm font-bold text-text-main">{order.customer_name}</p>
+                                                        <p className="text-xs text-text-muted">{order.customer_email}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-[10px] font-black text-text-muted uppercase tracking-tighter">Dirección de Envío</p>
+                                                        <p className="text-sm font-medium text-text-main">{order.customer_address}</p>
+                                                        <p className="text-sm font-medium text-text-main">{order.customer_postal_code}, {order.customer_city}, {order.customer_province}</p>
+                                                    </div>
+                                                    <div>
+                                                        <p className="text-[10px] font-black text-text-muted uppercase tracking-tighter">Teléfono</p>
+                                                        <p className="text-sm font-bold text-text-main">{order.customer_phone}</p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
 
-                                    <div className="space-y-6">
-                                        <h4 className="text-xs font-black text-primary uppercase tracking-[0.2em]">Artículos</h4>
-                                        <div className="bg-background-light/30 rounded-3xl p-6 space-y-4">
-                                            {order.items.map((item: any, idx: number) => (
-                                                <div key={idx} className="flex justify-between items-center text-sm">
-                                                    <div className="flex gap-3 items-center">
-                                                        <span className="bg-white size-6 flex items-center justify-center rounded-lg font-black text-[10px] text-primary select-none">{item.quantity}x</span>
-                                                        <span className="font-bold text-text-main">{item.name}</span>
-                                                    </div>
-                                                    <span className="font-black text-text-main">{(item.price * item.quantity).toFixed(2)}€</span>
+                                        <div>
+                                            <p className="text-[10px] font-black text-primary uppercase tracking-widest mb-3">Artículos</p>
+                                            <div className="bg-background-light/30 rounded-3xl p-4 space-y-3">
+                                                <div className="max-h-[200px] overflow-y-auto pr-2 space-y-2 custom-scrollbar">
+                                                    {order.items.map((item: any, idx: number) => (
+                                                        <div key={idx} className="flex justify-between items-center text-sm border-b border-background-light/50 pb-2 last:border-0 last:pb-0">
+                                                            <div className="flex gap-2 items-center">
+                                                                <span className="text-[10px] font-black bg-background-light px-2 py-0.5 rounded-md text-text-muted">{item.quantity}x</span>
+                                                                <p className="font-bold text-text-main text-xs">{item.name}</p>
+                                                            </div>
+                                                            <p className="font-medium text-text-muted text-xs">{item.price.toFixed(2)}€</p>
+                                                        </div>
+                                                    ))}
                                                 </div>
-                                            ))}
-                                            <div className="pt-4 border-t border-background-light flex justify-between items-center text-xs">
-                                                <span className="font-black text-text-muted uppercase tracking-widest">Total Artículos</span>
-                                                <span className="font-black text-text-main">{(order.total - (order.shipping_cost || 0)).toFixed(2)}€</span>
+                                                <div className="pt-2 border-t border-background-light flex justify-between items-center">
+                                                    <p className="text-[10px] font-black text-text-muted uppercase">Total Artículos</p>
+                                                    <p className="font-black text-text-main">{(order.total - (order.shipping_cost || 0)).toFixed(2)}€</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
-                    )}
+                            ))}
+                        </div>)}
                 </div>
             ) : (
                 <div className="space-y-8">
