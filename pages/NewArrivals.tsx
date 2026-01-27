@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const NewArrivals: React.FC = () => {
     useEffect(() => {
@@ -102,10 +103,10 @@ const NewArrivals: React.FC = () => {
                         <p className="text-2xl text-white/80 font-medium max-w-2xl mx-auto">
                             Muchos de nuestros mejores diseños nacen de vuestras sugerencias. Cuéntanos qué juguete le encantaría a tu ave y podríamos hacerlo realidad.
                         </p>
-                        <a href="/contact" className="inline-flex items-center gap-4 bg-white text-primary px-12 py-6 rounded-3xl font-black uppercase text-lg tracking-widest hover:bg-text-main hover:text-white transition-all shadow-2xl active:scale-95">
+                        <Link to="/contact" className="inline-flex items-center gap-4 bg-white text-primary px-12 py-6 rounded-3xl font-black uppercase text-lg tracking-widest hover:bg-text-main hover:text-white transition-all shadow-2xl active:scale-95">
                             Enviar Sugerencia
                             <span className="material-symbols-outlined">lightbulb</span>
-                        </a>
+                        </Link>
                     </div>
                 </div>
             </div>
