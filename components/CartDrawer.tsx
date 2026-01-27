@@ -276,17 +276,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
 
                 {/* Info de Envío Optimizada */}
                 <div className="pt-2 border-t border-background-light">
-                  <div className="flex flex-col gap-0.5">
-                    <div className="flex justify-between items-baseline">
-                      <p className="text-[11px] font-black text-text-main uppercase tracking-widest shrink-0">Península</p>
-                      <div className="h-px bg-background-light flex-1 mx-2 mb-1 border-t border-dashed" />
-                      <p className="text-[11px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_PENINSULA}€</p>
-                    </div>
-                    <div className="flex justify-between items-baseline">
-                      <p className="text-[11px] font-black text-text-main uppercase tracking-widest shrink-0">Otros</p>
-                      <div className="h-px bg-background-light flex-1 mx-2 mb-1 border-t border-dashed" />
-                      <p className="text-[11px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_EXTRA}€</p>
-                    </div>
+                  <div className="flex flex-col gap-1">
+                    <p className="text-[11px] font-black uppercase tracking-widest text-center">
+                      <span className="text-text-main">Península:</span> <span className="text-primary">Gratis desde {FREE_SHIPPING_PENINSULA}€</span>
+                    </p>
+                    <p className="text-[11px] font-black uppercase tracking-widest text-center">
+                      <span className="text-text-main">Otros:</span> <span className="text-primary">Gratis desde {FREE_SHIPPING_EXTRA}€</span>
+                    </p>
                   </div>
                 </div>
 
