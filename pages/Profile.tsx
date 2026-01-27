@@ -304,7 +304,7 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
             <div className="bg-primary p-6 text-white flex justify-between items-center">
               <div>
                 <p className="text-[10px] font-black uppercase opacity-70">Resumen de Pedido</p>
-                <h3 className="text-xl font-black">{selectedOrder.id}</h3>
+                <h3 className="text-xl font-black uppercase">Pedido #{selectedOrder.id.slice(0, 8)}</h3>
               </div>
               <button onClick={() => setSelectedOrder(null)} className="size-10 bg-white/20 hover:bg-white/30 rounded-full flex items-center justify-center transition-colors">
                 <span className="material-symbols-outlined">close</span>
@@ -319,7 +319,11 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-text-muted uppercase">Fecha de compra</p>
-                    <p className="font-bold">{selectedOrder.date}</p>
+                    <p className="font-bold">
+                      {selectedOrder.created_at
+                        ? new Date(selectedOrder.created_at).toLocaleDateString()
+                        : selectedOrder.date}
+                    </p>
                   </div>
                 </div>
                 <div className="text-right">
