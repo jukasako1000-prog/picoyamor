@@ -14,19 +14,19 @@ const Footer: React.FC = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-4 mb-6">
               <div className="size-12 bg-white rounded-full overflow-hidden border-2 border-white/20 shadow-lg">
-                <img 
-                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg" 
-                  alt="Pico & Amor Logo" 
+                <img
+                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg"
+                  alt="Pico & Amor Logo"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h2 className="text-2xl font-black">Pico & Amor</h2>
             </div>
             <p className="text-white/60 mb-8 max-w-sm text-lg leading-relaxed">
-              Tu tienda de confianza para el enriquecimiento ambiental de tus aves. 
+              Tu tienda de confianza para el enriquecimiento ambiental de tus aves.
               Creamos felicidad y seguridad, un juguete a la vez.
             </p>
-            
+
             {/* Redes Sociales Seguras */}
             <div className="flex gap-5 items-center">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="size-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all duration-300 group shadow-lg">
@@ -40,7 +40,7 @@ const Footer: React.FC = () => {
               </a>
             </div>
           </div>
-          
+
           <div>
             <h5 className="font-bold text-white mb-6 uppercase tracking-widest text-xs opacity-70">Explora</h5>
             <ul className="flex flex-col gap-3 text-sm text-white/60">
@@ -53,19 +53,20 @@ const Footer: React.FC = () => {
           <div>
             <h5 className="font-bold text-white mb-6 uppercase tracking-widest text-xs opacity-70">Ayuda</h5>
             <ul className="flex flex-col gap-3 text-sm text-white/60">
-              <li><button onClick={scrollToTop} className="text-left hover:text-white transition-colors">Envíos y Devoluciones</button></li>
+              <li><Link to="/envios-devoluciones" className="hover:text-white transition-colors">Envíos y Devoluciones</Link></li>
               <li><button onClick={scrollToTop} className="text-left hover:text-white transition-colors">FAQ</button></li>
               <li><Link to="/contact" className="hover:text-white transition-colors">Contacto</Link></li>
-              <li><button onClick={scrollToTop} className="text-left hover:text-white transition-colors">Privacidad</button></li>
+              <li><Link to="/privacidad" className="hover:text-white transition-colors">Privacidad</Link></li>
             </ul>
           </div>
         </div>
-        
+
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-4">
           <p>© 2024 Pico & Amor. Todos los derechos reservados. Hecho con 💚 para las aves.</p>
           <div className="flex gap-6">
-            <button onClick={scrollToTop} className="hover:text-white">Privacidad</button>
-            <button onClick={scrollToTop} className="hover:text-white">Términos</button>
+            <Link to="/privacidad" className="hover:text-white">Privacidad</Link>
+            <Link to="/terminos" className="hover:text-white">Términos</Link>
+            <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
           </div>
         </div>
       </div>

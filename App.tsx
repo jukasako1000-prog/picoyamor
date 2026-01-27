@@ -12,6 +12,10 @@ import Blog from './pages/Blog';
 import BlogPostDetail from './pages/BlogPostDetail';
 import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
+import LegalNotice from './pages/LegalNotice';
+import PrivacyPolicy from './pages/PrivacyPolicy';
+import Terms from './pages/Terms';
+import ShippingReturns from './pages/ShippingReturns';
 import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import ImageModal from './components/ImageModal';
@@ -140,6 +144,10 @@ const App: React.FC = () => {
               />
             } />
             <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/aviso-legal" element={<LegalNotice />} />
+            <Route path="/privacidad" element={<PrivacyPolicy />} />
+            <Route path="/terminos" element={<Terms />} />
+            <Route path="/envios-devoluciones" element={<ShippingReturns />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
