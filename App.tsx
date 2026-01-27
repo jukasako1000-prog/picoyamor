@@ -18,6 +18,7 @@ import Terms from './pages/Terms';
 import ShippingReturns from './pages/ShippingReturns';
 import FAQ from './pages/FAQ';
 import NewArrivals from './pages/NewArrivals';
+import ClubPico from './pages/ClubPico';
 import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import ImageModal from './components/ImageModal';
@@ -152,6 +153,7 @@ const App: React.FC = () => {
             <Route path="/envios-devoluciones" element={<ShippingReturns />} />
             <Route path="/faq" element={<FAQ />} />
             <Route path="/novedades" element={<NewArrivals />} />
+            <Route path="/club-pico" element={<ClubPico />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
