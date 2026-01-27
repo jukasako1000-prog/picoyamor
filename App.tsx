@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import Profile from './pages/Profile';
 import Blog from './pages/Blog';
 import BlogPostDetail from './pages/BlogPostDetail';
+import Checkout from './pages/Checkout';
 import CartDrawer from './components/CartDrawer';
 import AuthModal from './components/AuthModal';
 import ImageModal from './components/ImageModal';
@@ -122,6 +123,15 @@ const App: React.FC = () => {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<Profile user={user} orders={orders} onUpdateUser={handleUpdateUser} />} />
+            <Route path="/checkout" element={
+              <Checkout
+                cart={cart}
+                user={user}
+                onClearCart={handleClearCart}
+                onCompleteOrder={handleCompleteOrder}
+                onOpenAuth={() => setIsAuthOpen(true)}
+              />
+            } />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>

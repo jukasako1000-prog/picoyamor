@@ -1,5 +1,5 @@
-
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { CartItem, UserProfile } from '../types';
 
 interface CartDrawerProps {
@@ -39,13 +39,13 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   onClearCart,
   onCompleteOrder
 }) => {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+  const navigate = useNavigate();
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
 
   // Cálculo de totales
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
-  const isExtraPeninsular = useMemo(() => {
+  const isExtraPeninsular = (() => {
     if (!user) return false;
     const prov = (user.province || '').toLowerCase().trim();
     const hasExtraProv = EXTRA_PENINSULAR_PROVINCES.some(p => prov.includes(p));
@@ -53,7 +53,7 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
     const cpPrefix = cp.substring(0, 2);
     const hasExtraCP = EXTRA_PENINSULAR_CP_PREFIXES.includes(cpPrefix);
     return hasExtraProv || hasExtraCP;
-  }, [user]);
+  })();
 
   const shippingFee = isExtraPeninsular
     ? (subtotal >= FREE_SHIPPING_EXTRA ? 0 : SHIPPING_EXTRA)
@@ -89,21 +89,15 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   };
 
   const handleCheckout = () => {
+    onClose();
+    navigate('/checkout');
     if (!user) {
       onOpenAuth();
-      return;
     }
-    setStatus('loading');
-    setTimeout(() => {
-      onCompleteOrder(cart, total);
-      setStatus('success');
-      onClearCart();
-    }, 1500);
   };
 
   const handleClose = () => {
     onClose();
-    setTimeout(() => setStatus('idle'), 300);
   };
 
   if (!isOpen) return null;
