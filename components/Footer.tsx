@@ -63,6 +63,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-white/40 gap-4">
           <p>© 2024 Pico & Amor. Todos los derechos reservados. Hecho con 💚 para las aves.</p>
           <div className="flex gap-6">
+            <Link to="/admin" className="hover:text-white opacity-40 hover:opacity-100 transition-opacity">Gestión</Link>
             <Link to="/privacidad" className="hover:text-white">Privacidad</Link>
             <Link to="/terminos" className="hover:text-white">Términos</Link>
             <Link to="/aviso-legal" className="hover:text-white">Aviso Legal</Link>
