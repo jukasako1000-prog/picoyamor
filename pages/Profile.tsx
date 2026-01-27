@@ -15,6 +15,16 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
   const [activeTab, setActiveTab] = useState<'details' | 'orders'>('details');
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const hasChanges = user ? (
+    formData.name !== user.name ||
+    formData.address !== user.address ||
+    formData.city !== user.city ||
+    formData.province !== user.province ||
+    formData.postalCode !== user.postalCode ||
+    formData.phone !== user.phone
+  ) : false;
 
   if (!user) {
     return (
@@ -25,6 +35,11 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
       </div>
     );
   }
+
+  const handleCancel = () => {
+    setFormData(user);
+    setIsEditing(false);
+  };
 
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +62,7 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
 
       await saveProfile(user.id, dbData);
       onUpdateUser(formData);
+      setIsEditing(false);
       alert('¡Perfil actualizado con éxito! 🦜✨');
     } catch (error: any) {
       console.error('Error updating profile:', error);
@@ -102,34 +118,66 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Nombre Completo</label>
-                    <input className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner" value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
+                    <input
+                      disabled={!isEditing}
+                      className={`w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner transition-all ${!isEditing ? 'opacity-60 grayscale-[0.5]' : ''}`}
+                      value={formData.name}
+                      onChange={e => setFormData({ ...formData, name: e.target.value })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Email</label>
-                    <input disabled className="w-full bg-background-light border-none rounded-2xl px-6 py-4 opacity-60 cursor-not-allowed shadow-inner" value={formData.email} />
+                    <input disabled className="w-full bg-background-light border-none rounded-2xl px-6 py-4 opacity-40 cursor-not-allowed shadow-inner grayscale" value={formData.email} />
                   </div>
                   <div className="space-y-2 md:col-span-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Dirección de Envío</label>
-                    <input className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner" value={formData.address} onChange={e => setFormData({ ...formData, address: e.target.value })} />
+                    <input
+                      disabled={!isEditing}
+                      className={`w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner transition-all ${!isEditing ? 'opacity-60 grayscale-[0.5]' : ''}`}
+                      value={formData.address}
+                      onChange={e => setFormData({ ...formData, address: e.target.value })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Localidad</label>
-                    <input className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner" value={formData.city} onChange={e => setFormData({ ...formData, city: e.target.value })} />
+                    <input
+                      disabled={!isEditing}
+                      className={`w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner transition-all ${!isEditing ? 'opacity-60 grayscale-[0.5]' : ''}`}
+                      value={formData.city}
+                      onChange={e => setFormData({ ...formData, city: e.target.value })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Provincia</label>
-                    <input className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner" value={formData.province} onChange={e => setFormData({ ...formData, province: e.target.value })} />
+                    <input
+                      disabled={!isEditing}
+                      className={`w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner transition-all ${!isEditing ? 'opacity-60 grayscale-[0.5]' : ''}`}
+                      value={formData.province}
+                      onChange={e => setFormData({ ...formData, province: e.target.value })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Código Postal</label>
-                    <input className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner" value={formData.postalCode} onChange={e => setFormData({ ...formData, postalCode: e.target.value })} />
+                    <input
+                      disabled={!isEditing}
+                      className={`w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner transition-all ${!isEditing ? 'opacity-60 grayscale-[0.5]' : ''}`}
+                      value={formData.postalCode}
+                      onChange={e => setFormData({ ...formData, postalCode: e.target.value })}
+                    />
                   </div>
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase text-text-muted ml-2">Teléfono</label>
-                    <input className="w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner" value={formData.phone} onChange={e => setFormData({ ...formData, phone: e.target.value })} />
+                    <input
+                      disabled={!isEditing}
+                      className={`w-full bg-background-light border-none rounded-2xl px-6 py-4 focus:ring-2 focus:ring-primary shadow-inner transition-all ${!isEditing ? 'opacity-60 grayscale-[0.5]' : ''}`}
+                      value={formData.phone}
+                      onChange={e => setFormData({ ...formData, phone: e.target.value })}
+                    />
                   </div>
                 </div>
                 {user.isGuest ? (
+                  // ... (guest section remains the same)
+
                   <div className="mt-8 p-8 bg-primary/10 rounded-[2.5rem] border border-primary/20 flex flex-col md:flex-row items-center justify-between gap-8 animate-fade-in shadow-xl shadow-primary/5">
                     <div className="flex items-center gap-5">
                       <div className="size-14 bg-primary rounded-full flex items-center justify-center text-white shadow-lg shadow-primary/20">
@@ -145,20 +193,49 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                     </button>
                   </div>
                 ) : (
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="mt-8 bg-primary hover:bg-primary-hover text-white font-black px-12 py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 hover:shadow-primary/30 active:scale-95 text-sm disabled:opacity-50 flex items-center gap-3"
-                  >
-                    {loading ? (
-                      <>
-                        <div className="size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Guardando...
-                      </>
+                  <div className="flex flex-col md:flex-row gap-4 mt-8">
+                    {!isEditing ? (
+                      <button
+                        type="button"
+                        onClick={() => setIsEditing(true)}
+                        className="bg-primary hover:bg-primary-hover text-white font-black px-12 py-5 rounded-2xl transition-all shadow-xl shadow-primary/20 active:scale-95 text-xs uppercase tracking-widest flex items-center gap-3"
+                      >
+                        <span className="material-symbols-outlined text-xl">edit</span>
+                        Editar Datos
+                      </button>
                     ) : (
-                      'Guardar Cambios'
+                      <button
+                        type="button"
+                        onClick={handleCancel}
+                        className="bg-background-light hover:bg-gray-100 text-text-muted font-black px-12 py-5 rounded-2xl transition-all active:scale-95 text-xs uppercase tracking-widest flex items-center gap-3 border border-background-light"
+                      >
+                        <span className="material-symbols-outlined text-xl">close</span>
+                        Cancelar
+                      </button>
                     )}
-                  </button>
+
+                    <button
+                      type="submit"
+                      disabled={!isEditing || !hasChanges || loading}
+                      className={`px-12 py-5 rounded-2xl font-black transition-all text-xs uppercase tracking-widest flex items-center gap-3
+                        ${(!isEditing || !hasChanges)
+                          ? 'bg-gray-100 text-gray-400 cursor-not-allowed border border-gray-200'
+                          : 'bg-green-600 hover:bg-green-700 text-white shadow-xl shadow-green-900/10 active:scale-95'
+                        }`}
+                    >
+                      {loading ? (
+                        <>
+                          <div className="size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Guardando...
+                        </>
+                      ) : (
+                        <>
+                          <span className="material-symbols-outlined text-xl">save</span>
+                          Guardar Cambios
+                        </>
+                      )}
+                    </button>
+                  </div>
                 )}
               </form>
             </div>
