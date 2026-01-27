@@ -148,32 +148,6 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                         )}
                     </div>
 
-                    {/* Sección de Pago */}
-                    <div className="bg-white rounded-[3rem] p-8 md:p-12 shadow-soft border border-background-light">
-                        <div className="flex items-center gap-4 mb-10">
-                            <div className="size-12 bg-accent/10 rounded-2xl flex items-center justify-center text-accent">
-                                <span className="material-symbols-outlined text-2xl filled-icon">payments</span>
-                            </div>
-                            <h3 className="text-xl font-black text-text-main uppercase tracking-tight">Método de Pago</h3>
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-4">
-                            <div className="flex items-center justify-between p-6 rounded-3xl border-2 border-primary bg-primary/5 transition-all text-left">
-                                <div className="flex items-center gap-4">
-                                    <div className="size-12 bg-white rounded-2xl flex items-center justify-center text-primary shadow-sm">
-                                        <span className="material-symbols-outlined text-2xl">credit_card</span>
-                                    </div>
-                                    <div>
-                                        <p className="font-black text-base uppercase tracking-tight">Tarjeta de Crédito</p>
-                                        <p className="text-xs text-text-muted font-bold">Pago seguro y encriptado con Stripe</p>
-                                    </div>
-                                </div>
-                                <div className="size-8 rounded-full bg-primary flex items-center justify-center shadow-lg shadow-primary/20">
-                                    <div className="size-3 rounded-full bg-white shadow-inner" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {/* Lado Derecho: Resumen del Pedido (Sticky) */}
@@ -214,28 +188,42 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                             </div>
                         </div>
 
-                        <button
-                            onClick={handleFinalizeOrder}
-                            disabled={!user}
-                            className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest transition-all mt-8 text-white shadow-xl
-                ${user
-                                    ? 'bg-primary hover:bg-primary-hover shadow-primary/20 active:scale-95'
-                                    : 'bg-background-light text-text-muted cursor-not-allowed shadow-none'
-                                }`}
-                        >
-                            Finalizar y Pagar
-                        </button>
+                        <div className="mt-8 pt-6 border-t border-background-light space-y-4">
+                            <div className="flex items-center gap-3 bg-primary/5 p-4 rounded-2xl border border-primary/10">
+                                <span className="material-symbols-outlined text-primary text-xl">encrypted</span>
+                                <div>
+                                    <p className="text-[10px] font-black text-text-main uppercase tracking-widest">Pago con Tarjeta</p>
+                                    <p className="text-[9px] font-bold text-text-muted uppercase">Procesado por Stripe</p>
+                                </div>
+                                <div className="flex-1" />
+                                <div className="flex gap-1 opacity-50">
+                                    <span className="material-symbols-outlined text-xl">credit_card</span>
+                                </div>
+                            </div>
 
-                        {!user && (
-                            <p className="text-[10px] text-center text-red-500 font-bold uppercase mt-4">
-                                * Rellena tus datos para poder finalizar
-                            </p>
-                        )}
+                            <button
+                                onClick={handleFinalizeOrder}
+                                disabled={!user}
+                                className={`w-full py-5 rounded-2xl font-black uppercase tracking-widest transition-all text-white shadow-xl
+                    ${user
+                                        ? 'bg-primary hover:bg-primary-hover shadow-primary/20 active:scale-95'
+                                        : 'bg-background-light text-text-muted cursor-not-allowed shadow-none'
+                                    }`}
+                            >
+                                Finalizar y Pagar
+                            </button>
+
+                            {!user && (
+                                <p className="text-[10px] text-center text-red-500 font-bold uppercase">
+                                    * Rellena tus datos para poder finalizar
+                                </p>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="bg-primary/5 rounded-3xl p-6 border border-primary/10 flex items-center gap-4">
-                        <div className="size-10 bg-white rounded-full flex items-center justify-center text-primary shadow-sm">
-                            <span className="material-symbols-outlined text-xl">verified_user</span>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-6 border border-background-light flex items-center gap-4">
+                        <div className="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+                            <span className="material-symbols-outlined text-xl filled-icon">verified_user</span>
                         </div>
                         <p className="text-[10px] font-bold text-text-muted uppercase leading-relaxed">
                             Pago 100% seguro. Tus datos están protegidos bajo normativa europea de privacidad.
