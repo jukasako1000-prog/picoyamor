@@ -28,15 +28,15 @@ const Footer: React.FC = () => {
             </p>
 
             {/* Redes Sociales Seguras */}
-            <div className="flex gap-5 items-center">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="size-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all duration-300 group shadow-lg">
-                <span className="material-symbols-outlined text-[26px] group-hover:scale-110 transition-transform">facebook</span>
+            <div className="flex gap-4 items-center">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
+                <img src="/LOGOS/ICONOFACEBOOK.png" alt="Facebook" className="w-full h-full object-cover" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="size-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-gradient-to-tr from-[#f9ce34] via-[#ee2a7b] to-[#6228d7] hover:text-white transition-all duration-300 group shadow-lg">
-                <span className="material-symbols-outlined text-[26px] group-hover:scale-110 transition-transform">photo_camera</span>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
+                <img src="/LOGOS/ICONOINSTAGRAM.png" alt="Instagram" className="w-full h-full object-cover" />
               </a>
-              <a href="https://wa.me/34000000000" target="_blank" rel="noopener noreferrer" className="size-12 bg-white/10 rounded-full flex items-center justify-center hover:bg-[#25D366] hover:text-white transition-all duration-300 group shadow-lg">
-                <span className="material-symbols-outlined text-[26px] filled-icon group-hover:scale-110 transition-transform">chat</span>
+              <a href="https://wa.me/34000000000" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
+                <img src="/LOGOS/ICONOWASAP.png" alt="WhatsApp" className="w-full h-full object-cover" />
               </a>
             </div>
           </div>
