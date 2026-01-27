@@ -275,17 +275,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
 
                 {/* Info de Envío Optimizada */}
-                <div className="pt-3 border-t border-background-light">
-                  <div className="flex flex-col gap-2">
-                    <div className="flex justify-between items-baseline text-center">
-                      <p className="text-[10px] font-black text-text-main uppercase tracking-widest shrink-0">Península</p>
+                <div className="pt-2 border-t border-background-light">
+                  <div className="flex flex-col gap-0.5">
+                    <div className="flex justify-between items-baseline">
+                      <p className="text-[11px] font-black text-text-main uppercase tracking-widest shrink-0">Península</p>
                       <div className="h-px bg-background-light flex-1 mx-2 mb-1 border-t border-dashed" />
-                      <p className="text-[10px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_PENINSULA}€</p>
+                      <p className="text-[11px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_PENINSULA}€</p>
                     </div>
-                    <div className="flex justify-between items-baseline text-center">
-                      <p className="text-[10px] font-black text-text-main uppercase tracking-widest shrink-0">Otros</p>
+                    <div className="flex justify-between items-baseline">
+                      <p className="text-[11px] font-black text-text-main uppercase tracking-widest shrink-0">Otros</p>
                       <div className="h-px bg-background-light flex-1 mx-2 mb-1 border-t border-dashed" />
-                      <p className="text-[10px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_EXTRA}€</p>
+                      <p className="text-[11px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_EXTRA}€</p>
                     </div>
                   </div>
                 </div>
