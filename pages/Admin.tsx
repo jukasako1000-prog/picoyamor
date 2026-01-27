@@ -122,6 +122,51 @@ const Admin: React.FC = () => {
         }
     };
 
+    // Helper component for manual stock input
+    const StockInput = ({ initialValue, onSave }: { initialValue: number, onSave: (val: number) => void }) => {
+        const [localValue, setLocalValue] = useState(initialValue.toString());
+        const [isSaving, setIsSaving] = useState(false);
+
+        useEffect(() => {
+            setLocalValue(initialValue.toString());
+        }, [initialValue]);
+
+        const handleBlur = () => {
+            const val = parseInt(localValue);
+            if (!isNaN(val) && val !== initialValue) {
+                setIsSaving(true);
+                onSave(val);
+                setTimeout(() => setIsSaving(false), 1000);
+            } else {
+                setLocalValue(initialValue.toString());
+            }
+        };
+
+        const handleKeyDown = (e: React.KeyboardEvent) => {
+            if (e.key === 'Enter') {
+                (e.target as HTMLInputElement).blur();
+            }
+        };
+
+        return (
+            <div className="relative">
+                <input
+                    type="number"
+                    value={localValue}
+                    onChange={(e) => setLocalValue(e.target.value)}
+                    onBlur={handleBlur}
+                    onKeyDown={handleKeyDown}
+                    className={`text-xl font-black w-20 text-center bg-white/50 rounded-lg border-2 border-transparent focus:border-primary/30 focus:ring-0 transition-all ${parseInt(localValue) === 0 ? 'text-red-500' : 'text-text-main'} ${isSaving ? 'bg-green-50' : ''}`}
+                />
+                {isSaving && (
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 text-[8px] font-black text-green-500 uppercase animate-bounce">
+                        Guardado
+                    </div>
+                )}
+            </div>
+        );
+    };
+
     if (!session) {
         return (
             <div className="pt-40 pb-20 px-4 flex flex-col items-center justify-center min-h-screen bg-background-light/30">
@@ -226,15 +271,12 @@ const Admin: React.FC = () => {
                                         >
                                             <span className="material-symbols-outlined text-lg">remove</span>
                                         </button>
-                                        <input
-                                            type="number"
-                                            value={stock}
-                                            onChange={(e) => {
-                                                const val = parseInt(e.target.value) || 0;
-                                                updateStockUI(product.id, val - stock);
-                                            }}
-                                            className={`text-xl font-black w-16 text-center bg-transparent border-none focus:ring-0 ${stock === 0 ? 'text-red-500' : 'text-text-main'}`}
+
+                                        <StockInput
+                                            initialValue={stock}
+                                            onSave={(val) => updateStockUI(product.id, val - stock)}
                                         />
+
                                         <button
                                             onClick={() => updateStockUI(product.id, 1)}
                                             className="size-10 bg-white rounded-xl flex items-center justify-center text-text-main hover:bg-primary/10 hover:text-primary transition-all border border-background-light"
