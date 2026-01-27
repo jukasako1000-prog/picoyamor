@@ -40,8 +40,9 @@ export interface UserProfile {
 
 export interface Order {
   id: string;
-  date: string;
+  date?: string;
+  created_at?: string;
   total: number;
-  status: 'Entregado' | 'En camino' | 'Procesando';
-  items: string[];
+  status: string;
+  items: any[];
 }

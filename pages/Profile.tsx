@@ -249,36 +249,46 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
                     <p className="text-text-muted font-bold">Aún no has realizado ningún pedido.</p>
                   </div>
                 ) : (
-                  orders.map((order) => (
-                    <div key={order.id} className="bg-background-light/50 border border-background-light p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-primary/20 transition-colors">
-                      <div>
-                        <p className="text-xs font-black text-text-muted uppercase tracking-widest mb-1">{order.date}</p>
-                        <h4 className="font-bold text-lg">{order.id}</h4>
-                        <p className="text-sm text-text-muted">{order.items.join(', ')}</p>
-                      </div>
-                      <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
-                        <div className="text-right">
-                          <p className="text-xl font-black">{order.total.toFixed(2)}€</p>
-                          <div className="flex items-center gap-3">
-                            <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase
-                              ${order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
-                                order.status === 'entregado' ? 'bg-green-100 text-green-600' :
-                                  'bg-primary/10 text-primary'}`}>
-                              {order.status === 'enviado' ? 'Enviado 📦' :
-                                order.status === 'entregado' ? 'Entregado ✅' :
-                                  'Pagado (Procesando) 🦜'}
-                            </span>
-                          </div>
+                  orders.map((order) => {
+                    const orderDate = order.created_at
+                      ? new Date(order.created_at).toLocaleDateString()
+                      : order.date;
+
+                    const itemsList = Array.isArray(order.items) && typeof order.items[0] === 'object'
+                      ? order.items.map((item: any) => `${item.quantity}x ${item.name}`).join(', ')
+                      : Array.isArray(order.items) ? order.items.join(', ') : 'Detalles no disponibles';
+
+                    return (
+                      <div key={order.id} className="bg-background-light/50 border border-background-light p-6 rounded-3xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 hover:border-primary/20 transition-colors">
+                        <div>
+                          <p className="text-[10px] font-black text-text-muted uppercase tracking-widest mb-1">{orderDate}</p>
+                          <h4 className="font-bold text-lg uppercase tracking-tight">Pedido #{order.id.slice(0, 8)}</h4>
+                          <p className="text-xs text-text-muted font-medium italic">{itemsList}</p>
                         </div>
-                        <button
-                          onClick={() => setSelectedOrder(order)}
-                          className="size-10 bg-white rounded-full shadow-sm flex items-center justify-center text-text-muted hover:text-primary transition-colors border border-background-light hover:border-primary"
-                        >
-                          <span className="material-symbols-outlined">visibility</span>
-                        </button>
+                        <div className="flex items-center gap-6 w-full md:w-auto justify-between md:justify-end">
+                          <div className="text-right">
+                            <p className="text-xl font-black">{order.total.toFixed(2)}€</p>
+                            <div className="flex items-center gap-3">
+                              <span className={`text-[10px] font-black px-3 py-1 rounded-full uppercase
+                                ${order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
+                                  order.status === 'entregado' ? 'bg-green-100 text-green-600' :
+                                    'bg-primary/10 text-primary'}`}>
+                                {order.status === 'enviado' ? 'Enviado 📦' :
+                                  order.status === 'entregado' ? 'Entregado ✅' :
+                                    'Pagado (Procesando) 🦜'}
+                              </span>
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => setSelectedOrder(order)}
+                            className="size-10 bg-white rounded-full shadow-sm flex items-center justify-center text-text-muted hover:text-primary transition-colors border border-background-light hover:border-primary"
+                          >
+                            <span className="material-symbols-outlined">visibility</span>
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  ))
+                    );
+                  })
                 )}
               </div>
             </div>
