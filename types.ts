@@ -34,6 +34,7 @@ export interface UserProfile {
   province: string;
   postalCode: string;
   phone: string;
+  isGuest?: boolean;
 }
 
 export interface Order {

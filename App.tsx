@@ -21,20 +21,23 @@ const App: React.FC = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
   const [viewingImage, setViewingImage] = useState<string | null>(null);
-  
+
   const [user, setUser] = useState<UserProfile | null>(() => {
     const saved = localStorage.getItem('pico_user');
     return saved ? JSON.parse(saved) : null;
   });
-  
+
   const [orders, setOrders] = useState<Order[]>(() => {
     const saved = localStorage.getItem('pico_orders');
     return saved ? JSON.parse(saved) : [];
   });
 
   useEffect(() => {
-    if (user) localStorage.setItem('pico_user', JSON.stringify(user));
-    else localStorage.removeItem('pico_user');
+    if (user && !user.isGuest) {
+      localStorage.setItem('pico_user', JSON.stringify(user));
+    } else if (!user) {
+      localStorage.removeItem('pico_user');
+    }
   }, [user]);
 
   useEffect(() => {
@@ -102,14 +105,14 @@ const App: React.FC = () => {
     <Router>
       <ScrollToTop />
       <div className="min-h-screen flex flex-col font-body selection:bg-accent/30 selection:text-text-main overflow-x-hidden">
-        <Navbar 
-          cart={cart} 
-          onOpenCart={() => setIsCartOpen(true)} 
+        <Navbar
+          cart={cart}
+          onOpenCart={() => setIsCartOpen(true)}
           onOpenAuth={() => setIsAuthOpen(true)}
           user={user}
           onLogout={handleLogout}
         />
-        
+
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home onAddToCart={handleAddToCart} onImageClick={setViewingImage} />} />
@@ -124,10 +127,10 @@ const App: React.FC = () => {
         </main>
 
         <Footer />
-        
-        <CartDrawer 
-          isOpen={isCartOpen} 
-          onClose={() => setIsCartOpen(false)} 
+
+        <CartDrawer
+          isOpen={isCartOpen}
+          onClose={() => setIsCartOpen(false)}
           cart={cart}
           user={user}
           onOpenAuth={() => setIsAuthOpen(true)}
@@ -137,7 +140,7 @@ const App: React.FC = () => {
           onCompleteOrder={handleCompleteOrder}
         />
 
-        <AuthModal 
+        <AuthModal
           isOpen={isAuthOpen}
           onClose={() => setIsAuthOpen(false)}
           onLogin={handleLogin}

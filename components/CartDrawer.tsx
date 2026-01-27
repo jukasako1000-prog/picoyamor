@@ -298,6 +298,24 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     </p>
                   </div>
                 </div>
+
+                {user?.isGuest && (
+                  <div className="mt-4 p-4 bg-background-light/50 rounded-2xl border border-gray-100 flex flex-col gap-3">
+                    <p className="text-[11px] text-text-muted font-bold uppercase tracking-wider text-center">
+                      ¿Quieres guardar tus datos?
+                    </p>
+                    <button
+                      onClick={() => {
+                        onClose();
+                        onOpenAuth();
+                      }}
+                      className="text-[10px] font-black text-primary hover:text-primary-hover uppercase tracking-widest flex items-center justify-center gap-1.5 transition-colors"
+                    >
+                      <span className="material-symbols-outlined text-sm">person_add</span>
+                      Crear una cuenta ahora
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </>

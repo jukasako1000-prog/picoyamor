@@ -54,29 +54,29 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
     <>
       <div className={`fixed top-0 left-0 right-0 z-50 flex justify-center px-4 transition-all duration-500 pointer-events-none ${isScrolled ? 'pt-2' : 'pt-4'}`}>
         <nav className={`w-full max-w-7xl transition-all duration-500 pointer-events-auto flex items-center justify-between
-          ${isScrolled 
-            ? 'bg-white/95 backdrop-blur-lg shadow-hover rounded-2xl px-3 py-2 border-primary/5' 
+          ${isScrolled
+            ? 'bg-white/95 backdrop-blur-lg shadow-hover rounded-2xl px-3 py-2 border-primary/5'
             : 'bg-surface/80 backdrop-blur-md border-white/50 shadow-soft rounded-full px-4 sm:px-6 py-4'
           }`}
         >
           {/* Lado Izquierdo: Hamburguesa (Móvil) + Logo */}
           <div className="flex items-center gap-2">
-            <button 
+            <button
               onClick={() => setIsMenuOpen(true)}
               className="md:hidden size-10 flex items-center justify-center text-text-main hover:bg-primary/5 rounded-full transition-colors"
             >
               <span className="material-symbols-outlined text-2xl">menu</span>
             </button>
 
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               onClick={() => handleNavClick('/')}
               className="flex items-center gap-3 sm:gap-4 group shrink-0"
             >
               <div className={`overflow-hidden rounded-full border-2 border-primary/20 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${isScrolled ? 'size-7 md:size-8' : 'size-9 md:size-10'}`}>
-                <img 
-                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg" 
-                  alt="Pico & Amor Logo" 
+                <img
+                  src="https://i.postimg.cc/Gpywxh9s/Whats-App-Image-2026-01-11-at-15-24-14.jpg"
+                  alt="Pico & Amor Logo"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -93,11 +93,10 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
                 key={link.name}
                 to={link.path}
                 onClick={() => handleNavClick(link.path)}
-                className={`px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center ${
-                  location.pathname === link.path || (link.path === '/blog' && location.pathname.startsWith('/blog'))
+                className={`px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center ${location.pathname === link.path || (link.path === '/blog' && location.pathname.startsWith('/blog'))
                     ? 'bg-primary text-white shadow-sm'
                     : 'text-text-main hover:text-primary hover:bg-white/50'
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>
@@ -109,9 +108,9 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
             {user ? (
               <div className={`flex items-center gap-1 sm:gap-2 rounded-full pl-2 sm:pl-3 pr-1 py-1 transition-colors ${isScrolled ? 'bg-background-light/50' : 'bg-background-light'}`}>
                 <Link to="/profile" className="text-[10px] font-black uppercase tracking-wider text-text-main hover:text-primary transition-colors hidden sm:block">
-                  {user.name.split(' ')[0]}
+                  {user.isGuest ? 'Invitado' : user.name.split(' ')[0]}
                 </Link>
-                <button 
+                <button
                   onClick={onLogout}
                   className="size-7 bg-white text-text-muted hover:text-red-500 rounded-full flex items-center justify-center transition-colors shadow-sm"
                   title="Cerrar sesión"
@@ -120,7 +119,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
                 </button>
               </div>
             ) : (
-              <button 
+              <button
                 onClick={onOpenAuth}
                 className={`flex items-center gap-2 px-2 sm:px-3 py-1.5 text-text-muted hover:text-primary hover:bg-primary/5 rounded-full transition-all text-[10px] font-black uppercase tracking-wide`}
               >
@@ -129,7 +128,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
               </button>
             )}
 
-            <button 
+            <button
               onClick={onOpenCart}
               className={`group relative flex items-center gap-2 transition-all duration-500 bg-primary text-white rounded-full hover:bg-primary-hover shadow-lg shadow-primary/10 active:scale-95
                 ${isScrolled ? 'pl-2.5 pr-1.5 py-1' : 'pl-4 sm:pl-5 pr-2 sm:pr-2.5 py-2'}`}
@@ -151,7 +150,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
       {/* Menú Móvil (Overlay) */}
       <div className={`fixed inset-0 z-[100] transition-all duration-500 md:hidden ${isMenuOpen ? 'visible opacity-100' : 'invisible opacity-0'}`}>
         <div className="absolute inset-0 bg-background-light/95 backdrop-blur-2xl" onClick={() => setIsMenuOpen(false)} />
-        
+
         <div className={`absolute top-0 left-0 bottom-0 w-[80%] max-w-sm bg-white shadow-2xl transition-transform duration-500 ease-out flex flex-col ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}>
           <div className="p-8 flex items-center justify-between border-b border-background-light">
             <div className="flex items-center gap-3">
@@ -160,7 +159,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
               </div>
               <span className="font-black text-text-main">Menú</span>
             </div>
-            <button 
+            <button
               onClick={() => setIsMenuOpen(false)}
               className="size-10 flex items-center justify-center text-text-muted hover:bg-background-light rounded-full transition-colors"
             >
@@ -174,11 +173,10 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
                 key={link.name}
                 to={link.path}
                 onClick={() => setIsMenuOpen(false)}
-                className={`block w-full text-left px-6 py-5 rounded-[2rem] font-black uppercase tracking-[0.15em] text-lg transition-all ${
-                  location.pathname === link.path
+                className={`block w-full text-left px-6 py-5 rounded-[2rem] font-black uppercase tracking-[0.15em] text-lg transition-all ${location.pathname === link.path
                     ? 'bg-primary text-white shadow-lg shadow-primary/20 translate-x-2'
                     : 'text-text-main hover:bg-background-light active:scale-95'
-                }`}
+                  }`}
               >
                 {link.name}
               </Link>

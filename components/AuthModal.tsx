@@ -60,7 +60,8 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin }) => {
       }
     }
     setTimeout(() => {
-      onLogin({ ...formData });
+      const isGuest = mode === 'guest';
+      onLogin({ ...formData, isGuest });
       setLoading(false);
       onClose();
     }, 1500);
