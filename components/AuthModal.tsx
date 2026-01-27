@@ -92,7 +92,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
           await saveProfile(authData.user.id, profileData);
 
           onLogin({ ...formData, isGuest: false });
-          alert('¡Cuenta creada! Por favor, revisa tu email para confirmar tu cuenta.');
+          alert('¡Cuenta creada con éxito! Bienvenido a la bandada 🦜✨');
           onClose();
         }
       } else if (mode === 'login') {
