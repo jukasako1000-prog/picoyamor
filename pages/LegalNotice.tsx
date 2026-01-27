@@ -22,7 +22,7 @@ const LegalNotice: React.FC = () => {
                         <li><strong className="text-text-main uppercase text-xs tracking-widest">NIF:</strong> 48484517B</li>
                         <li><strong className="text-text-main uppercase text-xs tracking-widest">Domicilio:</strong> RNDA. Hist. Lluis Duart Alabarta 1, P02-11. Almussafes (Valencia)</li>
                         <li><strong className="text-text-main uppercase text-xs tracking-widest">Nombre Comercial:</strong> Pico & Amor</li>
-                        <li><strong className="text-text-main uppercase text-xs tracking-widest">Email:</strong> hola@picoyamor.com</li>
+                        <li><strong className="text-text-main uppercase text-xs tracking-widest">Email:</strong> infopicoyamor@gmail.com</li>
                     </ul>
                 </section>
 
@@ -39,6 +39,11 @@ const LegalNotice: React.FC = () => {
                 <section className="space-y-4">
                     <h2 className="text-xl font-black text-text-main uppercase tracking-tight">3. Limitación de Responsabilidad</h2>
                     <p>La titular no se hace responsable de los daños y perjuicios de cualquier naturaleza que pudieran derivarse de la disponibilidad y continuidad técnica del funcionamiento del sitio web.</p>
+                </section>
+
+                <section className="space-y-4">
+                    <h2 className="text-xl font-black text-text-main uppercase tracking-tight">4. Sus Derechos</h2>
+                    <p>Como usuario, tiene derecho a acceder a sus datos personales, solicitar la rectificación de los datos inexactos o, en su caso, solicitar su supresión. Puede ejercer estos derechos enviando un correo electrónico a infopicoyamor@gmail.com indicando su número de DNI.</p>
                 </section>
             </div>
         </div>

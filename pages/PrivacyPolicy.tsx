@@ -36,7 +36,7 @@ const PrivacyPolicy: React.FC = () => {
 
                 <section className="space-y-4">
                     <h2 className="text-xl font-black text-text-main uppercase tracking-tight">4. Sus Derechos</h2>
-                    <p>Como usuario, tiene derecho a acceder a sus datos personales, solicitar la rectificación de los datos inexactos o, en su caso, solicitar su supresión. Puede ejercer estos derechos enviando un correo electrónico a hola@picoyamor.com indicando su número de DNI.</p>
+                    <p>Como usuario, tiene derecho a acceder a sus datos personales, solicitar la rectificación de los datos inexactos o, en su caso, solicitar su supresión. Puede ejercer estos derechos enviando un correo electrónico a infopicoyamor@gmail.com indicando su número de DNI.</p>
                 </section>
             </div>
         </div>
