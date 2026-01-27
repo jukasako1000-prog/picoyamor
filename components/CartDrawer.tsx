@@ -58,6 +58,10 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
   const shippingFee = isExtraPeninsular
     ? (subtotal >= FREE_SHIPPING_EXTRA ? 0 : SHIPPING_EXTRA)
     : (subtotal >= FREE_SHIPPING_PENINSULA ? 0 : SHIPPING_PENINSULA);
+
+  const activeThreshold = isExtraPeninsular ? FREE_SHIPPING_EXTRA : FREE_SHIPPING_PENINSULA;
+  const remainingForFree = Math.max(0, activeThreshold - subtotal);
+
   const total = subtotal + shippingFee;
 
   useEffect(() => {
@@ -240,6 +244,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                     </span>
                   </div>
                 </div>
+
+                {remainingForFree > 0 && (
+                  <div className="bg-primary/5 border border-primary/10 rounded-2xl p-4 flex items-center gap-3 animate-fade-in">
+                    <div className="size-10 bg-primary/10 rounded-full flex items-center justify-center text-primary shrink-0">
+                      <span className="material-symbols-outlined text-xl filled-icon">redeem</span>
+                    </div>
+                    <p className="text-[13px] text-[#3F3D3C] font-medium leading-tight">
+                      ¡Solo te faltan <span className="font-black text-primary">{remainingForFree.toFixed(2)}€</span> para tener <span className="font-black uppercase">envío gratis</span>! 🦜✨
+                    </p>
+                  </div>
+                )}
 
                 <div className="flex flex-col gap-3 pt-2">
                   <button
