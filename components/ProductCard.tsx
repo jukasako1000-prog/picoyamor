@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
             <span className="bg-red-50 text-red-500 text-[10px] font-bold px-2 py-1 rounded-lg">-{Math.round(((product.oldPrice! - product.price) / product.oldPrice!) * 100)}%</span>
           )}
         </div>
-        <p className="text-sm text-text-muted line-clamp-3 mb-4 leading-relaxed">{product.description}</p>
+        <p className="text-sm text-text-muted mb-6 leading-relaxed py-1">{product.description}</p>
 
         <div className="mt-auto pt-4 border-t border-background-light flex items-center justify-between">
           <div className="flex flex-col">
