@@ -43,6 +43,7 @@ export interface Order {
   date?: string;
   created_at?: string;
   total: number;
+  shipping_cost?: number;
   status: string;
   items: any[];
 }

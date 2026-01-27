@@ -445,9 +445,21 @@ const Admin: React.FC = () => {
                                                         </div>
                                                     ))}
                                                 </div>
-                                                <div className="pt-2 border-t border-background-light flex justify-between items-center">
-                                                    <p className="text-[10px] font-black text-text-muted uppercase">Total Artículos</p>
-                                                    <p className="font-black text-text-main">{(order.total - (order.shipping_cost || 0)).toFixed(2)}€</p>
+                                                <div className="pt-2 border-t border-background-light space-y-1">
+                                                    <div className="flex justify-between items-center text-[10px] font-black text-text-muted uppercase">
+                                                        <span>Total Artículos</span>
+                                                        <span>{(order.total - (order.shipping_cost || 0)).toFixed(2)}€</span>
+                                                    </div>
+                                                    {order.shipping_cost > 0 && (
+                                                        <div className="flex justify-between items-center text-[10px] font-black text-primary uppercase">
+                                                            <span>Gastos de Envío</span>
+                                                            <span>{order.shipping_cost.toFixed(2)}€</span>
+                                                        </div>
+                                                    )}
+                                                    <div className="flex justify-between items-center pt-1 border-t border-background-light/50">
+                                                        <p className="text-[10px] font-black text-text-main uppercase">Total Final</p>
+                                                        <p className="font-black text-primary text-base">{order.total.toFixed(2)}€</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

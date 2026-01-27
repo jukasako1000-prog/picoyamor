@@ -336,20 +336,41 @@ const Profile: React.FC<ProfileProps> = ({ user, orders, onUpdateUser }) => {
               <div className="space-y-3">
                 <p className="text-xs font-black text-text-muted uppercase tracking-widest border-b pb-2">Productos incluidos</p>
                 <div className="space-y-2">
-                  {selectedOrder.items.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-3 bg-background-light p-3 rounded-2xl">
-                      <div className="size-8 bg-white rounded-lg flex items-center justify-center text-primary">
-                        <span className="material-symbols-outlined text-sm">inventory_2</span>
+                  {selectedOrder.items.map((item: any, idx) => {
+                    const itemName = typeof item === 'object' ? item.name : item;
+                    const itemQty = typeof item === 'object' ? item.quantity : 1;
+                    return (
+                      <div key={idx} className="flex items-center justify-between bg-background-light p-4 rounded-2xl">
+                        <div className="flex items-center gap-3">
+                          <div className="size-8 bg-white rounded-lg flex items-center justify-center text-primary border border-background-light shadow-sm">
+                            <span className="font-black text-[10px]">{itemQty}x</span>
+                          </div>
+                          <span className="font-bold text-sm text-text-main">{itemName}</span>
+                        </div>
+                        {typeof item === 'object' && item.price && (
+                          <span className="text-xs font-bold text-text-muted">{(item.price * itemQty).toFixed(2)}€</span>
+                        )}
                       </div>
-                      <span className="font-bold text-sm text-text-main">{item}</span>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
-              <div className="pt-4 border-t flex justify-between items-center">
-                <p className="text-lg font-bold text-text-main">Total Pagado</p>
-                <p className="text-3xl font-black text-primary">{selectedOrder.total.toFixed(2)}€</p>
+              <div className="pt-4 border-t space-y-2">
+                <div className="flex justify-between items-center text-sm font-medium text-text-muted">
+                  <span>Productos</span>
+                  <span>{(selectedOrder.total - (selectedOrder.shipping_cost || 0)).toFixed(2)}€</span>
+                </div>
+                {selectedOrder.shipping_cost > 0 && (
+                  <div className="flex justify-between items-center text-sm font-medium text-primary">
+                    <span>Gastos de Envío</span>
+                    <span>{selectedOrder.shipping_cost.toFixed(2)}€</span>
+                  </div>
+                )}
+                <div className="flex justify-between items-center pt-2 border-t border-background-light">
+                  <p className="text-lg font-black text-text-main">Total Pagado</p>
+                  <p className="text-2xl font-black text-primary">{selectedOrder.total.toFixed(2)}€</p>
+                </div>
               </div>
 
               <button
