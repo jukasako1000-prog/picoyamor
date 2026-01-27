@@ -175,8 +175,8 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
               ) : (
                 cart.map((item) => (
-                  <div key={item.id} className="flex gap-6 relative group py-8 border-b border-background-light last:border-0 transition-colors hover:bg-background-light/20 -mx-4 px-4 rounded-3xl">
-                    <div className="flex items-center pt-1 shrink-0">
+                  <div key={item.id} className="flex gap-4 relative group py-4 border-b border-background-light last:border-0 transition-colors hover:bg-background-light/20 -mx-4 px-4 rounded-2xl">
+                    <div className="flex items-center shrink-0">
                       <label className="cursor-pointer">
                         <input type="checkbox" className="peer sr-only" checked={selectedIds.has(item.id)} onChange={() => toggleSelect(item.id)} />
                         <div className="size-5 border-2 border-[#6c9371]/20 rounded-full peer-checked:bg-primary peer-checked:border-primary flex items-center justify-center transition-all">
@@ -197,17 +197,17 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                         </button>
                       </div>
 
-                      <div className="flex items-center justify-between mt-3">
-                        <div className="flex items-center gap-4 bg-[#F5F5F3] rounded-full px-3 py-1">
+                      <div className="flex items-center justify-between mt-2">
+                        <div className="flex items-center gap-3 bg-[#F5F5F3] rounded-full px-2.5 py-0.5">
                           <button onClick={() => onUpdateQuantity(item.id, -1)} className="text-[#A1A1A1] hover:text-primary transition-colors flex items-center">
-                            <span className="material-symbols-outlined text-lg">remove</span>
+                            <span className="material-symbols-outlined text-base">remove</span>
                           </button>
-                          <span className="text-[13px] font-black text-[#3F3D3C]">{item.quantity}</span>
+                          <span className="text-xs font-black text-[#3F3D3C]">{item.quantity}</span>
                           <button onClick={() => onUpdateQuantity(item.id, 1)} className="text-[#A1A1A1] hover:text-primary transition-colors flex items-center">
-                            <span className="material-symbols-outlined text-lg">add</span>
+                            <span className="material-symbols-outlined text-base">add</span>
                           </button>
                         </div>
-                        <span className="font-black text-[14px] text-[#3F3D3C]">{item.price.toFixed(2)}€</span>
+                        <span className="font-black text-xs text-[#3F3D3C]">{item.price.toFixed(2)}€</span>
                       </div>
                     </div>
                   </div>
@@ -215,30 +215,30 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
               )}
             </div>
 
-            {/* Footer de Totales */}
+            {/* Footer de Totales Compacto */}
             {cart.length > 0 && (
-              <div className="px-8 pt-6 pb-14 space-y-8 shrink-0 bg-white">
+              <div className="px-6 pt-4 pb-10 space-y-4 shrink-0 bg-white border-t border-background-light">
                 {/* Resumen de Totales */}
-                <div className="space-y-3 bg-background-light/30 rounded-[2rem] p-5 border border-background-light">
+                <div className="space-y-2 bg-background-light/30 rounded-2xl p-4 border border-background-light">
                   <div className="flex justify-between items-center text-[#6c7a6e]">
-                    <span className="font-black uppercase tracking-widest text-[11px]">Subtotal Productos</span>
-                    <span className="font-black text-[16px] text-[#3F3D3C]">{subtotal.toFixed(2)}€</span>
+                    <span className="font-black uppercase tracking-widest text-[10px]">Subtotal</span>
+                    <span className="font-black text-sm text-[#3F3D3C]">{subtotal.toFixed(2)}€</span>
                   </div>
 
                   <div className="flex justify-between items-center text-[#6c7a6e]">
-                    <span className="font-black uppercase tracking-widest text-[11px]">Gastos de Envío</span>
-                    <span className="font-black text-[16px] text-[#3F3D3C]">
+                    <span className="font-black uppercase tracking-widest text-[10px]">Envío</span>
+                    <span className="font-black text-sm text-[#3F3D3C]">
                       {!user ? (
-                        <span className="text-[10px] text-gray-400 font-bold italic uppercase tracking-wider">Calculados al tramitar</span>
+                        <span className="text-[9px] text-gray-400 font-bold italic uppercase tracking-wider">Por calcular</span>
                       ) : (
                         shippingFee === 0 ? '0.00€' : `${shippingFee.toFixed(2)}€`
                       )}
                     </span>
                   </div>
 
-                  <div className="pt-2 flex justify-between items-center text-[#3F3D3C]">
-                    <span className="font-black uppercase tracking-[0.15em] text-[13px]">Total Pedido</span>
-                    <span className="font-black text-[22px]">
+                  <div className="pt-2 flex justify-between items-center text-[#3F3D3C] border-t border-background-light/50 mt-1">
+                    <span className="font-black uppercase tracking-widest text-xs">Total</span>
+                    <span className="font-black text-xl">
                       {total.toFixed(2)}€
                       {!user && <span className="text-[10px] text-gray-400 ml-1 font-bold">*</span>}
                     </span>
@@ -274,24 +274,19 @@ const CartDrawer: React.FC<CartDrawerProps> = ({
                   </button>
                 </div>
 
-                {/* Info de Envío Mucho más clara */}
-                <div className="mt-5 pt-5 border-t-2 border-background-light">
-                  <p className="text-[13px] font-black text-primary uppercase tracking-[0.15em] text-center mb-4">
-                    ¡ENVÍO GRATIS SEGÚN TU PEDIDO!
-                  </p>
-                  <div className="flex flex-col gap-2.5 items-center">
-                    <p className="text-[11px] font-medium text-text-muted text-center leading-relaxed">
-                      <span className="font-black uppercase tracking-widest text-[12px] text-text-main">Península:</span>
-                      <span className="text-text-main ml-1">{SHIPPING_PENINSULA.toFixed(2)}€</span>
-                      <br />
-                      <span className="text-[11px] font-black text-primary uppercase tracking-widest">(GRATIS DESDE {FREE_SHIPPING_PENINSULA}€)</span>
-                    </p>
-                    <p className="text-[11px] font-medium text-text-muted text-center leading-relaxed">
-                      <span className="font-black uppercase tracking-widest text-[12px] text-text-main">Fuera Península:</span>
-                      <span className="text-text-main ml-1">{SHIPPING_EXTRA.toFixed(2)}€</span>
-                      <br />
-                      <span className="text-[11px] font-black text-primary uppercase tracking-widest">(GRATIS DESDE {FREE_SHIPPING_EXTRA}€)</span>
-                    </p>
+                {/* Info de Envío Optimizada */}
+                <div className="pt-3 border-t border-background-light">
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-between items-baseline text-center">
+                      <p className="text-[10px] font-black text-text-main uppercase tracking-widest shrink-0">Península</p>
+                      <div className="h-px bg-background-light flex-1 mx-2 mb-1 border-t border-dashed" />
+                      <p className="text-[10px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_PENINSULA}€</p>
+                    </div>
+                    <div className="flex justify-between items-baseline text-center">
+                      <p className="text-[10px] font-black text-text-main uppercase tracking-widest shrink-0">Otros</p>
+                      <div className="h-px bg-background-light flex-1 mx-2 mb-1 border-t border-dashed" />
+                      <p className="text-[10px] font-black text-primary uppercase">Gratis desde {FREE_SHIPPING_EXTRA}€</p>
+                    </div>
                   </div>
                 </div>
 
