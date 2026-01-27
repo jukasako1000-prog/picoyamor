@@ -93,9 +93,9 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p17',
-    name: 'Columpio de Corteza',
-    price: 10.90,
-    description: 'Corteza de pino natural con fibra de coco y piña. Perfecto para desgaste del pico, limado de uñas y enriquecimiento. Con mosquetones de acero.',
+    name: 'Columpio Corteza de Pino Piñonero',
+    price: 14.80,
+    description: 'Corteza de pino piñonero natural con fibra de coco y piña. Medidas: 29cm alto x 20cm ancho. Ideal para aves medianas y pequeñas. Desgaste de pico y limado de uñas natural.',
     image: IMG_COLUMPIO_CORTEZA,
     category: 'Columpios'
   },
