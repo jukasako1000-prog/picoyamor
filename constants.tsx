@@ -49,7 +49,6 @@ const IMG_PROD_AVENTURA = 'https://i.postimg.cc/SRf3Zg0b/Whats_App_Image_2026_01
 const IMG_PROD_RELAX = 'https://i.postimg.cc/NfQWyvTq/Whats_App_Image_2026_01_11_at_15_21_22.jpg';
 const IMG_PROD_NATURA = 'https://i.postimg.cc/ZKpqJs3w/Whats-App-Image-2026-01-25-at-12-13-58.jpg';
 const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
-const IMG_COLUMPIO_ESENCIA = 'https://i.postimg.cc/BnTM9MM0/COLUMPIO_A.png';
 const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
 const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.jpeg';
 const IMG_COLUMPIO_CORCHO = '/columpio-AVE.png';
@@ -91,15 +90,6 @@ export const PRODUCTS: Product[] = [
     description: 'Selección especial de accesorios artesanales con rama de olivo natural. Ideal para estimulación y enriquecimiento.',
     image: IMG_PACK_OLIVO,
     category: 'Packs'
-  },
-  {
-    id: 'p11',
-    name: 'Columpio "Esencia Natural"',
-    price: 9.90,
-    description: 'Diseño rústico y minimalista. La percha perfecta para sus momentos de descanso.',
-    image: IMG_COLUMPIO_ESENCIA,
-    category: 'Columpios',
-    badge: 'Clásico'
   },
   {
     id: 'p17',
