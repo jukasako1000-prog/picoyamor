@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import { PRODUCTS } from '../constants';
 import { Product } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface PacksProps {
   onAddToCart: (p: Product) => void;
@@ -12,7 +13,36 @@ interface PacksProps {
 const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
   const [filter, setFilter] = useState('Todos');
   const [searchQuery, setSearchQuery] = useState('');
+  const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
+  const [loadingStock, setLoadingStock] = useState(true);
+
   const categories = ['Todos', 'Packs', 'Columpios', 'Forrajeo'];
+
+  useEffect(() => {
+    fetchStock();
+  }, []);
+
+  const fetchStock = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id, stock_quantity');
+
+      if (error) throw error;
+
+      if (data) {
+        const levels = data.reduce((acc, curr) => ({
+          ...acc,
+          [curr.id]: curr.stock_quantity
+        }), {});
+        setStockLevels(levels);
+      }
+    } catch (error) {
+      console.error('Error fetching stock:', error);
+    } finally {
+      setLoadingStock(false);
+    }
+  };
 
   const filteredProducts = PRODUCTS.filter(p => {
     const matchesCategory = filter === 'Todos' || p.category === filter;
@@ -51,8 +81,8 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
                 key={cat}
                 onClick={() => setFilter(cat)}
                 className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 focus:outline-none ${filter === cat
-                    ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
-                    : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm'
+                  ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
+                  : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm'
                   }`}
               >
                 {cat}
@@ -64,7 +94,14 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 animate-fade-in">
         {filteredProducts.map((product) => (
-          <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} onImageClick={onImageClick} />
+          <ProductCard
+            key={product.id}
+            product={product}
+            onAddToCart={onAddToCart}
+            onImageClick={onImageClick}
+            stock={stockLevels[product.id] ?? 0}
+            isLoadingStock={loadingStock}
+          />
         ))}
       </div>
 

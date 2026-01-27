@@ -6,9 +6,12 @@ interface ProductCardProps {
   product: Product;
   onAddToCart: (p: Product) => void;
   onImageClick?: (url: string) => void;
+  stock?: number;
+  isLoadingStock?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImageClick }) => {
+const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImageClick, stock = 0, isLoadingStock = false }) => {
+  const isOutOfStock = !isLoadingStock && stock <= 0;
   return (
     <div className="group bg-surface rounded-[2rem] p-4 shadow-soft hover:shadow-hover hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
       {/* Contenedor de imagen clickable con indicador de zoom */}
@@ -31,6 +34,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
         </div>
 
         {/* Se han eliminado los badges (etiquetas) que aparecían aquí para limpiar la parte superior */}
+        {!isLoadingStock && stock > 0 && stock <= 5 && (
+          <div className="absolute top-4 left-4 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg animate-pulse">
+            Solo {stock} unidades
+          </div>
+        )}
       </div>
 
       <div className="px-2 pb-2 flex-1 flex flex-col">
@@ -50,11 +58,25 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onAddToCart(product);
+              if (!isOutOfStock) onAddToCart(product);
             }}
-            className="bg-primary hover:bg-primary-hover text-white size-11 rounded-full flex items-center justify-center transition-all shadow-lg shadow-primary/20 active:scale-90"
+            disabled={isOutOfStock}
+            className={`flex items-center justify-center p-3 rounded-2xl font-black uppercase text-[10px] tracking-widest transition-all shadow-lg min-w-[120px] 
+              ${isOutOfStock
+                ? 'bg-background-light text-text-muted cursor-not-allowed shadow-none'
+                : 'bg-primary hover:bg-primary-hover text-white shadow-primary/20 hover:scale-105 active:scale-95'}`}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '20px' }}>add_shopping_cart</span>
+            {isOutOfStock ? (
+              <span className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm">block</span>
+                Agotado
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-sm">add_shopping_cart</span>
+                Añadir
+              </span>
+            )}
           </button>
         </div>
       </div>

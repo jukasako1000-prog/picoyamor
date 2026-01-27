@@ -24,6 +24,7 @@ import AuthModal from './components/AuthModal';
 import ImageModal from './components/ImageModal';
 import ScrollToTop from './components/ScrollToTop';
 import { Product, CartItem, UserProfile, Order } from './types';
+import { syncProducts } from './lib/db';
 
 const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -46,6 +47,10 @@ const App: React.FC = () => {
     setAuthInitialMode(mode);
     setIsAuthOpen(true);
   };
+
+  useEffect(() => {
+    syncProducts();
+  }, []);
 
   useEffect(() => {
     if (user && !user.isGuest) {

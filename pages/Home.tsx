@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { PRODUCTS, TESTIMONIALS, HERO_SLIDES } from '../constants';
 import { Product } from '../types';
+import { supabase } from '../lib/supabase';
 
 interface HomeProps {
   onAddToCart: (p: Product) => void;
@@ -14,9 +15,12 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
+  const [loadingStock, setLoadingStock] = useState(true);
 
   // Detector de redimensión
   useEffect(() => {
+    fetchStock();
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
@@ -50,6 +54,28 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
     const timer = setInterval(nextTestimonial, 5000);
     return () => clearInterval(timer);
   }, [nextTestimonial]);
+
+  const fetchStock = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('products')
+        .select('id, stock_quantity');
+
+      if (error) throw error;
+
+      if (data) {
+        const levels = data.reduce((acc, curr: any) => ({
+          ...acc,
+          [curr.id]: curr.stock_quantity
+        }), {});
+        setStockLevels(levels);
+      }
+    } catch (error) {
+      console.error('Error fetching stock:', error);
+    } finally {
+      setLoadingStock(false);
+    }
+  };
 
   return (
     <div className="space-y-12 md:space-y-24">
@@ -167,7 +193,14 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {PRODUCTS.slice(0, 3).map((product) => (
-              <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} onImageClick={onImageClick} />
+              <ProductCard
+                key={product.id}
+                product={product}
+                onAddToCart={onAddToCart}
+                onImageClick={onImageClick}
+                stock={stockLevels[product.id] ?? 0}
+                isLoadingStock={loadingStock}
+              />
             ))}
           </div>
         </div>

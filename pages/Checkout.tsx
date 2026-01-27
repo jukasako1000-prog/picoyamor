@@ -1,6 +1,8 @@
 import React from 'react';
 import { UserProfile, CartItem } from '../types';
 import { useNavigate } from 'react-router-dom';
+import { saveOrder, updateStock } from '../lib/db';
+import { supabase } from '../lib/supabase';
 
 interface CheckoutProps {
     cart: CartItem[];
@@ -61,10 +63,43 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
 
     const total = subtotal + shippingFee;
 
-    const handleFinalizeOrder = () => {
-        onCompleteOrder(cart, total);
-        onClearCart();
-        navigate('/order-success');
+    const handleFinalizeOrder = async () => {
+        if (!user) return;
+
+        try {
+            // 1. Prepare order data for Supabase
+            const orderData = {
+                customer_name: user.name,
+                customer_email: user.email,
+                customer_address: user.address,
+                customer_city: user.city,
+                customer_province: user.province,
+                customer_postal_code: user.postalCode,
+                customer_phone: user.phone,
+                items: cart.map(item => ({
+                    id: item.id,
+                    name: item.name,
+                    quantity: item.quantity,
+                    price: item.price
+                })),
+                total: total,
+                status: 'pagado' // Assuming Stripe success for now
+            };
+
+            // 2. Save to Orders table
+            await saveOrder(orderData);
+
+            // 3. Update Stock
+            await updateStock(cart.map(item => ({ id: item.id, quantity: item.quantity })));
+
+            // 4. Client side updates
+            onCompleteOrder(cart, total);
+            onClearCart();
+            navigate('/order-success');
+        } catch (error) {
+            console.error('Error processing order:', error);
+            alert('Hubo un error al procesar tu pedido. Por favor, inténtalo de nuevo.');
+        }
     };
 
     return (
