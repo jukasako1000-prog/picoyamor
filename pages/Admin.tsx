@@ -58,17 +58,31 @@ const Admin: React.FC = () => {
             // Fetch Orders
             const { data: ordersData, error: ordersError } = await supabase
                 .from('orders')
-                .select('*')
-                .order('created_at', { ascending: false });
+                .select('*');
+
             if (ordersError) throw ordersError;
-            setOrders(ordersData);
+
+            // Ordenar por fecha (descendente). Si no hay fecha, usar el ID.
+            const sortedOrders = (ordersData || []).sort((a, b) => {
+                const dateA = a.created_at || a.id;
+                const dateB = b.created_at || b.id;
+                return dateB > dateA ? 1 : -1;
+            });
+            setOrders(sortedOrders);
 
             // Fetch Users
             const { data: usersData, error: usersError } = await supabase
                 .from('profiles')
-                .select('*')
-                .order('created_at', { ascending: false });
-            if (!usersError) setUsers(usersData || []);
+                .select('*');
+
+            if (!usersError) {
+                const sortedUsers = (usersData || []).sort((a, b) => {
+                    const dateA = a.created_at || a.id;
+                    const dateB = b.created_at || b.id;
+                    return dateB > dateA ? 1 : -1;
+                });
+                setUsers(sortedUsers);
+            }
 
         } catch (error) {
             console.error('Error fetching admin data:', error);
