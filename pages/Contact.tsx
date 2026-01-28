@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { IMG_CONTACT_MAIN } from '../constants';
+import { supabase } from '../lib/supabase';
 
 const Contact: React.FC = () => {
   const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
@@ -18,20 +19,14 @@ const Contact: React.FC = () => {
     };
 
     try {
-      // Usamos nuestra nueva Edge Function de Supabase
-      const response = await fetch('https://ofzmsmndfayueuugyqpw.supabase.co/functions/v1/send-contact-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-        },
-        body: JSON.stringify(data)
-      });
+      // Usamos la función de base de datos que acabas de crear
+      const { error } = await supabase.rpc('send_contact_email', data);
 
-      if (response.ok) {
+      if (!error) {
         setStatus('success');
         setTimeout(() => setStatus('idle'), 10000);
       } else {
+        console.error('Error from Supabase:', error);
         setStatus('error');
       }
     } catch (error) {
