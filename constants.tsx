@@ -184,7 +184,7 @@ export const PRODUCTS: Product[] = [
     id: 'p25',
     name: "Columpio 'Diversión Rattan'",
     price: 13.80,
-    description: 'Este columpio ofrece mayor diversión, incluye una bolita de Rattan amarilla (el color puede variar). Seguro y duradero para aves medianas. Medidas: 22cm alto x 18cm ancho.',
+    description: 'Este columpio ofrece mayor diversión, incluye una bolita de Rattan amarilla (el color puede variar). Seguro y duradero para aves medianas y pequeñas. Medidas: 22cm alto x 18cm ancho.',
     image: IMG_COLUMPIO_RATTAN,
     category: 'Columpios',
     badge: 'Popular',
