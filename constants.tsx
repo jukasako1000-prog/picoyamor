@@ -174,7 +174,8 @@ export const PRODUCTS: Product[] = [
     description: 'Columpio con cuentas de madera naturales forrada en cuerda de yute para mejor agarre. Medidas: 24cm alto x 14cm ancho. Pensado para aves pequeñas.',
     image: IMG_COLUMPIO_YUTE,
     category: 'Columpios',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.35
   }
 ];
 
