@@ -52,7 +52,7 @@ const ShippingReturns: React.FC = () => {
                         </div>
 
                         <div className="pt-6 border-t border-background-light">
-                            <p className="text-sm italic">El estado de tu pedido cambiará a **"Enviado"** y recibirás un número de seguimiento por correo electrónico en cuanto tu paquete salga de nuestras manos.</p>
+                            <p className="text-sm italic">El estado de tu pedido cambiará a **"Enviado"** y recibirás un aviso por correo electrónico en cuanto tu paquete salga de nuestras manos.</p>
                         </div>
                     </div>
                 </section>
