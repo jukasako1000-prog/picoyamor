@@ -125,12 +125,18 @@ const Admin: React.FC = () => {
         if (!window.confirm('¿Estás seguro de que quieres borrar esta reseña? Esta acción no se puede deshacer.')) return;
 
         try {
-            const { error } = await supabase
+            const { error, count } = await supabase
                 .from('reviews')
-                .delete()
+                .delete({ count: 'exact' })
                 .eq('id', reviewId);
 
             if (error) throw error;
+
+            if (count === 0) {
+                alert('No se pudo borrar la reseña. Esto suele pasar si faltan permisos (RLS) en Supabase o si la reseña ya no existe.');
+                return;
+            }
+
             setReviews(reviews.filter(r => r.id !== reviewId));
             alert('Reseña borrada con éxito.');
         } catch (error) {

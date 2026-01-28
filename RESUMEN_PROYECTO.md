@@ -10,12 +10,14 @@ La aplicación es un e-commerce robusto con sincronización bidireccional en tie
     - `products`: Referencia de stock (`id`, `name`, `stock_quantity`).
     - `orders`: Transacciones (`id`, `customer_email`, `total`, `shipping_cost`, `items` como JSONB, `status`).
     - `profiles`: Datos de usuario extendidos (`id`, `name`, `email`, `address`, `city`, `province`, `postal_code`, `phone`).
+    - `reviews`: Valoraciones de clientes (`id`, `name`, `bird_name`, `text`, `rating`, `image_url`, `created_at`).
 - **Seguridad y Lógica de Negocio**:
     - **RPC `decrement_stock`**: Función del lado del servidor que descuenta stock de forma atómica al finalizar un pedido. Soluciona las restricciones RLS para clientes.
     - **Políticas (RLS)**:
         - `products`: Lectura pública. Actualización solo para el Admin.
         - `orders`: Inserción para clientes. Lectura filtrada (`email` del JWT = `customer_email`). Control total para el Admin.
         - `profiles`: Lectura/Escritura propia para el usuario. Control total para el Admin.
+        - `reviews`: Lectura e Inserción pública. Borrado restringido al Admin.
 
 ### 2. Panel de Administración (`/admin`)
 Protegido para el email: `infopicoyamor@gmail.com`.
