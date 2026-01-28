@@ -15,7 +15,7 @@ La aplicación es un e-commerce robusto con sincronización bidireccional en tie
     - **Moderación de Reseñas**: Las reseñas nuevas entran como `is_approved = false` y NO se muestran en la web hasta que el admin las activa.
     - **Políticas (RLS)**:
         - `products`: Lectura pública. Actualización para el Admin.
-        - `orders`: Inserción para clientes. Control total para el Admin.
+        - `orders`: Inserción pública (incluye invitados). Lectura de confirmación para invitados. Control total para el Admin.
         - `reviews`: Lectura pública filtrada (`is_approved = true`). Inserción pública. **Borrado y Actualización restringido al Admin**.
 
 ### 2. Panel de Administración (`/admin`)

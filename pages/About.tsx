@@ -13,7 +13,7 @@ const About: React.FC = () => {
             <span className="text-primary text-xs font-black uppercase tracking-widest">Natural & Orgánico</span>
           </div>
           <h1 className="text-6xl md:text-8xl font-black text-text-main leading-[0.9] tracking-tight">
-            Nuestra <br/><span className="text-primary italic">Pasión</span> <br/>con Alas.
+            Nuestra <br /><span className="text-primary italic">Pasión</span> <br />con Alas.
           </h1>
           <p className="text-2xl text-text-muted leading-relaxed max-w-lg font-medium">
             Descubre cómo convertimos el amor por los agapornis en juguetes seguros, naturales y llenos de diversión con Pico & Amor.
@@ -22,10 +22,12 @@ const About: React.FC = () => {
         <div className="relative">
           <div className="absolute inset-0 bg-primary/15 blur-[100px] rounded-full transform scale-90 translate-y-10"></div>
           <div className="relative aspect-[4/5] rounded-[4rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,0,0,0.25)] border-[12px] border-white group">
-            {/* Animación de la sección con el nuevo archivo proporcionado */}
-            <img 
-              src="https://ydfqznohsafnctevbiyi.supabase.co/storage/v1/object/sign/VIDEO%20SOBRE%20NOSOTROS%20PICOYAMOR/VIDEO-ezgif.com-video-to-webp-converter.webp?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV82MGNlMjIwYy0zOWY0LTQ3MjctYTIzNy0yM2M5OWZhMjFjNjQiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJWSURFTyBTT0JSRSBOT1NPVFJPUyBQSUNPWUFNT1IvVklERU8tZXpnaWYuY29tLXZpZGVvLXRvLXdlYnAtY29udmVydGVyLndlYnAiLCJpYXQiOjE3NjkzNDU0NTUsImV4cCI6MTgwMDg4MTQ1NX0.1p6AUklIYHdSO2t_zM1ghR97GWqzkN36Ta8F-CDfMNE"
-              alt="Pico & Amor Animación"
+            <video
+              src="/VIDEO.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[10s] ease-out"
             />
           </div>
@@ -39,7 +41,7 @@ const About: React.FC = () => {
         </div>
         <div className="relative z-10 grid md:grid-cols-2 gap-20 items-center">
           <div className="aspect-square rounded-[3rem] overflow-hidden bg-background-light shadow-inner group">
-            <img 
+            <img
               src={IMG_ABOUT_STORY}
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000"
               alt="Proceso artesanal"
