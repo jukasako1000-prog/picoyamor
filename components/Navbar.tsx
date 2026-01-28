@@ -48,8 +48,8 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
     { name: 'Novedades', path: '/novedades' },
     { name: 'Blog', path: '/blog' },
     { name: 'Club Pico 🦜', path: '/club-pico', isSpecial: true },
-    { name: 'Sobre Nosotros', path: '/about' },
-    { name: 'Contacto', path: '/contact' },
+    { name: 'Nosotros', path: '/about' },
+    { name: 'Contacto', path: '/contact', icon: 'mail' },
   ];
 
   return (
@@ -95,14 +95,19 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
                 key={link.name}
                 to={link.path}
                 onClick={() => handleNavClick(link.path)}
-                className={`px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center 
+                className={`px-4 xl:px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center 
                   ${link.isSpecial ? 'hover:scale-110 active:scale-95 hover:-rotate-3 text-primary' : ''}
                   ${location.pathname === link.path || (link.path === '/blog' && location.pathname.startsWith('/blog'))
                     ? 'bg-primary text-white shadow-sm'
                     : 'text-text-main hover:text-primary hover:bg-white/50'
                   }`}
+                title={link.icon ? link.name : undefined}
               >
-                {link.name}
+                {link.icon ? (
+                  <span className="material-symbols-outlined text-lg">{link.icon}</span>
+                ) : (
+                  link.name
+                )}
               </Link>
             ))}
           </div>
