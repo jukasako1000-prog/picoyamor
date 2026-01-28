@@ -449,7 +449,7 @@ const Admin: React.FC = () => {
                                                     onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
                                                     className={`text-[10px] font-black px-3 py-1.5 rounded-full uppercase border-none focus:ring-2 focus:ring-primary cursor-pointer transition-all
                                                     ${order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
-                                                            order.status === 'entregado' ? 'bg-green-100 text-green-600' :
+                                                            order.status === 'entregado' ? 'bg-green-600 text-white shadow-sm font-bold' :
                                                                 'bg-primary/10 text-primary'}`}
                                                 >
                                                     <option value="pagado">🟢 Pagado (Procesando)</option>
