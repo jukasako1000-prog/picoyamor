@@ -300,18 +300,18 @@ const ClubPico: React.FC = () => {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-4">
                             <div className="aspect-square bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1552728089-57bdde30fc3b?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover" alt="Bird" />
+                                <img src="/fama/FAMA1.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                             <div className="aspect-[4/5] bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1522850935410-b97f079416f4?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover" alt="Bird" />
+                                <img src="/fama/FAMA2.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                         </div>
                         <div className="space-y-4 pt-12">
                             <div className="aspect-[4/5] bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1452570053594-1b985d6ea890?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover" alt="Bird" />
+                                <img src="/fama/FAMA3.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                             <div className="aspect-square bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1520808663317-647b476a81b9?auto=format&fit=crop&q=80&w=400" className="w-full h-full object-cover" alt="Bird" />
+                                <img src="/fama/FAMA4.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                         </div>
                     </div>
