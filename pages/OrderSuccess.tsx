@@ -1,10 +1,12 @@
 
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const OrderSuccess: React.FC = () => {
     const navigate = useNavigate();
-    const orderNumber = Math.floor(100000 + Math.random() * 900000);
+    const location = useLocation();
+    const realId = location.state?.orderId;
+    const orderNumber = realId ? realId.slice(0, 8).toUpperCase() : Math.floor(100000 + Math.random() * 900000);
 
     useEffect(() => {
         window.scrollTo(0, 0);

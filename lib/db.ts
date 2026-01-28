@@ -48,12 +48,14 @@ export const updateStock = async (items: { id: string, quantity: number }[]) => 
 };
 
 export const saveOrder = async (orderData: any) => {
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from('orders')
-        .insert([orderData]);
+        .insert([orderData])
+        .select()
+        .single();
 
     if (error) throw error;
-    return { success: true };
+    return data;
 };
 
 export const saveProfile = async (userId: string, profileData: any) => {

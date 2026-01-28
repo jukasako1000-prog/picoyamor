@@ -89,7 +89,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
             };
 
             // 2. Save to Orders table
-            await saveOrder(orderData);
+            const savedOrder = await saveOrder(orderData);
+            const realId = savedOrder?.id;
 
             // 3. Update Stock (Optional - Don't block order if RLS fails)
             try {
@@ -100,9 +101,9 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
             }
 
             // 4. Client side updates
-            onCompleteOrder(cart, total);
+            onCompleteOrder(cart, total, realId);
             onClearCart();
-            navigate('/order-success');
+            navigate('/order-success', { state: { orderId: realId } });
         } catch (error) {
             console.error('Error saving order:', error);
             alert('Hubo un error al guardar tu pedido. Por favor, contacta con nosotros si el problema persiste.');

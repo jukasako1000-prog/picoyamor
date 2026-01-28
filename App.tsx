@@ -114,9 +114,9 @@ const App: React.FC = () => {
     setCart([]);
   };
 
-  const handleCompleteOrder = (items: CartItem[], total: number) => {
+  const handleCompleteOrder = (items: CartItem[], total: number, realId?: string) => {
     const newOrder: Order = {
-      id: `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
+      id: realId || `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
       date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
       total: total,
       status: 'Procesando',
