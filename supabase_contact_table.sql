@@ -38,7 +38,8 @@ begin
         '<p><strong>De:</strong> ' || new.nombre || ' (' || new.email || ')</p>' ||
         '<p><strong>Asunto:</strong> ' || coalesce(new.motivo, 'Sin asunto') || '</p>' ||
         '<hr style="border:0; border-top:1px solid #eee; margin:20px 0;">' ||
-        '<p style="white-space:pre-wrap;"><strong>Mensaje:</strong><br>' || new.mensaje || '</p></div>' ||
+        '<p style="white-space:pre-wrap;"><strong>Mensaje:</strong><br>' || new.mensaje || '</p>' ||
+        '<div style="text-align:center; margin-top:20px;"><a href="https://picoyamor.com/#/admin" style="background-color:#6c9371; color:white; padding:12px 20px; text-decoration:none; border-radius:10px; display:inline-block;">Ir al Panel Admin</a></div></div>' ||
         '<div style="background-color:#f2ede4; padding:20px; text-align:center; color:#6c7a6e; font-size:12px;"><p>Enviado desde picoyamor.com</p></div></div>'
     )
   );

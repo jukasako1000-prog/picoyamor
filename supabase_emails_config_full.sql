@@ -42,7 +42,7 @@ begin
     perform net.http_post(
       url := 'https://api.resend.com/emails',
       headers := jsonb_build_object('Authorization', 'Bearer ' || resend_key, 'Content-Type', 'application/json'),
-      body := jsonb_build_object('from', 'Sistema Pico & Amor <hola@picoyamor.com>', 'to', ARRAY['infopicoyamor@gmail.com'], 'subject', '🚨 NUEVO PEDIDO: #' || order_id_short, 'html', '<h1>¡Nuevo pedido de ' || new.customer_name || '!</h1><p>Valor: <strong>' || to_char(new.total, 'FM999,990.00') || '€</strong>.</p><a href="https://picoyamor.com/admin" style="background-color:#6c9371; color:white; padding:15px 25px; text-decoration:none; border-radius:10px; display:inline-block;">Ir al Panel Admin</a>')
+      body := jsonb_build_object('from', 'Sistema Pico & Amor <hola@picoyamor.com>', 'to', ARRAY['infopicoyamor@gmail.com'], 'subject', '🚨 NUEVO PEDIDO: #' || order_id_short, 'html', '<h1>¡Nuevo pedido de ' || new.customer_name || '!</h1><p>Valor: <strong>' || to_char(new.total, 'FM999,990.00') || '€</strong>.</p><a href="https://picoyamor.com/#/admin" style="background-color:#6c9371; color:white; padding:15px 25px; text-decoration:none; border-radius:10px; display:inline-block;">Ir al Panel Admin</a>')
     );
 
   -- 2. CASO: CAMBIO A ENVIADO (UPDATE)
