@@ -66,16 +66,16 @@ const ShippingReturns: React.FC = () => {
 
                     <div className="space-y-8">
                         <div>
-                            <h3 className="text-lg font-black text-text-main uppercase mb-4">Periodo de Desistimiento</h3>
-                            <p>Tienes **14 días naturales** desde la recepción del producto para solicitar una devolución si has cambiado de opinión.</p>
+                            <h3 className="text-lg font-black text-text-main uppercase mb-4">Plazo de Devolución</h3>
+                            <p>Para asegurar la máxima higiene, dispones de un plazo de **24/48 horas** tras la recepción del pedido para comunicarnos cualquier intención de devolución.</p>
                         </div>
 
                         <div className="bg-red-50 p-6 rounded-2xl border border-red-100">
                             <h3 className="text-lg font-black text-red-900 uppercase mb-4 flex items-center gap-2">
-                                <span className="material-symbols-outlined">warning</span>
-                                Higiene y Seguridad Aviar
+                                <span className="material-symbols-outlined">verified</span>
+                                Estado del Producto
                             </h3>
-                            <p className="text-red-800">Por motivos estrictos de salud y seguridad aviar, **solo se aceptarán devoluciones de juguetes y accesorios que conserven su precinto original intacto** y no hayan sido expuestos al ambiente de ninguna ave.</p>
+                            <p className="text-red-800">Se realizará el reembolso **únicamente si el producto se encuentra intacto**, en su embalaje original y sin signos de haber sido manipulado o extraído. Dada la naturaleza de nuestros productos artesanales, la higiene es nuestra prioridad absoluta.</p>
                         </div>
 
                         <div>
