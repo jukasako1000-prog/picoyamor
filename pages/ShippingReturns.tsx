@@ -67,7 +67,7 @@ const ShippingReturns: React.FC = () => {
                     <div className="space-y-8">
                         <div>
                             <h3 className="text-lg font-black text-text-main uppercase mb-4">Plazo de Devolución</h3>
-                            <p>Para asegurar la máxima higiene, dispones de un plazo de **24/48 horas** tras la recepción del pedido para comunicarnos cualquier intención de devolución.</p>
+                            <p>Para asegurar la máxima higiene, dispones de un plazo de **24/48 horas** tras la recepción del pedido para comunicarnos cualquier intención de devolución. **Pasado este plazo, no se admitirá ninguna devolución.**</p>
                         </div>
 
                         <div className="bg-red-50 p-6 rounded-2xl border border-red-100">

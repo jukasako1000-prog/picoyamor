@@ -55,7 +55,7 @@ const FAQ: React.FC = () => {
         },
         {
             question: "¿Puedo devolver un producto si no le gusta a mi ave?",
-            answer: "Por seguridad e higiene aviar, solo aceptamos devoluciones de productos que se encuentren intactos y en su embalaje original. Dispones de un plazo de 24/48 horas tras la recepción del pedido para comunicarnos la devolución."
+            answer: "Por seguridad e higiene aviar, solo aceptamos devoluciones de productos que se encuentren intactos y en su embalaje original. Dispones de un plazo de 24/48 horas tras la recepción del pedido para comunicarnos la devolución; pasado este plazo no se admitirán devoluciones."
         },
         {
             question: "¿Cómo sé qué tamaño de juguete es mejor para mi pájaro?",
