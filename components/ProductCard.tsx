@@ -34,10 +34,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
         </div>
 
         {/* Se han eliminado los badges (etiquetas) que aparecían aquí para limpiar la parte superior */}
-        {!isLoadingStock && stock > 0 && stock <= 5 && (
-          <div className="absolute top-4 left-4 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg animate-pulse">
-            Quedan {stock} unidades
-          </div>
+        {!isLoadingStock && (
+          <>
+            {stock > 5 ? (
+              <div className="absolute top-4 left-4 bg-green-500 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg">
+                En Stock
+              </div>
+            ) : stock > 0 && stock <= 5 ? (
+              <div className="absolute top-4 left-4 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg animate-pulse">
+                Quedan {stock} unidades
+              </div>
+            ) : null}
+          </>
         )}
       </div>
 
