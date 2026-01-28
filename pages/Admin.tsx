@@ -147,12 +147,18 @@ const Admin: React.FC = () => {
 
     const handleToggleReviewApproval = async (reviewId: string, currentStatus: boolean) => {
         try {
-            const { error } = await supabase
+            const { error, count } = await supabase
                 .from('reviews')
                 .update({ is_approved: !currentStatus })
-                .eq('id', reviewId);
+                .eq('id', reviewId)
+                .select(); // Re-select to confirm update
 
             if (error) throw error;
+
+            if (!count || count === 0) {
+                alert('No se pudo actualizar el estado. Por favor, asegúrate de haber ejecutado los permisos (RLS) en Supabase.');
+                return;
+            }
 
             setReviews(reviews.map(r => r.id === reviewId ? { ...r, is_approved: !currentStatus } : r));
             alert(currentStatus ? 'Reseña ocultada de la web.' : '¡Reseña publicada con éxito! 🦜✨');
