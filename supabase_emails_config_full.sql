@@ -22,7 +22,10 @@ begin
     perform net.http_post(
       url := 'https://api.resend.com/emails',
       headers := jsonb_build_object('Authorization', 'Bearer ' || resend_key, 'Content-Type', 'application/json'),
-      body := jsonb_build_object('from', 'Pico & Amor <hola@picoyamor.com>', 'to', ARRAY[new.customer_email], 'subject', '¡Gracias por tu pedido! (#' || order_id_short || ')',
+      body := jsonb_build_object(      'from', 'Pico & Amor <hola@picoyamor.com>',
+      'to', ARRAY[new.customer_email],
+      'reply_to', 'infopicoyamor@gmail.com',
+      'subject', '¡Gracias por tu pedido! (#' || order_id_short || ')',
         'html', '<div style="font-family:sans-serif; max-width:600px; margin:0 auto; border:1px solid #f0f0f0; border-radius:20px; overflow:hidden;"><div style="background-color:#6c9371; padding:40px; text-align:center;"><h1 style="color:white; margin:0; font-size:28px;">¡Hola ' || new.customer_name || '! 🦜</h1><p style="color:#e8f5e9; font-size:18px;">Tu pedido ha sido recibido correctamente.</p></div><div style="padding:40px; color:#3f3d3c;"><h2 style="border-bottom:2px solid #f2ede4; padding-bottom:10px; font-size:20px;">Pedido #' || order_id_short || '</h2><table style="width:100%; border-collapse:collapse; margin-top:20px;">' || items_html || '<tr style="border-top:2px solid #f2ede4;"><td style="padding:20px 0; font-weight:bold; font-size:18px;">TOTAL</td><td style="padding:20px 0; text-align:right; font-weight:bold; font-size:24px; color:#6c9371;">' || new.total || '€</td></tr></table><div style="margin-top:30px; padding:20px; background-color:#f9f9f7; border-radius:15px; border:1px dashed #d1d1d1;"><p style="margin:0; font-size:14px;"><strong>Próximos pasos:</strong> En cuanto tu paquete salga de nuestras manos, el estado cambiará a "Enviado" y recibirás otro aviso.</p></div></div><div style="background-color:#f2ede4; padding:30px; text-align:center; color:#6c7a6e; font-size:12px;"><p>Pico & Amor - Juguetes naturales para aves felices</p></div></div>'
       )
     );
@@ -40,7 +43,10 @@ begin
     perform net.http_post(
       url := 'https://api.resend.com/emails',
       headers := jsonb_build_object('Authorization', 'Bearer ' || resend_key, 'Content-Type', 'application/json'),
-      body := jsonb_build_object('from', 'Pico & Amor <hola@picoyamor.com>', 'to', ARRAY[new.customer_email], 'subject', '¡Tu pedido de Pico & Amor está en camino! 🚚🚀',
+      body := jsonb_build_object(      'from', 'Pico & Amor <hola@picoyamor.com>',
+      'to', ARRAY[new.customer_email],
+      'reply_to', 'infopicoyamor@gmail.com',
+      'subject', '¡Tu pedido de Pico & Amor está en camino! 🚚🚀',
         'html', '<div style="font-family:sans-serif; max-width:600px; margin:0 auto; border:1px solid #f0f0f0; border-radius:20px; overflow:hidden;"><div style="background-color:#6c9371; padding:40px; text-align:center;"><h1 style="color:white; margin:0; font-size:28px;">¡Grandes noticias, ' || new.customer_name || '! 🦜✨</h1><p style="color:#e8f5e9; font-size:18px;">Tu paquete acaba de salir de nuestro nido.</p></div><div style="padding:40px; color:#3f3d3c;"><p style="font-size:16px;">Estamos muy felices de confirmarte que tu pedido <strong>#' || order_id_short || '</strong> ya ha sido enviado.</p><div style="margin:20px 0; padding:25px; background-color:#f9f9f7; border-radius:15px; border:1px solid #f2ede4; text-align:center;"><p style="margin:0 0 10px 0; font-weight:bold; color:#6c9371;">¿Cuándo llegará?</p><p style="margin:0; font-size:14px;">Dependiendo de tu zona, deberías recibirlo en las próximas 24-72h laborables.</p></div><p style="font-size:14px; color:#6c7a6e;">Si tienes cualquier duda, recuerda que puedes contactarnos respondiendo a este email.</p></div><div style="background-color:#f2ede4; padding:30px; text-align:center; color:#6c7a6e; font-size:12px;"><p>¡Gracias por confiar en Pico & Amor! 💚</p></div></div>'
       )
     );

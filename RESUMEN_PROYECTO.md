@@ -26,8 +26,10 @@ Protegido para el email: `infopicoyamor@gmail.com`.
     - Visualización de fotos completas (sin recortar).
     - Botones de **Publicar** (cambia `is_approved` a true) y **Borrar**.
 - **Control de Pedidos**:
-    - Estado **"ENTREGADO"** destacado con fondo verde oscuro y texto blanco para mejor visibilidad.
-    - Sincronización en tiempo real con la DB.
+    - Estado **"ENTREGADO"** destacado con fondo verde oscuro y texto blanco.
+    - **Automatización de Emails (NUEVO)**: 
+        - En el momento de la compra: Email de confirmación al **Cliente** y aviso de alerta al **Admin** (`infopicoyamor@gmail.com`).
+        - Cambio a estado **"ENVIADO"**: Email automático de aviso de transporte al **Cliente**.
 
 ### 3. Experiencia del Cliente y Catálogo
 - **Navegación Optimizada**: Menú más limpio ("Nosotros" en vez de "Sobre Nosotros", icono 📧 para contacto). Botón animado "Club Pico".
