@@ -10,13 +10,22 @@ const Contact: React.FC = () => {
     setStatus('sending');
 
     const formData = new FormData(e.currentTarget);
+    const data = {
+      nombre: formData.get('nombre'),
+      email: formData.get('email'),
+      motivo: formData.get('motivo'),
+      mensaje: formData.get('mensaje')
+    };
+
     try {
-      const response = await fetch('https://formspree.io/f/infopicoyamor@gmail.com', {
+      // Usamos nuestra nueva Edge Function de Supabase
+      const response = await fetch('https://ofzmsmndfayueuugyqpw.supabase.co/functions/v1/send-contact-email', {
         method: 'POST',
-        body: formData,
         headers: {
-          'Accept': 'application/json'
-        }
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        },
+        body: JSON.stringify(data)
       });
 
       if (response.ok) {
@@ -26,6 +35,7 @@ const Contact: React.FC = () => {
         setStatus('error');
       }
     } catch (error) {
+      console.error('Error sending message:', error);
       setStatus('error');
     }
   };
