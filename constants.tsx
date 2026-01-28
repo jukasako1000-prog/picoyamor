@@ -198,7 +198,7 @@ export const PRODUCTS: Product[] = [
     image: IMG_FORRAJEO_COMBO_RAFIA,
     category: 'Forrajeo',
     badge: 'Nuevo',
-    scale: 1.35
+    scale: 1.25
   }
 ];
 
