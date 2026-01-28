@@ -47,6 +47,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
     { name: 'Tienda', path: '/tienda' },
     { name: 'Novedades', path: '/novedades' },
     { name: 'Blog', path: '/blog' },
+    { name: 'Club Pico 🦜', path: '/club-pico', isSpecial: true },
     { name: 'Sobre Nosotros', path: '/about' },
     { name: 'Contacto', path: '/contact' },
   ];
@@ -89,14 +90,16 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
 
           {/* Menú Desktop (Centrado) */}
           <div className={`hidden md:flex items-center gap-1 transition-all duration-500 rounded-full p-1 ${isScrolled ? 'bg-background-light/30' : 'bg-background-light/50'}`}>
-            {navLinks.map((link) => (
+            {navLinks.map((link: any) => (
               <Link
                 key={link.name}
                 to={link.path}
                 onClick={() => handleNavClick(link.path)}
-                className={`px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center ${location.pathname === link.path || (link.path === '/blog' && location.pathname.startsWith('/blog'))
-                  ? 'bg-primary text-white shadow-sm'
-                  : 'text-text-main hover:text-primary hover:bg-white/50'
+                className={`px-5 py-2 rounded-full text-[11px] xl:text-xs font-black uppercase tracking-wider transition-all duration-300 flex items-center justify-center 
+                  ${link.isSpecial ? 'hover:scale-110 active:scale-95 hover:-rotate-3 text-primary' : ''}
+                  ${location.pathname === link.path || (link.path === '/blog' && location.pathname.startsWith('/blog'))
+                    ? 'bg-primary text-white shadow-sm'
+                    : 'text-text-main hover:text-primary hover:bg-white/50'
                   }`}
               >
                 {link.name}
