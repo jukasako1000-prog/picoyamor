@@ -16,42 +16,39 @@ La aplicación es un e-commerce robusto con sincronización bidireccional en tie
     - **Políticas (RLS)**:
         - `products`: Lectura pública. Actualización para el Admin.
         - `orders`: Inserción para clientes. Control total para el Admin.
-        - `reviews`: Lectura pública filtrada (`is_approved = true`). Inserción pública. **Borrado y Actualización restringido al Admin** (vía email JWT).
+        - `reviews`: Lectura pública filtrada (`is_approved = true`). Inserción pública. **Borrado y Actualización restringido al Admin**.
 
 ### 2. Panel de Administración (`/admin`)
-Protegido para el email: `infopicoyamor@gmail.com`.
+Protegido para el email: `infopicoyamor@gmail.com`. Admite navegación vía **HashRouter** (`https://picoyamor.com/#/admin`).
 
-- **Moderación de Reseñas (NUEVO)**:
-    - Pestaña dedicada para gestionar testimonios.
-    - Visualización de fotos completas (sin recortar).
-    - Botones de **Publicar** (cambia `is_approved` a true) y **Borrar**.
-- **Control de Pedidos**:
-    - Estado **"ENTREGADO"** destacado con fondo verde oscuro y texto blanco.
-    - **Automatización de Emails (NUEVO)**: 
-        - En el momento de la compra: Email de confirmación al **Cliente** y aviso de alerta al **Admin** (`infopicoyamor@gmail.com`).
-        - Cambio a estado **"ENVIADO"**: Email automático de aviso de transporte al **Cliente**.
+- **Moderación de Reseñas**:
+    - Pestaña dedicada para gestionar testimonios. Visualización de fotos completas.
+- **Sistema de Emails Profesional (NUEVO - Resend)**: 
+    - **IDs Unificados**: Todos los pedidos usan un ID de 8 caracteres consistente en Web, Email y Base de Datos (ej. `#6A36CCD2`).
+    - **Confirmación Automática**: Email con diseño profesional y **desglose de gastos de envío**.
+    - **Aviso de Envío**: Email con aviso de transporte al cambiar estado a "Enviado".
+    - **Alertas Admin**: Alerta instantánea con enlace directo al panel.
 
-### 3. Experiencia del Cliente y Catálogo
-- **Navegación Optimizada**: Menú más limpio ("Nosotros" en vez de "Sobre Nosotros", icono 📧 para contacto). Botón animado "Club Pico".
-- **Catálogo Dinámico**:
-    - **Nuevos**: `Columpio Mini Torre` (p24), `Columpio Diversión Rattan` (p25), `Combo Forrajeo Rafia y Olivo` (p26).
-    - **Etiquetas Inteligentes**: Aviso de "Quedan X unidades" y badge verde de "En Stock".
-- **Políticas Actualizadas**:
-    - **Devoluciones**: Plazo estricto de **24/48 horas** (no se admiten devoluciones fuera de plazo). Condición de **producto intacto** por seguridad aviar.
+### 3. Contacto y Soporte
+- **Formulario de Contacto (Mejorado)**:
+    - Migrado a **Supabase Edge Functions + Resend**.
+    - Mayor fiabilidad, diseño profesional y soporte para responder directamente desde el email.
 
-### 4. Mantenimiento y UI Estática
-- **index.html**: Pantalla de "Preparando el nido" compactada y pulida. El icono del loro está ahora visualmente pegado al título.
+### 4. Experiencia del Cliente y Catálogo
+- **Catálogo Dinámico**: Gestión de stock en tiempo real con avisos de "Quedan X unidades".
+- **Políticas**: Devoluciones en 24/48h por seguridad aviar (producto intacto).
 
 ## 📂 Estructura de Archivos Clave
-- `lib/db.ts`: Capa de servicios (Supabase).
-- `constants.tsx`: Definición de productos, imágenes y precios. **Cambiar escalas aquí si las fotos se cortan**.
-- `pages/Admin.tsx`: Centro de mando (Pedidos, Clientes, Reseñas).
-- `pages/ClubPico.tsx`: Galería pública de reseñas (solo aprobadas).
+- `lib/db.ts`: Servicios de base de datos.
+- `constants.tsx`: Definición de productos e imágenes.
+- `pages/Admin.tsx`: Centro de gestión.
+- `pages/Contact.tsx`: Formulario profesional.
+- `supabase/functions/send-contact-email/`: Lógica de envío segura.
 
 ## ⚠️ Notas Críticas para el Siguiente Agente
-1. **Moderación de Reseñas**: Si el admin aprueba pero no se guarda, verifica las RLS `Admin Update Reviews` en Supabase.
-2. **Nuevos Productos**: Cada vez que se añade un ID nuevo en `constants.tsx`, se debe añadir también en la tabla `products` de Supabase para que el stock funcione.
-3. **Escalas de Imagen**: En `constants.tsx`, el campo `scale` controla el zoom de la foto en la tarjeta. Si una cuerda se corta, bajar el valor (ej. de 1.25 a 1.1).
+1. **Configuración Resend**: Requiere ejecutar el SQL de triggers y configurar la `API KEY` en el Editor SQL de Supabase.
+2. **Nuevos Productos**: Asegurar que el ID en `constants.tsx` existe en la tabla `products`.
+3. **Escalas de Imagen**: Ajustar `scale` en `constants.tsx` si las fotos se cortan en la galería.
 
 ---
-*Documento actualizado para asegurar la continuidad del proyecto.* 🦜✨
+*Documento actualizado tras la migración a Resend y unificación de IDs (28/01/2026).* 🦜✨
