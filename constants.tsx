@@ -60,6 +60,7 @@ const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
 const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
 const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
 const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
+const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
 
 export const PRODUCTS: Product[] = [
   {
@@ -187,6 +188,15 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Popular',
     scale: 1.35
+  },
+  {
+    id: 'p26',
+    name: 'Combo forrajeo Bolsas de rafia seca natural y hojas de olivo',
+    price: 17.00,
+    description: 'Bolsa de 50g de rafia más bolsita de hojas y 100g ramitas de olivo sin pesticida más cuerdas de sisal natural de 14 mm por 70 de largo.',
+    image: IMG_FORRAJEO_COMBO_RAFIA,
+    category: 'Forrajeo',
+    badge: 'Nuevo'
   }
 ];
 
