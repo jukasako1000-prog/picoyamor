@@ -139,14 +139,6 @@ export const PRODUCTS: Product[] = [
     badge: 'Recomendado'
   },
   {
-    id: 'p13',
-    name: 'Buscador de Semillas "Raíces"',
-    price: 8.50,
-    description: 'Materiales naturales que imitan el comportamiento de búsqueda en libertad.',
-    image: IMG_FORRAJEO_BUSCADOR,
-    category: 'Forrajeo'
-  },
-  {
     id: 'p18',
     name: 'Combo Forrajeo Natural',
     price: 16.75,
