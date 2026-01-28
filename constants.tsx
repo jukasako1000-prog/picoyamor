@@ -158,7 +158,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p22',
     name: 'Bolsita de Rafia Natural',
-    price: 3.75,
+    price: 4.75,
     description: '50g de bolsita de rafia natural seca para fondo de bandeja y actividades de forrajeo. Material 100% biodegradable y seguro.',
     image: IMG_FORRAJEO_RAFIA,
     category: 'Forrajeo',
