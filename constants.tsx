@@ -58,6 +58,7 @@ const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla
 const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
 const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
 const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
+const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -165,6 +166,15 @@ export const PRODUCTS: Product[] = [
     image: IMG_RAMILLETE_OLIVO,
     category: 'Forrajeo',
     badge: 'Súper Natural'
+  },
+  {
+    id: 'p24',
+    name: "Columpio 'Agarre de Yute'",
+    price: 7.50,
+    description: 'Columpio con cuentas de madera naturales forrada en cuerda de yute para mejor agarre. Medidas: 24cm alto x 14cm ancho. Pensado para aves pequeñas.',
+    image: IMG_COLUMPIO_YUTE,
+    category: 'Columpios',
+    badge: 'Nuevo'
   }
 ];
 
