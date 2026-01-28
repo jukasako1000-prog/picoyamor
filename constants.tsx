@@ -125,7 +125,7 @@ export const PRODUCTS: Product[] = [
     id: 'p21',
     name: 'Columpio Plataforma "Rincón Zen"',
     price: 13.50,
-    description: 'Plataforma de madera natural con base de cuerda de yute tejida y cuentas geométricas. Medidas: 19cm alto x 14cm ancho. Diseño robusto y seguro para aves pequeñas.',
+    description: 'Plataforma de madera natural con base de cuerda de yute tejida y cuentas geométricas. Medidas: 19cm alto x 14cm ancho. Diseño robusto y seguro para aves medianas y pequeñas.',
     image: IMG_COLUMPIO_PLATAFORMA,
     category: 'Columpios',
     badge: 'Popular'
