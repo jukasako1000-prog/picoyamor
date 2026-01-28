@@ -294,16 +294,8 @@ const ClubPico: React.FC = () => {
                             nuestra <span className="text-primary italic">Inspiración</span>
                         </h2>
                         <p className="text-xl text-white/70 font-medium leading-relaxed">
-                            Nos encanta ver cómo disfrutan vuestros pequeños. Sube una foto a Instagram con el hashtag <span className="text-white font-black">#ClubPico</span> para aparecer en nuestro muro de la fama.
+                            Nos encanta ver cómo disfrutan vuestros pequeños. Sube una foto para aparecer en nuestro muro de la fama.
                         </p>
-                        <div className="flex gap-4">
-                            <div className="size-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group cursor-pointer hover:bg-white/20 transition-all">
-                                <span className="material-symbols-outlined text-3xl">photo_camera</span>
-                            </div>
-                            <div className="size-16 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group cursor-pointer hover:bg-white/20 transition-all">
-                                <span className="material-symbols-outlined text-3xl">play_circle</span>
-                            </div>
-                        </div>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-4">
