@@ -196,7 +196,8 @@ export const PRODUCTS: Product[] = [
     description: 'Bolsa de 50g de rafia más bolsita de hojas y 100g ramitas de olivo sin pesticida más cuerdas de sisal natural de 14 mm por 70 de largo.',
     image: IMG_FORRAJEO_COMBO_RAFIA,
     category: 'Forrajeo',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.35
   }
 ];
 

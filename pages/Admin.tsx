@@ -147,16 +147,16 @@ const Admin: React.FC = () => {
 
     const handleToggleReviewApproval = async (reviewId: string, currentStatus: boolean) => {
         try {
-            const { error, count } = await supabase
+            const { error, data } = await supabase
                 .from('reviews')
                 .update({ is_approved: !currentStatus })
                 .eq('id', reviewId)
-                .select(); // Re-select to confirm update
+                .select();
 
             if (error) throw error;
 
-            if (!count || count === 0) {
-                alert('No se pudo actualizar el estado. Por favor, asegúrate de haber ejecutado los permisos (RLS) en Supabase.');
+            if (!data || data.length === 0) {
+                alert('No se pudo actualizar el estado. Por favor, asegúrate de haber ejecutado los permisos (RLS) en Supabase lanzando el comando SQL que te pasé.');
                 return;
             }
 
