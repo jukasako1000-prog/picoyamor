@@ -141,8 +141,8 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p18',
     name: 'Combo Forrajeo Natural',
-    price: 16.75,
-    description: 'Mezcla de cinco bolsas variadas para fondo de bandeja. Estimula el instinto natural de búsqueda y reduce el aburrimiento.',
+    price: 18.75,
+    description: 'Pack completo con ramitas de olivo (100g), heno (100g), cortezas (150g) y 8 piñas. Ideal para fondo de bandeja y enriquecimiento natural.',
     image: IMG_FORRAJEO_COMBO,
     category: 'Forrajeo',
     badge: 'Ahorro'
