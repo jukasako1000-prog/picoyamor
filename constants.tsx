@@ -167,7 +167,8 @@ export const PRODUCTS: Product[] = [
     description: '12 ramitas de Olivo seleccionadas. Estimula el instinto de forrajeo y proporciona vitaminas naturales. ¡El entretenimiento más saludable y divertido para tu loro!',
     image: IMG_RAMILLETE_OLIVO,
     category: 'Forrajeo',
-    badge: 'Súper Natural'
+    badge: 'Súper Natural',
+    scale: 1.35
   },
   {
     id: 'p24',
