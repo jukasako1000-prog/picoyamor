@@ -300,18 +300,18 @@ const ClubPico: React.FC = () => {
                     <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-4">
                             <div className="aspect-square bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="/fama/FAMA1.jpg" className="w-full h-full object-cover" alt="Club Pico" />
+                                <img src="/FAMA/FAMA1.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                             <div className="aspect-[4/5] bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="/fama/FAMA2.jpg" className="w-full h-full object-cover" alt="Club Pico" />
+                                <img src="/FAMA/FAMA2.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                         </div>
                         <div className="space-y-4 pt-12">
                             <div className="aspect-[4/5] bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="/fama/FAMA3.jpg" className="w-full h-full object-cover" alt="Club Pico" />
+                                <img src="/FAMA/FAMA3.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                             <div className="aspect-square bg-white/10 rounded-[2rem] overflow-hidden">
-                                <img src="/fama/FAMA4.jpg" className="w-full h-full object-cover" alt="Club Pico" />
+                                <img src="/FAMA/FAMA4.jpg" className="w-full h-full object-cover" alt="Club Pico" />
                             </div>
                         </div>
                     </div>
