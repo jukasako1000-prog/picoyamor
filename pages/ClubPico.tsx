@@ -258,8 +258,12 @@ const ClubPico: React.FC = () => {
                                 </p>
 
                                 {review.image_url && (
-                                    <div className="mb-6 rounded-2xl overflow-hidden aspect-video border border-background-light">
-                                        <img src={review.image_url} alt="Review" className="w-full h-full object-cover" />
+                                    <div className="mb-6 rounded-2xl overflow-hidden border border-background-light bg-background-light/30">
+                                        <img
+                                            src={review.image_url}
+                                            alt="Review"
+                                            className="w-full h-auto max-h-[400px] object-contain block mx-auto"
+                                        />
                                     </div>
                                 )}
 
