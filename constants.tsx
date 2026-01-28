@@ -172,7 +172,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p24',
-    name: "Columpio 'Agarre de Yute'",
+    name: 'Columpio Mini Torre',
     price: 7.50,
     description: 'Columpio con cuentas de madera naturales forrada en cuerda de yute para mejor agarre. Medidas: 24cm alto x 14cm ancho. Pensado para aves pequeñas.',
     image: IMG_COLUMPIO_YUTE,
