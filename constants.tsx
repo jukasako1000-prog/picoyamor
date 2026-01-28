@@ -46,7 +46,6 @@ export const IMG_CONTACT_MAIN = 'https://i.postimg.cc/DZbGhN5m/Whisk_e76e908bd2c
 
 // --- CATÁLOGO DE PRODUCTOS ---
 const IMG_PROD_AVENTURA = 'https://i.postimg.cc/SRf3Zg0b/Whats_App_Image_2026_01_11_at_15_20_51.jpg';
-const IMG_PROD_RELAX = 'https://i.postimg.cc/NfQWyvTq/Whats_App_Image_2026_01_11_at_15_21_22.jpg';
 const IMG_PROD_NATURA = 'https://i.postimg.cc/ZKpqJs3w/Whats-App-Image-2026-01-25-at-12-13-58.jpg';
 const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
 const IMG_COLUMPIO_PLATAFORMA = '/COLUMPIOA.png';
@@ -71,14 +70,6 @@ export const PRODUCTS: Product[] = [
     image: IMG_PROD_AVENTURA,
     category: 'Packs',
     badge: 'Más vendido'
-  },
-  {
-    id: 'p6',
-    name: 'Pack Relax',
-    price: 15.90,
-    description: 'Materiales silenciosos y texturas suaves para aves más tranquilas o miedosas.',
-    image: IMG_PROD_RELAX,
-    category: 'Packs'
   },
   {
     id: 'p14',
