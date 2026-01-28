@@ -19,8 +19,11 @@ const Contact: React.FC = () => {
     };
 
     try {
-      // Usamos la función de base de datos que acabas de crear
-      const { error } = await supabase.rpc('send_contact_email', data);
+      // Guardamos el mensaje en una nueva tabla 'contact_messages'
+      // Esto disparará el email automáticamente igual que con los pedidos
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([data]);
 
       if (!error) {
         setStatus('success');
