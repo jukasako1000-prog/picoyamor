@@ -80,11 +80,12 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p14',
     name: 'Columpio más cuerda',
-    price: 11.75,
-    description: 'La esencia de la diversión natural. Un lote artesanal con texturas para un entretenimiento seguro.',
+    price: 12.75,
+    description: 'Medidas: 19cm largo x 17cm ancho. Cuerda de sisal natural de 10mm x 80cm de largo. Forrado en cuerda de yute para mayor comodidad de las patitas. Ideal para aves pequeñas y medianas.',
     image: IMG_PROD_NATURA,
     category: 'Packs',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.35
   },
   {
     id: 'p16',
