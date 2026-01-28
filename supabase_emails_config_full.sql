@@ -31,6 +31,7 @@ begin
         '<h2 style="border-bottom:2px solid #f2ede4; padding-bottom:10px; font-size:20px;">Pedido #' || order_id_short || '</h2>' ||
         '<table style="width:100%; border-collapse:collapse; margin-top:20px;">' ||
         items_html ||
+        '<tr><td style="padding:10px 0; border-bottom:1px solid #f2ede4; color:#6c7a6e; font-size:14px;">Gastos de envío</td><td style="padding:10px 0; border-bottom:1px solid #f2ede4; text-align:right; font-weight:bold; color:#6c7a6e; font-size:14px;">' || (case when new.shipping_cost = 0 then 'GRATIS' else to_char(new.shipping_cost, 'FM999,990.00') || '€' end) || '</td></tr>' ||
         '<tr style="border-top:2px solid #f2ede4;">' ||
         '<td style="padding:20px 0; font-weight:bold; font-size:18px;">TOTAL</td>' ||
         '<td style="padding:20px 0; text-align:right; font-weight:bold; font-size:24px; color:#6c9371;">' || to_char(new.total, 'FM999,990.00') || '€</td></tr></table>' ||
