@@ -91,7 +91,7 @@ export const PRODUCTS: Product[] = [
     id: 'p16',
     name: 'Pack Olivo',
     price: 13.90,
-    description: 'Selección especial de accesorios artesanales con rama de olivo natural. Ideal para estimulación y enriquecimiento.',
+    description: 'Medidas: 22cm largo x 19cm ancho. Columpio de sisal envuelto en ramitas de olivo natural. Ideal para aves medianas y pequeñas.',
     image: IMG_PACK_OLIVO,
     category: 'Packs'
   },
