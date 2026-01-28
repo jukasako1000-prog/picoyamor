@@ -11,6 +11,7 @@ interface Review {
     text: string;
     rating: number;
     image_url?: string;
+    is_approved?: boolean;
     created_at: string;
 }
 
@@ -39,6 +40,7 @@ const ClubPico: React.FC = () => {
             const { data, error } = await supabase
                 .from('reviews')
                 .select('*')
+                .eq('is_approved', true)
                 .order('created_at', { ascending: false });
 
             if (error) throw error;
@@ -109,7 +111,7 @@ const ClubPico: React.FC = () => {
             setFormData({ name: '', bird_name: '', text: '', rating: 5, image: null });
             setShowForm(false);
             fetchReviews();
-            alert('¡Gracias por tu reseña! 🦜✨');
+            alert('¡Gracias por compartir tu experiencia! 🦜✨ Tu reseña se publicará muy pronto, tras ser revisada por nuestro equipo.');
         } catch (error: any) {
             console.error('Error submitting review:', error);
             alert(`Hubo un error al enviar tu reseña: ${error.message || 'Error desconocido'}. Asegúrate de que la tabla y el storage estén configurados en Supabase.`);

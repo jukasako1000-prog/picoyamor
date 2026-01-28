@@ -145,6 +145,23 @@ const Admin: React.FC = () => {
         }
     };
 
+    const handleToggleReviewApproval = async (reviewId: string, currentStatus: boolean) => {
+        try {
+            const { error } = await supabase
+                .from('reviews')
+                .update({ is_approved: !currentStatus })
+                .eq('id', reviewId);
+
+            if (error) throw error;
+
+            setReviews(reviews.map(r => r.id === reviewId ? { ...r, is_approved: !currentStatus } : r));
+            alert(currentStatus ? 'Reseña ocultada de la web.' : '¡Reseña publicada con éxito! 🦜✨');
+        } catch (error) {
+            console.error('Error toggling review approval:', error);
+            alert('No se pudo cambiar el estado de la reseña.');
+        }
+    };
+
     const handleUpdateOrderStatus = async (orderId: string, newStatus: string) => {
         try {
             const { error } = await supabase
@@ -623,17 +640,33 @@ const Admin: React.FC = () => {
                             {reviews.map((review) => (
                                 <div key={review.id} className="bg-white rounded-[2.5rem] p-6 shadow-soft border border-background-light flex flex-col h-full">
                                     <div className="flex justify-between items-start mb-4">
-                                        <div className="flex gap-1">
-                                            {[...Array(5)].map((_, i) => (
-                                                <span key={i} className={`material-symbols-outlined text-sm ${i < review.rating ? 'text-primary filled-icon' : 'text-text-muted/20'}`}>grade</span>
-                                            ))}
+                                        <div className="space-y-1">
+                                            <div className="flex gap-1">
+                                                {[...Array(5)].map((_, i) => (
+                                                    <span key={i} className={`material-symbols-outlined text-sm ${i < review.rating ? 'text-primary filled-icon' : 'text-text-muted/20'}`}>grade</span>
+                                                ))}
+                                            </div>
+                                            <div className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider ${review.is_approved ? 'bg-green-100 text-green-600' : 'bg-orange-100 text-orange-600'}`}>
+                                                <span className="size-1.5 rounded-full bg-current"></span>
+                                                {review.is_approved ? 'Publicado' : 'Pendiente'}
+                                            </div>
                                         </div>
-                                        <button
-                                            onClick={() => handleDeleteReview(review.id)}
-                                            className="text-red-500 hover:bg-red-50 p-2 rounded-xl transition-all"
-                                        >
-                                            <span className="material-symbols-outlined text-lg">delete</span>
-                                        </button>
+                                        <div className="flex gap-2">
+                                            <button
+                                                onClick={() => handleToggleReviewApproval(review.id, !!review.is_approved)}
+                                                className={`size-10 rounded-xl flex items-center justify-center transition-all ${review.is_approved ? 'bg-orange-50 text-orange-500 hover:bg-orange-500 hover:text-white' : 'bg-green-50 text-green-500 hover:bg-green-500 hover:text-white'}`}
+                                                title={review.is_approved ? "Ocultar de la web" : "Aprobar y publicar"}
+                                            >
+                                                <span className="material-symbols-outlined text-lg">{review.is_approved ? 'visibility_off' : 'check_circle'}</span>
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeleteReview(review.id)}
+                                                className="size-10 bg-red-50 text-red-500 rounded-xl flex items-center justify-center hover:bg-red-500 hover:text-white transition-all"
+                                                title="Borrar reseña"
+                                            >
+                                                <span className="material-symbols-outlined text-lg">delete</span>
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <p className="text-sm font-bold text-text-main leading-relaxed mb-4 italic flex-grow">
