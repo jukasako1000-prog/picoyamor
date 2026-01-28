@@ -59,6 +59,7 @@ const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
 const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
 const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
 const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
+const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -175,6 +176,16 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_YUTE,
     category: 'Columpios',
     badge: 'Nuevo',
+    scale: 1.35
+  },
+  {
+    id: 'p25',
+    name: "Columpio 'Diversión Rattan'",
+    price: 13.80,
+    description: 'Este columpio ofrece mayor diversión, incluye una bolita de Rattan amarilla (el color puede variar). Seguro y duradero para aves medianas. Medidas: 22cm alto x 18cm ancho.',
+    image: IMG_COLUMPIO_RATTAN,
+    category: 'Columpios',
+    badge: 'Popular',
     scale: 1.35
   }
 ];
