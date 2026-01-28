@@ -12,7 +12,8 @@ const Admin: React.FC = () => {
     const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
     const [editedStock, setEditedStock] = useState<Record<string, number>>({});
     const [orders, setOrders] = useState<any[]>([]);
-    const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users'>('stock');
+    const [reviews, setReviews] = useState<any[]>([]);
+    const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users' | 'reviews'>('stock');
 
     const [users, setUsers] = useState<any[]>([]);
     const [userSearch, setUserSearch] = useState('');
@@ -85,6 +86,16 @@ const Admin: React.FC = () => {
                 setUsers(sortedUsers);
             }
 
+            // Fetch Reviews
+            const { data: reviewsData, error: reviewsError } = await supabase
+                .from('reviews')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (!reviewsError) {
+                setReviews(reviewsData || []);
+            }
+
         } catch (error) {
             console.error('Error fetching admin data:', error);
         } finally {
@@ -107,6 +118,24 @@ const Admin: React.FC = () => {
         } catch (error) {
             console.error('Error deleting user:', error);
             alert('No se pudo borrar el cliente.');
+        }
+    };
+
+    const handleDeleteReview = async (reviewId: string) => {
+        if (!window.confirm('¿Estás seguro de que quieres borrar esta reseña? Esta acción no se puede deshacer.')) return;
+
+        try {
+            const { error } = await supabase
+                .from('reviews')
+                .delete()
+                .eq('id', reviewId);
+
+            if (error) throw error;
+            setReviews(reviews.filter(r => r.id !== reviewId));
+            alert('Reseña borrada con éxito.');
+        } catch (error) {
+            console.error('Error deleting review:', error);
+            alert('No se pudo borrar la reseña.');
         }
     };
 
@@ -266,28 +295,39 @@ const Admin: React.FC = () => {
             </div>
 
             {/* Alternador de Pestañas */}
-            <div className="flex gap-4 mb-10 bg-white p-2 rounded-3xl shadow-sm border border-background-light w-full md:w-fit">
+            <div className="flex gap-4 mb-10 bg-white p-2 rounded-3xl shadow-sm border border-background-light w-full md:w-fit overflow-x-auto">
                 <button
                     onClick={() => setActiveTab('stock')}
-                    className={`flex-1 md:flex-none px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'stock' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
+                    className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'stock' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
                 >
                     Control de Stock
                 </button>
                 <button
                     onClick={() => setActiveTab('orders')}
-                    className={`flex-1 md:flex-none px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'orders' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
+                    className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'orders' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
                 >
                     Pedidos Realizados
                 </button>
                 <button
                     onClick={() => setActiveTab('users')}
-                    className={`flex-1 md:flex-none px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'users' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
+                    className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'users' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
                 >
                     Gestión de Clientes
                 </button>
+                <button
+                    onClick={() => setActiveTab('reviews')}
+                    className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'reviews' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
+                >
+                    Gestión de Reseñas
+                </button>
             </div>
 
-            {activeTab === 'stock' ? (
+            {loading ? (
+                <div className="text-center py-20">
+                    <div className="inline-block animate-spin size-8 border-4 border-primary border-t-transparent rounded-full mb-4"></div>
+                    <p className="text-text-muted font-bold uppercase tracking-widest text-xs">Cargando datos del panel...</p>
+                </div>
+            ) : activeTab === 'stock' ? (
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {PRODUCTS.map(product => {
@@ -468,7 +508,7 @@ const Admin: React.FC = () => {
                             ))}
                         </div>)}
                 </div>
-            ) : (
+            ) : activeTab === 'users' ? (
                 <div className="space-y-8">
                     <div className="bg-white rounded-[3rem] p-8 border border-background-light shadow-soft flex flex-col lg:flex-row justify-between items-center gap-6">
                         <div className="flex gap-4 items-center flex-1">
@@ -565,6 +605,56 @@ const Admin: React.FC = () => {
                         </div>
                     )}
                 </div>
+            ) : (
+                <div className="space-y-6">
+                    {reviews.length === 0 ? (
+                        <div className="bg-white rounded-[3rem] p-20 text-center border border-background-light shadow-soft">
+                            <span className="material-symbols-outlined text-6xl text-text-muted mb-4">rate_review</span>
+                            <p className="text-xl font-black text-text-main">No hay reseñas todavía</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {reviews.map((review) => (
+                                <div key={review.id} className="bg-white rounded-[2.5rem] p-6 shadow-soft border border-background-light flex flex-col h-full">
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="flex gap-1">
+                                            {[...Array(5)].map((_, i) => (
+                                                <span key={i} className={`material-symbols-outlined text-sm ${i < review.rating ? 'text-primary filled-icon' : 'text-text-muted/20'}`}>grade</span>
+                                            ))}
+                                        </div>
+                                        <button
+                                            onClick={() => handleDeleteReview(review.id)}
+                                            className="text-red-500 hover:bg-red-50 p-2 rounded-xl transition-all"
+                                        >
+                                            <span className="material-symbols-outlined text-lg">delete</span>
+                                        </button>
+                                    </div>
+
+                                    <p className="text-sm font-bold text-text-main leading-relaxed mb-4 italic flex-grow">
+                                        "{review.text}"
+                                    </p>
+
+                                    {review.image_url && (
+                                        <div className="mb-4 rounded-xl overflow-hidden aspect-video border border-background-light">
+                                            <img src={review.image_url} alt="" className="w-full h-full object-cover" />
+                                        </div>
+                                    )}
+
+                                    <div className="pt-4 border-t border-background-light flex items-center gap-3">
+                                        <div className="size-10 rounded-full bg-primary/10 flex items-center justify-center font-black text-primary text-xs uppercase">
+                                            {review.name[0]}
+                                        </div>
+                                        <div className="min-w-0">
+                                            <p className="font-black text-text-main text-xs truncate">{review.name}</p>
+                                            <p className="text-[10px] font-bold text-primary truncate">{review.bird_name}</p>
+                                        </div>
+                                        <p className="ml-auto text-[8px] font-black uppercase text-text-muted">{new Date(review.created_at).toLocaleDateString()}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
             )}
             <style>{`
                 @keyframes bounceIn {
@@ -572,9 +662,14 @@ const Admin: React.FC = () => {
                     to { opacity: 1; transform: translate(-50%, 0); }
                 }
                 .animate-bounce-in { animation: bounceIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+                .filled-icon { font-variation-settings: 'FILL' 1; }
+                .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+                .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+                .custom-scrollbar::-webkit-scrollbar-thumb { background: #e5e7eb; border-radius: 10px; }
             `}</style>
         </div>
     );
 };
 
 export default Admin;
+
