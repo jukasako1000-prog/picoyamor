@@ -110,9 +110,9 @@ const ClubPico: React.FC = () => {
             setShowForm(false);
             fetchReviews();
             alert('¡Gracias por tu reseña! 🦜✨');
-        } catch (error) {
+        } catch (error: any) {
             console.error('Error submitting review:', error);
-            alert('Hubo un error al enviar tu reseña. Asegúrate de que la tabla y el storage estén configurados.');
+            alert(`Hubo un error al enviar tu reseña: ${error.message || 'Error desconocido'}. Asegúrate de que la tabla y el storage estén configurados en Supabase.`);
         } finally {
             setSubmitting(false);
         }
