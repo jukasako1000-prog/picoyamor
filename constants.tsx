@@ -209,7 +209,7 @@ export const PRODUCTS: Product[] = [
     price: 11.90,
     description: 'Para jaula grande mediana. Colgante de mazorcas con bolitas de rattán para una mayor diversión. Todo natural, colores no tóxicos.',
     image: IMG_COLGANTE_MAZORCAS,
-    category: 'Columpios',
+    category: 'Forrajeo',
     badge: 'Nuevo',
     scale: 1.2
   }
