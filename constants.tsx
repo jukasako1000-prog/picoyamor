@@ -60,6 +60,7 @@ const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
 const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
 const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
 const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
+const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -190,6 +191,15 @@ export const PRODUCTS: Product[] = [
     category: 'Forrajeo',
     badge: 'Nuevo',
     scale: 1.1
+  },
+  {
+    id: 'p27',
+    name: 'Columpio Mazorca',
+    price: 1.70,
+    description: '17cm de alto y 14cm de ancho. Columpio de cuenta de madera y mazorca natural seca. Mosquetón de acero inoxidable para aves medianas y pequeñas.',
+    image: IMG_COLUMPIO_MAZORCA,
+    category: 'Columpios',
+    badge: 'Nuevo'
   }
 ];
 

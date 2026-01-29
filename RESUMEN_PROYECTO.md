@@ -35,6 +35,7 @@ Protegido para el email: `infopicoyamor@gmail.com`. Admite navegación vía **Ha
     - Mayor fiabilidad, diseño profesional y soporte para responder directamente desde el email.
 
 ### 4. Experiencia del Cliente y Catálogo
+- **Nuevos Productos**: `Columpio Mini Torre` (p24), `Columpio Diversión Rattan` (p25), `Combo Forrajeo Rafia y Olivo` (p26), `Columpio Mazorca` (p27).
 - **Catálogo Dinámico**: Gestión de stock en tiempo real con avisos de "Quedan X unidades".
 - **Políticas**: Devoluciones en 24/48h por seguridad aviar (producto intacto).
 
