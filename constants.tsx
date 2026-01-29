@@ -201,7 +201,7 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_MAZORCA,
     category: 'Columpios',
     badge: 'Nuevo',
-    scale: 1.05
+    scale: 1.25
   },
   {
     id: 'p28',
@@ -210,7 +210,8 @@ export const PRODUCTS: Product[] = [
     description: 'Para jaula grande mediana. Colgante de mazorcas con bolitas de rattán para una mayor diversión. Todo natural, colores no tóxicos.',
     image: IMG_COLGANTE_MAZORCAS,
     category: 'Columpios',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.2
   }
 ];
 
