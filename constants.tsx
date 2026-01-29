@@ -201,7 +201,7 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_MAZORCA,
     category: 'Columpios',
     badge: 'Nuevo',
-    scale: 1.5
+    scale: 1.05
   },
   {
     id: 'p28',
