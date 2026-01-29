@@ -199,7 +199,8 @@ export const PRODUCTS: Product[] = [
     description: '17cm de alto y 14cm de ancho. Columpio de cuenta de madera y mazorca natural seca. Mosquetón de acero inoxidable para aves medianas y pequeñas.',
     image: IMG_COLUMPIO_MAZORCA,
     category: 'Columpios',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.5
   }
 ];
 
