@@ -2,7 +2,7 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🚀 Estado Actual (Actualizado: 28 de Enero, 2026)
+## 🚀 Estado Actual (Actualizado: 29 de Enero, 2026)
 La aplicación es un e-commerce robusto con sincronización bidireccional en tiempo real mediante **Supabase**.
 
 ### 1. Infraestructura de Datos (Supabase)
@@ -11,45 +11,35 @@ La aplicación es un e-commerce robusto con sincronización bidireccional en tie
     - `orders`: Transacciones (`id`, `customer_email`, `total`, `shipping_cost`, `items` como JSONB, `status`).
     - `profiles`: Datos de usuario extendidos (`id`, `name`, `email`, `address`, `city`, `province`, `postal_code`, `phone`).
     - `reviews`: Valoraciones de clientes (`id`, `name`, `bird_name`, `text`, `rating`, `image_url`, `is_approved`, `created_at`).
-- **Seguridad y Lógica de Negocio**:
-    - **Moderación de Reseñas**: Las reseñas nuevas entran como `is_approved = false` y NO se muestran en la web hasta que el admin las activa.
-    - **Políticas (RLS)**:
-        - `products`: Lectura pública. Actualización para el Admin.
-        - `orders`: Inserción pública (incluye invitados). Lectura de confirmación para invitados. Control total para el Admin.
-        - `reviews`: Lectura pública filtrada (`is_approved = true`). Inserción pública. **Borrado y Actualización restringido al Admin**.
+- **Seguridad y Lógica (RLS)**:
+    - **Compra para Invitados (SOLUCIONADO)**: Cualquier persona puede comprar sin cuenta. Las políticas permiten a `anon` insertar en `orders` y leer su propio pedido para la pantalla de éxito.
+    - **Moderación de Reseñas**: Las nuevas reseñas entran como `is_approved = false` y requieren activación manual en el Admin.
+    - **Control de Acceso**: El Admin (`infopicoyamor@gmail.com`) tiene control total (`ALL`) sobre todas las tablas.
 
 ### 2. Panel de Administración (`/admin`)
-Protegido para el email: `infopicoyamor@gmail.com`. Admite navegación vía **HashRouter** (`https://picoyamor.com/#/admin`).
+Acceso mediante **HashRouter** (`https://picoyamor.com/#/admin`).
+- **Autosincronización de Stock**: El panel usa `upsert`. Si añades un producto nuevo al código (`constants.tsx`) y le pones stock en el panel, se crea automáticamente en la base de datos.
+- **Gestión de Reseñas**: Sistema de aprobación/borrado con visualización de fotos optimizada.
+- **Sistema Resend**: Emails profesionales con desglose de envío y avisos de estado automáticos.
 
-- **Moderación de Reseñas**:
-    - Pestaña dedicada para gestionar testimonios. Visualización de fotos completas.
-- **Sistema de Emails Profesional (NUEVO - Resend)**: 
-    - **IDs Unificados**: Todos los pedidos usan un ID de 8 caracteres consistente en Web, Email y Base de Datos (ej. `#6A36CCD2`).
-    - **Confirmación Automática**: Email con diseño profesional y **desglose de gastos de envío**.
-    - **Aviso de Envío**: Email con aviso de transporte al cambiar estado a "Enviado".
-    - **Alertas Admin**: Alerta instantánea con enlace directo al panel.
+### 3. Diseño y UX (Mejoras Recientes)
+- **Muro Masonry**: Las reseñas usan un diseño tipo Pinterest. Si una reseña no tiene foto, el diseño se ajusta verticalmente sin dejar huecos vacíos.
+- **Video Restaurado**: La sección "Nuestra Pasión con Alas" vuelve a tener su video en bucle cargando desde local (`/public/VIDEO.mp4`).
+- **Escalado de Imagen**: Parámetro `scale` en `constants.tsx` para ajustar el zoom de las fotos de productos individualmente.
 
-### 3. Contacto y Soporte
-- **Formulario de Contacto (Mejorado)**:
-    - Migrado a **Supabase Edge Functions + Resend**.
-    - Mayor fiabilidad, diseño profesional y soporte para responder directamente desde el email.
-
-### 4. Experiencia del Cliente y Catálogo
-- **Nuevos Productos**: `Columpio Mini Torre` (p24), `Columpio Diversión Rattan` (p25), `Combo Forrajeo Rafia y Olivo` (p26), `Columpio Mazorca` (p27), `Colgante Mazorcas` (p28).
-- **Catálogo Dinámico**: Gestión de stock en tiempo real con avisos de "Quedan X unidades".
-- **Políticas**: Devoluciones en 24/48h por seguridad aviar (producto intacto).
+### 4. Contacto y Soporte
+- **Edge Functions**: El formulario usa una función segura en Supabase con la API de Resend para evitar spam y asegurar la entrega.
 
 ## 📂 Estructura de Archivos Clave
-- `lib/db.ts`: Servicios de base de datos.
-- `constants.tsx`: Definición de productos e imágenes.
-- `pages/Admin.tsx`: Centro de gestión.
-- `pages/Contact.tsx`: Formulario profesional.
-- `supabase/functions/send-contact-email/`: Lógica de envío segura.
+- `constants.tsx`: Catálogo maestro de productos y configuración visual (zoom, etc).
+- `pages/Admin.tsx`: Centro de gestión de pedidos, stock y reseñas.
+- `pages/ClubPico.tsx`: Muro de experiencias de clientes con Masonry layout.
+- `lib/db.ts`: Servicios de interacción con la base de datos.
 
-## ⚠️ Notas Críticas para el Siguiente Agente
-1. **Configuración Resend**: Requiere ejecutar el SQL de triggers y configurar la `API KEY` en el Editor SQL de Supabase.
-2. **Nuevos Productos**: Asegurar que el ID en `constants.tsx` existe en la tabla `products`.
-3. **Escalas de Imagen**: Ajustar `scale` en `constants.tsx` si las fotos se cortan en la galería.
+## ⚠️ Notas para el Siguiente Agente
+1. **Nuevos Productos**: Añadir el ID en `constants.tsx` y el Admin hará el resto al guardar stock.
+2. **Escalas**: Si una foto de producto se ve lejos o cortada, ajusta su `scale` en `constants.tsx`.
+3. **Storage**: Las fotos de reseñas se guardan en el bucket `reviews` de Supabase Storage.
 
 ---
-*Documento actualizado tras la migración a Resend y unificación de IDs (28/01/2026).* 🦜✨
+*¡Proyecto listo y documentado al detalle!* 🦜✨🌻
