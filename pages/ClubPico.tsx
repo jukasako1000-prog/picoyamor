@@ -236,7 +236,7 @@ const ClubPico: React.FC = () => {
                     </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
                     {loading ? (
                         <div className="col-span-full text-center py-20">
                             <div className="inline-block animate-spin size-8 border-4 border-primary border-t-transparent rounded-full mb-4"></div>
@@ -244,7 +244,7 @@ const ClubPico: React.FC = () => {
                         </div>
                     ) : reviews.length > 0 ? (
                         reviews.map((review) => (
-                            <div key={review.id} className="bg-white rounded-[3rem] p-10 border border-background-light shadow-soft relative overflow-hidden group">
+                            <div key={review.id} className="break-inside-avoid mb-8 bg-white rounded-[3rem] p-10 border border-background-light shadow-soft relative overflow-hidden group">
                                 <div className="absolute top-0 right-0 p-8 opacity-5">
                                     <span className="material-symbols-outlined text-8xl font-black lowercase italic">format_quote</span>
                                 </div>
