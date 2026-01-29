@@ -189,15 +189,21 @@ const Admin: React.FC = () => {
         try {
             const updates = Object.entries(editedStock)
                 .filter(([id, val]) => val !== stockLevels[id])
-                .map(([id, val]) => ({ id, stock_quantity: val }));
+                .map(([id, val]) => {
+                    const product = PRODUCTS.find(p => p.id === id);
+                    return {
+                        id,
+                        name: product?.name || 'Producto Nuevo',
+                        stock_quantity: val
+                    };
+                });
 
             if (updates.length === 0) return;
 
             for (const update of updates) {
                 const { error } = await supabase
                     .from('products')
-                    .update({ stock_quantity: update.stock_quantity })
-                    .eq('id', update.id);
+                    .upsert(update);
                 if (error) throw error;
             }
 
