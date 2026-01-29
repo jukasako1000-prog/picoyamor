@@ -61,6 +61,7 @@ const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
 const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
 const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
 const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
+const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -201,6 +202,15 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Nuevo',
     scale: 1.5
+  },
+  {
+    id: 'p28',
+    name: 'Colgante Mazorcas',
+    price: 11.90,
+    description: 'Para jaula grande mediana. Colgante de mazorcas con bolitas de rattán para una mayor diversión. Todo natural, colores no tóxicos.',
+    image: IMG_COLGANTE_MAZORCAS,
+    category: 'Columpios',
+    badge: 'Nuevo'
   }
 ];
 
