@@ -195,7 +195,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p27',
     name: 'Columpio Mazorca',
-    price: 1.70,
+    price: 7.50,
     description: '17cm de alto y 14cm de ancho. Columpio de cuenta de madera y mazorca natural seca. Mosquetón de acero inoxidable para aves medianas y pequeñas.',
     image: IMG_COLUMPIO_MAZORCA,
     category: 'Columpios',
