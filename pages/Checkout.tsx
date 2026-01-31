@@ -67,7 +67,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
         if (!user) return;
 
         try {
-            // 1. Prepare order data for Supabase
+            // 1. Prepare order data for Supabase (Status: 'pendiente')
             const orderData = {
                 customer_name: user.name,
                 customer_email: user.email,
@@ -80,33 +80,45 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                     id: item.id,
                     name: item.name,
                     quantity: item.quantity,
-                    price: item.price
+                    price: item.price,
+                    image: item.image // Añadimos imagen para Stripe
                 })),
                 shipping_cost: shippingFee,
                 shipping_method: isExtraPeninsular ? 'Extra-Peninsular' : 'Península',
                 total: total,
-                status: 'pagado' // Assuming Stripe success for now
+                status: 'pendiente' // El pedido empieza como pendiente de pago
             };
 
-            // 2. Save to Orders table
+            // 2. Save to Orders table to get an ID
             const savedOrder = await saveOrder(orderData);
             const realId = savedOrder?.id;
 
-            // 3. Update Stock (Optional - Don't block order if RLS fails)
-            try {
-                await updateStock(cart.map(item => ({ id: item.id, quantity: item.quantity })));
-            } catch (stockError) {
-                console.warn('Stock update failed (possibly RLS limitation):', stockError);
-                // We proceed since the order itself was saved successfully
+            // 3. Call Supabase Edge Function to create Stripe Session
+            const { data: session, error: sessionError } = await supabase.functions.invoke('create-checkout-session', {
+                body: {
+                    items: [
+                        ...orderData.items,
+                        { name: `Envío (${orderData.shipping_method})`, price: shippingFee, quantity: 1 }
+                    ],
+                    customer_email: user.email,
+                    order_id: realId
+                }
+            });
+
+            if (sessionError) throw sessionError;
+
+            // 4. Redirigir a la pasarela de Stripe
+            if (session?.url) {
+                window.location.href = session.url;
+            } else {
+                throw new Error('No se pudo generar la sesión de Stripe');
             }
 
-            // 4. Client side updates
-            onCompleteOrder(cart, total, realId);
-            onClearCart();
-            navigate('/order-success', { state: { orderId: realId } });
+            // NOTA: onCompleteOrder y onClearCart se llamarán en OrderSuccess.tsx 
+            // tras confirmar que el pago fue exitoso (o al volver de Stripe)
         } catch (error) {
-            console.error('Error saving order:', error);
-            alert('Hubo un error al guardar tu pedido. Por favor, contacta con nosotros si el problema persiste.');
+            console.error('Error in checkout process:', error);
+            alert('Hubo un error al procesar el pago. Por favor, inténtalo de nuevo.');
         }
     };
 

@@ -170,7 +170,7 @@ const App: React.FC = () => {
                 onOpenAuth={(mode?: 'login' | 'register' | 'guest') => handleOpenAuth(mode)}
               />
             } />
-            <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/order-success" element={<OrderSuccess onClearCart={handleClearCart} />} />
             <Route path="/aviso-legal" element={<LegalNotice />} />
             <Route path="/privacidad" element={<PrivacyPolicy />} />
             <Route path="/terminos" element={<Terms />} />

@@ -2,15 +2,28 @@
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-const OrderSuccess: React.FC = () => {
+interface OrderSuccessProps {
+    onClearCart: () => void;
+}
+
+const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
     const navigate = useNavigate();
     const location = useLocation();
+
+    // El ID puede venir por estado (compra directa antigua) o por URL (Stripe)
+    const searchParams = new URLSearchParams(location.search);
+    const sessionId = searchParams.get('session_id');
     const realId = location.state?.orderId;
-    const orderNumber = realId ? realId.slice(0, 8).toUpperCase() : Math.floor(100000 + Math.random() * 900000);
+
+    const orderNumber = realId
+        ? realId.slice(0, 8).toUpperCase()
+        : (sessionId ? 'PAGADO' : Math.floor(100000 + Math.random() * 900000));
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+        // Limpiamos el carrito al llegar aquí
+        onClearCart();
+    }, [onClearCart]);
 
     return (
         <div className="min-h-screen pt-40 pb-20 px-4 flex items-center justify-center bg-background-light/30">

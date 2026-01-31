@@ -16,11 +16,17 @@ La aplicación es un e-commerce robusto con sincronización bidireccional en tie
     - **Moderación de Reseñas**: Las nuevas reseñas entran como `is_approved = false` y requieren activación manual en el Admin.
     - **Control de Acceso**: El Admin (`infopicoyamor@gmail.com`) tiene control total (`ALL`) sobre todas las tablas.
 
-### 2. Panel de Administración (`/admin`)
-Acceso mediante **HashRouter** (`https://picoyamor.com/#/admin`).
-- **Autosincronización de Stock**: El panel usa `upsert`. Si añades un producto nuevo al código (`constants.tsx`) y le pones stock en el panel, se crea automáticamente en la base de datos.
-- **Gestión de Reseñas**: Sistema de aprobación/borrado con visualización de fotos optimizada.
-- **Sistema Resend**: Emails profesionales con desglose de envío y avisos de estado automáticos.
+### 3. Pasarela de Pago (Stripe) - PROCESO DE ACTIVACIÓN
+- **Flujo Actual**:
+    1. El usuario finaliza el pedido en `/checkout`.
+    2. El pedido se guarda en Supabase con estado `pendiente`.
+    3. Se invoca la Edge Function `create-checkout-session`.
+    4. El usuario es redirigido a la pasarela segura de Stripe.
+    5. Tras el pago, vuelve a `/order-success` y el carrito se limpia.
+- **Configuración Pendiente**:
+    - Añadir `STRIPE_PUBLISHABLE_KEY` en `lib/stripe.ts`.
+    - Añadir `STRIPE_SECRET_KEY` en los Secrets de Supabase.
+    - Desplegar la función con `supabase functions deploy create-checkout-session`.
 
 ### 3. Diseño y UX (Mejoras Recientes)
 - **Muro Masonry**: Las reseñas usan un diseño tipo Pinterest. Si una reseña no tiene foto, el diseño se ajusta verticalmente sin dejar huecos vacíos.
