@@ -68,7 +68,7 @@ const About: React.FC = () => {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {[
-            { icon: 'forest', title: 'Amor Natural', desc: 'Solo materiales biófilos y maderas sostenibles. Nada de tóxicos.' },
+            { icon: 'forest', title: 'Amor Natural', desc: 'Solo materiales naturales y maderas sostenibles. Nada de tóxicos.' },
             { icon: 'handyman', title: 'Artesanía Segura', desc: 'Cada juguete es lijado a mano y probado contra picos curiosos.' },
             { icon: 'diversity_1', title: 'Comunidad', desc: 'No somos solo una tienda, somos una bandada que comparte conocimiento.' }
           ].map((v, i) => (

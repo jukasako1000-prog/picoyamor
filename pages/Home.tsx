@@ -147,7 +147,7 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-5 space-y-6 text-center lg:text-left">
             <h2 className="text-4xl md:text-5xl font-black text-text-main tracking-tight leading-tight">Por qué nos eligen los agapornis</h2>
-            <p className="text-lg text-text-muted leading-relaxed font-medium">Materiales biófilos pensados para la seguridad y felicidad plena de tu mascota.</p>
+            <p className="text-lg text-text-muted leading-relaxed font-medium">Materiales naturales pensados para la seguridad y felicidad plena de tu mascota.</p>
           </div>
           <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-6">
             <div className="bg-white rounded-[2.5rem] p-8 shadow-soft border border-background-light text-center space-y-4 hover:-translate-y-2 transition-transform">
