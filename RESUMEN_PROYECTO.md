@@ -6,7 +6,11 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
 La aplicación ha sido estabilizada tras una sesión de depuración crítica. Se ha restaurado a un punto funcional y se han corregido errores graves en el flujo de compra.
 
 ### 💎 Hitos de Estabilización (2 de Febrero, 2026)
-1. **Flujo de Pago Blindado**:
+1. **Seguridad Blindada (RLS Completado)**: 🔐
+    - Se han activado las políticas de **Row Level Security** en todas las tablas de Supabase.
+    - La base de datos está protegida contra accesos no autorizados.
+    - El administrador (`infopicoyamor@gmail.com`) tiene control total, mientras que los clientes solo pueden insertar pedidos y ver productos/reseñas.
+2. **Flujo de Pago Blindado**:
     - **Corrección de ID**: El ID del pedido ya no muestra "#PAGADO" ni queda en blanco. Se implementó un sistema de "nota adhesiva" en `localStorage` que guarda el ID justo antes de ir a Stripe y lo recupera al volver.
     - **Fin del Bucle Infinito**: Se estabilizaron las funciones de `App.tsx` (`handleClearCart`, etc.) con `useCallback` para evitar que la web entrara en un bucle de refresco infinito al vaciar el carrito.
     - **Desbloqueo de Scroll**: Se eliminó un error en el `Navbar` que dejaba la pantalla "congelada" (bloqueo de scroll) al navegar hacia la pantalla de éxito.
