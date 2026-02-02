@@ -62,6 +62,7 @@ const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
 const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
 const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
 const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
+const IMG_COLGANTE_PAJARITA = '/colgantepajarita.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -212,6 +213,15 @@ export const PRODUCTS: Product[] = [
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo',
     scale: 1.2
+  },
+  {
+    id: 'p30',
+    name: 'Colgante Pajarita',
+    price: 6.50,
+    description: 'Colgante con bola de enriquecimiento, trozos de corcho y pajarita de rafia. Envuelto en sisal natural para el picoteo y entretenimiento. Medidas: 26 cm de largo.',
+    image: IMG_COLGANTE_PAJARITA,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
   }
 ];
 
