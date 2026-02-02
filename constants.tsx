@@ -62,10 +62,6 @@ const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
 const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
 const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
 const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
-const IMG_ENERGIA_NATURAL = 'https://i.postimg.cc/m289NTF5/Whisk_730685564a8a287af1246ccd07793773dr.png'; // Provisoria
-const IMG_PAJARITA = 'https://i.postimg.cc/15JFcyNd/Whisk_2f277a1cc353c24861c419f222abc5dddr.png'; // Provisoria
-const IMG_RAICES = 'https://i.postimg.cc/BQMFcJ17/Whisk_455674375a552b0b3cc45af38280bf39dr.jpg'; // Provisoria
-const IMG_RELAX = 'https://i.postimg.cc/yxrnjMFW/Whisk_ym2njlzy5y2ywiwytmwozgtlhzwm00czxumytyg.jpg'; // Provisoria
 
 export const PRODUCTS: Product[] = [
   {
@@ -76,40 +72,6 @@ export const PRODUCTS: Product[] = [
     image: IMG_PROD_AVENTURA,
     category: 'Packs',
     badge: 'Más vendido'
-  },
-  {
-    id: 'p6',
-    name: 'Pack Relax',
-    price: 19.90,
-    description: 'El descanso perfecto. Incluye plataforma de corcho natural y ramillete de lavanda seca para un ambiente tranquilo.',
-    image: IMG_RELAX,
-    category: 'Packs'
-  },
-  {
-    id: 'p13',
-    name: 'Buscador de Semillas "Raíces"',
-    price: 12.50,
-    description: 'Juguete de forrajeo avanzado. Diferentes texturas y escondites para estimular el instinto de búsqueda natural.',
-    image: IMG_RAICES,
-    category: 'Forrajeo/Colgantes'
-  },
-  {
-    id: 'p29',
-    name: 'Colgante "Energía Natural"',
-    price: 15.80,
-    description: 'Combinación de maderas cítricas y cuentas de colores naturales para activar la energía de tu ave.',
-    image: IMG_ENERGIA_NATURAL,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
-  },
-  {
-    id: 'p30',
-    name: 'Colgante Pajarita',
-    price: 13.50,
-    description: 'Elegante y divertido. Hecho con rafia y maderas ligeras, con forma de pajarita para deleite de los más presumidos.',
-    image: IMG_PAJARITA,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
   },
   {
     id: 'p14',
