@@ -15,24 +15,23 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
+  const cartCount = (cart || []).reduce((acc, item) => acc + (item?.quantity || 0), 0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.body.style.overflow = 'unset'; // Asegurar limpieza al desmontar
+    };
   }, []);
 
-  // Cerrar menú al cambiar de ruta o redimensionar
+  // Cerrar menú al cambiar de ruta
   useEffect(() => {
     setIsMenuOpen(false);
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = 'unset'; // FORZAR desbloqueo al cambiar de página
   }, [location.pathname]);
 
   const handleNavClick = (path: string) => {
