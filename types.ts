@@ -5,7 +5,7 @@ export interface Product {
   price: number;
   description: string;
   image: string;
-  category: 'Destructibles' | 'Forrajeo' | 'Acromáticos' | 'Columpios' | 'Packs';
+  category: 'Destructibles' | 'Forrajeo/Colgantes' | 'Acromáticos' | 'Columpios' | 'Packs';
   badge?: string;
   level?: string;
   isOffer?: boolean;

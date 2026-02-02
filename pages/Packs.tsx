@@ -16,7 +16,7 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
   const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
   const [loadingStock, setLoadingStock] = useState(true);
 
-  const categories = ['Todos', 'Packs', 'Columpios', 'Forrajeo'];
+  const categories = ['Todos', 'Packs', 'Columpios', 'Forrajeo/Colgantes'];
 
   useEffect(() => {
     fetchStock();
