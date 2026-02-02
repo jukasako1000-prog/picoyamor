@@ -64,6 +64,7 @@ const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
 const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
 const IMG_COLGANTE_PAJARITA = '/colgantepajarita.png';
 const IMG_COLGANTE_NEW = '/COLGANTENEW.png';
+const IMG_FORRAJEO_MINIPARQUE = '/forrajeominiparque.jpg';
 
 export const PRODUCTS: Product[] = [
   {
@@ -230,6 +231,15 @@ export const PRODUCTS: Product[] = [
     price: 3.50,
     description: 'Divertido colgante para ejercitarse. Con liga, cuentas de madera y bolitas de rattán. Medidas: 23 centímetros de largo.',
     image: IMG_COLGANTE_NEW,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p31',
+    name: 'Forrajeo Mini Parque',
+    price: 14.75,
+    description: 'Juguete ejercicio y eliminador del aburrimiento. Material mimbre, fibra de coco, mazorca, bolita de enriquecimiento, bolita de rattán, corteza y piña. Se puede colgar fácilmente adaptando según la jaula. Medidas: 19cm de ancho por 24cm de alto.',
+    image: IMG_FORRAJEO_MINIPARQUE,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   }
