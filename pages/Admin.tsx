@@ -13,7 +13,7 @@ const Admin: React.FC = () => {
     const [editedStock, setEditedStock] = useState<Record<string, number>>({});
     const [orders, setOrders] = useState<any[]>([]);
     const [reviews, setReviews] = useState<any[]>([]);
-    const [activeTab, setActiveTab] = useState<'stock' | 'orders' | 'users' | 'reviews'>('stock');
+    const [activeTab, setActiveTab] = useState<'orders' | 'stock' | 'users' | 'reviews'>('orders');
 
     const [users, setUsers] = useState<any[]>([]);
     const [userSearch, setUserSearch] = useState('');
@@ -332,16 +332,16 @@ const Admin: React.FC = () => {
             {/* Alternador de Pestañas */}
             <div className="flex gap-4 mb-10 bg-white p-2 rounded-3xl shadow-sm border border-background-light w-full md:w-fit overflow-x-auto">
                 <button
-                    onClick={() => setActiveTab('stock')}
-                    className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'stock' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
-                >
-                    Control de Stock
-                </button>
-                <button
                     onClick={() => setActiveTab('orders')}
                     className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'orders' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
                 >
                     Pedidos Realizados
+                </button>
+                <button
+                    onClick={() => setActiveTab('stock')}
+                    className={`shrink-0 px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-[10px] transition-all ${activeTab === 'stock' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:bg-background-light'}`}
+                >
+                    Control de Stock
                 </button>
                 <button
                     onClick={() => setActiveTab('users')}
