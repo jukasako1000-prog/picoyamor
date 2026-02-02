@@ -33,21 +33,27 @@ const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
         }
 
         // 2. Si viene de Stripe (por URL), buscamos el último pedido en el historial local
-        const savedOrders = localStorage.getItem('pico_orders');
-        if (savedOrders) {
-            try {
-                const orders = JSON.parse(savedOrders);
-                if (orders && orders.length > 0) {
-                    setOrderNumber(orders[0].id.slice(0, 8).toUpperCase());
-                    return;
+        // Intentamos buscarlo un par de veces por si la DB todavía está escribiendo
+        const getOrderFromStorage = () => {
+            const savedOrders = localStorage.getItem('pico_orders');
+            if (savedOrders) {
+                try {
+                    const orders = JSON.parse(savedOrders);
+                    if (orders && orders.length > 0) {
+                        setOrderNumber(orders[0].id.slice(0, 8).toUpperCase());
+                        return true;
+                    }
+                } catch (e) {
+                    console.error("Error leyendo historial");
                 }
-            } catch (e) {
-                console.error("Error leyendo historial para el ID");
             }
-        }
+            return false;
+        };
 
-        // 3. Si todo falla, generamos uno temporal digno
-        setOrderNumber(sessionId ? 'CONFIRMADO' : `ORD-${Math.floor(1000 + Math.random() * 9000)}`);
+        if (!getOrderFromStorage()) {
+            // Si no lo encuentra a la primera, lo reintentamos en medio segundo
+            setTimeout(getOrderFromStorage, 500);
+        }
     }, [location.state, sessionId, onClearCart]);
 
     return (
