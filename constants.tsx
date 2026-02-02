@@ -63,6 +63,7 @@ const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
 const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
 const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
 const IMG_COLGANTE_PAJARITA = '/colgantepajarita.png';
+const IMG_COLGANTE_NEW = '/COLGANTENEW.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -220,6 +221,15 @@ export const PRODUCTS: Product[] = [
     price: 6.50,
     description: 'Colgante con bola de enriquecimiento, trozos de corcho y pajarita de rafia. Envuelto en sisal natural para el picoteo y entretenimiento. Medidas: 26 cm de largo.',
     image: IMG_COLGANTE_PAJARITA,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p29',
+    name: 'Colgante Ejercicio',
+    price: 3.50,
+    description: 'Divertido colgante para ejercitarse. Con liga, cuentas de madera y bolitas de rattán. Medidas: 23 centímetros de largo.',
+    image: IMG_COLGANTE_NEW,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   }
