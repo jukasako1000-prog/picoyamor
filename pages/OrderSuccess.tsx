@@ -9,21 +9,46 @@ interface OrderSuccessProps {
 const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
     const navigate = useNavigate();
     const location = useLocation();
-
-    // El ID puede venir por estado (compra directa antigua) o por URL (Stripe)
     const searchParams = new URLSearchParams(location.search);
     const sessionId = searchParams.get('session_id');
-    const realId = location.state?.orderId;
 
-    const orderNumber = realId
-        ? realId.slice(0, 8).toUpperCase()
-        : (sessionId ? 'PAGADO' : Math.floor(100000 + Math.random() * 900000));
+    // Intentamos recuperar el número de pedido real
+    const [orderNumber, setOrderNumber] = React.useState<string>('...');
 
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        // FORZAR DESBLOQUEO: Aseguramos que el usuario pueda volver a navegar
+        document.body.style.overflow = 'unset';
+        document.body.style.pointerEvents = 'auto';
+
         // Limpiamos el carrito al llegar aquí
         onClearCart();
-    }, [onClearCart]);
+
+        // 1. Si viene por estado (ruta interna)
+        const state = location.state as { orderId?: string } | null;
+        if (state?.orderId) {
+            setOrderNumber(state.orderId.slice(0, 8).toUpperCase());
+            return;
+        }
+
+        // 2. Si viene de Stripe (por URL), buscamos el último pedido en el historial local
+        const savedOrders = localStorage.getItem('pico_orders');
+        if (savedOrders) {
+            try {
+                const orders = JSON.parse(savedOrders);
+                if (orders && orders.length > 0) {
+                    setOrderNumber(orders[0].id.slice(0, 8).toUpperCase());
+                    return;
+                }
+            } catch (e) {
+                console.error("Error leyendo historial para el ID");
+            }
+        }
+
+        // 3. Si todo falla, generamos uno temporal digno
+        setOrderNumber(sessionId ? 'CONFIRMADO' : `ORD-${Math.floor(1000 + Math.random() * 9000)}`);
+    }, [location.state, sessionId, onClearCart]);
 
     return (
         <div className="min-h-screen pt-40 pb-20 px-4 flex items-center justify-center bg-background-light/30">
@@ -37,10 +62,6 @@ const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
                     <div className="size-28 bg-primary/10 rounded-full flex items-center justify-center mx-auto relative z-10">
                         <span className="material-symbols-outlined text-6xl text-primary animate-bounce filled-icon">check_circle</span>
                     </div>
-                    {/* Confetti-like particles (simple div squares) */}
-                    <div className="absolute top-0 left-1/2 -ml-1 size-3 bg-accent rounded-full animate-ping delay-75" />
-                    <div className="absolute top-10 right-1/4 size-2 bg-primary rounded-full animate-ping delay-300" />
-                    <div className="absolute bottom-0 left-1/4 size-2 bg-text-main rounded-full animate-ping delay-500" />
                 </div>
 
                 <h1 className="text-4xl md:text-5xl font-black text-text-main uppercase tracking-tighter mb-4">
