@@ -1,0 +1,2 @@
+Forzando despliegue de la versión estable de Stripe.
+Fecha: 02/02/2026 19:53
