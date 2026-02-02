@@ -83,7 +83,7 @@ const App: React.FC = () => {
     fetchUserOrders();
   }, [user]);
 
-  const handleAddToCart = (product: Product) => {
+  const handleAddToCart = React.useCallback((product: Product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
       if (existing) {
@@ -94,13 +94,13 @@ const App: React.FC = () => {
       return [...prev, { ...product, quantity: 1 }];
     });
     setIsCartOpen(true);
-  };
+  }, []);
 
-  const handleRemoveFromCart = (id: string) => {
+  const handleRemoveFromCart = React.useCallback((id: string) => {
     setCart((prev) => prev.filter((item) => item.id !== id));
-  };
+  }, []);
 
-  const handleUpdateQuantity = (id: string, delta: number) => {
+  const handleUpdateQuantity = React.useCallback((id: string, delta: number) => {
     setCart((prev) =>
       prev
         .map((item) =>
@@ -108,13 +108,13 @@ const App: React.FC = () => {
         )
         .filter((item) => item.quantity > 0)
     );
-  };
+  }, []);
 
-  const handleClearCart = () => {
+  const handleClearCart = React.useCallback(() => {
     setCart([]);
-  };
+  }, []);
 
-  const handleCompleteOrder = (items: CartItem[], total: number, realId?: string) => {
+  const handleCompleteOrder = React.useCallback((items: CartItem[], total: number, realId?: string) => {
     const newOrder: Order = {
       id: realId || `ORD-${Math.floor(1000 + Math.random() * 9000)}`,
       date: new Date().toLocaleDateString('es-ES', { day: '2-digit', month: 'short', year: 'numeric' }).toUpperCase(),
@@ -123,22 +123,22 @@ const App: React.FC = () => {
       items: items.map(i => i.name)
     };
     setOrders(prev => [newOrder, ...prev]);
-  };
+  }, []);
 
-  const handleLogin = (userData: UserProfile) => {
+  const handleLogin = React.useCallback((userData: UserProfile) => {
     setUser(userData);
-  };
+  }, []);
 
-  const handleLogout = () => {
+  const handleLogout = React.useCallback(() => {
     setUser(null);
     setOrders([]);
     localStorage.removeItem('pico_user');
     localStorage.removeItem('pico_orders');
-  };
+  }, []);
 
-  const handleUpdateUser = (updatedUser: UserProfile) => {
+  const handleUpdateUser = React.useCallback((updatedUser: UserProfile) => {
     setUser(updatedUser);
-  };
+  }, []);
 
   return (
     <Router>
