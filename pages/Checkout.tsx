@@ -109,6 +109,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
 
             // 4. Redirigir a la pasarela de Stripe
             if (session?.url) {
+                // GUARDAMOS EL ID EN UNA NOTA ADHESIVA PARA LUEGO
+                if (realId) localStorage.setItem('pico_last_order_id', realId);
                 window.location.href = session.url;
             } else {
                 throw new Error('No se pudo generar la sesión de Stripe');

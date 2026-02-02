@@ -9,56 +9,58 @@ interface OrderSuccessProps {
 const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
     const navigate = useNavigate();
     const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const sessionId = searchParams.get('session_id');
 
     // Intentamos recuperar el número de pedido real
-    const [orderNumber, setOrderNumber] = React.useState<string>('...');
+    const [orderNumber, setOrderNumber] = React.useState<string>('CARGANDO');
 
     useEffect(() => {
         window.scrollTo(0, 0);
 
-        // FORZAR DESBLOQUEO: Aseguramos que el usuario pueda volver a navegar
+        // FORZAR DESBLOQUEO
         document.body.style.overflow = 'unset';
         document.body.style.pointerEvents = 'auto';
 
-        // Limpiamos el carrito al llegar aquí
+        // Limpiamos el carrito
         onClearCart();
 
-        // 1. Si viene por estado (ruta interna)
-        const state = location.state as { orderId?: string } | null;
-        if (state?.orderId) {
-            setOrderNumber(state.orderId.slice(0, 8).toUpperCase());
-            return;
-        }
+        // BUSCAR EL ID DEL PEDIDO
+        const getRealID = () => {
+            // 1. Mirar si lo tenemos en la "nota adhesiva" que pusimos en Checkout
+            const lastId = localStorage.getItem('pico_last_order_id');
+            if (lastId) {
+                setOrderNumber(lastId.slice(0, 8).toUpperCase());
+                return;
+            }
 
-        // 2. Si viene de Stripe (por URL), buscamos el último pedido en el historial local
-        // Intentamos buscarlo un par de veces por si la DB todavía está escribiendo
-        const getOrderFromStorage = () => {
+            // 2. Si no, mirar en el estado de la ruta (compra directa)
+            const state = location.state as { orderId?: string } | null;
+            if (state?.orderId) {
+                setOrderNumber(state.orderId.slice(0, 8).toUpperCase());
+                return;
+            }
+
+            // 3. Como último recurso, mirar el historial
             const savedOrders = localStorage.getItem('pico_orders');
             if (savedOrders) {
                 try {
                     const orders = JSON.parse(savedOrders);
                     if (orders && orders.length > 0) {
                         setOrderNumber(orders[0].id.slice(0, 8).toUpperCase());
-                        return true;
+                        return;
                     }
-                } catch (e) {
-                    console.error("Error leyendo historial");
-                }
+                } catch (e) { }
             }
-            return false;
+
+            setOrderNumber('CONFIRMADO');
         };
 
-        if (!getOrderFromStorage()) {
-            // Si no lo encuentra a la primera, lo reintentamos en medio segundo
-            setTimeout(getOrderFromStorage, 500);
-        }
-    }, [location.state, sessionId, onClearCart]);
+        // Un pequeño retraso para asegurar que los datos locales están listos
+        setTimeout(getRealID, 300);
+    }, [location.state, onClearCart]);
 
     return (
         <div className="min-h-screen pt-40 pb-20 px-4 flex items-center justify-center bg-background-light/30">
-            <div className="max-w-2xl w-full bg-white rounded-[3rem] p-8 md:p-16 shadow-2xl border border-background-light relative overflow-hidden text-center animate-fade-in">
+            <div className="max-w-2xl w-full bg-white rounded-[3rem] p-8 md:p-16 shadow-2xl border border-background-light relative overflow-hidden text-center animate-fade-in text-text-main shadow-primary/10">
                 {/* Background Decoration */}
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-bl-[10rem] -mr-20 -mt-20 animate-pulse-subtle" />
                 <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-tr-[8rem] -ml-10 -mb-10 animate-pulse-subtle" />
