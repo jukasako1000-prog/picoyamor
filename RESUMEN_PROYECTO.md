@@ -3,11 +3,14 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: Activo (En mantenimiento)
-- **Última Actualización**: 3 de febrero, 2026 - 22:45h
+- **Última Actualización**: 3 de febrero, 2026 - 23:55h
 - **Hitos Recientes**: 
-  - ✅ Doble sistema de email de contacto (Tienda + Cliente).
-  - ✅ Recuperación de contraseña robusta con interceptor en index.html.
-  - ✅ Refinamiento estético de la pantalla de mantenimiento.
+  - ✅ **Logística Inteligente**: Implementado sistema de estados de pedido (Pendiente de Pago 🔴, Pagado 🟢, Enviado 🔵).
+  - ✅ **Automatización de Emails**: Diseño y despliegue de emails premium para confirmación de pago y aviso de envío (automáticos vía Supabase Triggers).
+  - ✅ **Panel Admin Potenciado**: Recepción de albaranes detallados por email y gestión visual de estados.
+  - ✅ **Checkout Robusto**: Sincronización automática de estados tras el pago en Stripe (OrderSuccess 🔄 Supabase).
+  - ✅ **Refinamiento Mobile**: Barra de scroll interactiva sincronizada con el movimiento del usuario y limpieza estética de navegación.
+  - ✅ **Seguridad**: Interceptor de recuperación de claves y RLS optimizado.
   - ✅ Añadidos nuevos productos al catálogo (Columpio Globo, Colgante Aromas).
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
