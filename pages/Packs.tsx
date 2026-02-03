@@ -93,12 +93,15 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
               <div className="w-8 shrink-0 lg:hidden"></div>
             </div>
 
-            {/* Gradiente de desvanecimiento (Aviso de más contenido) */}
-            <div className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-background-light via-background-light/80 to-transparent lg:hidden z-10"></div>
+            {/* Gradiente de desvanecimiento sutil */}
+            <div className="absolute right-0 top-0 bottom-0 w-20 pointer-events-none bg-gradient-to-l from-background-light/95 via-background-light/40 to-transparent lg:hidden z-10"></div>
 
-            {/* Icono sutil de indicación */}
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 lg:hidden z-20 animate-pulse pointer-events-none opacity-50">
-              <span className="material-symbols-outlined text-primary text-lg">chevron_right</span>
+            {/* Indicador llamativo de "DESLIZA" */}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 lg:hidden z-20 pointer-events-none">
+              <div className="flex items-center gap-1 bg-primary text-white px-3 py-1.5 rounded-full shadow-lg shadow-primary/40 animate-bounce-horizontal">
+                <span className="text-[9px] font-black uppercase tracking-tighter">Desliza</span>
+                <span className="material-symbols-outlined text-xs">arrow_forward_ios</span>
+              </div>
             </div>
           </div>
         </div>
@@ -135,6 +138,13 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
         </div>
       )}
       <style>{`
+        @keyframes bounceHorizontal {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(5px); }
+        }
+        .animate-bounce-horizontal {
+          animation: bounceHorizontal 1.5s ease-in-out infinite;
+        }
         .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
