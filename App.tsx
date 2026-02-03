@@ -98,6 +98,19 @@ const App: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
+  // REFUERZO: Detección directa por URL (para solventar problemas con HashRouter)
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const type = searchParams.get('type');
+    if (type === 'recovery') {
+      // Forzamos la apertura del modal en modo actualización
+      handleOpenAuth('update');
+      // Limpiamos la URL para que no se quede el modal fijo al refrescar
+      const newUrl = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, document.title, newUrl);
+    }
+  }, []);
+
   const handleAddToCart = React.useCallback((product: Product) => {
     setCart((prev) => {
       const existing = prev.find((item) => item.id === product.id);
