@@ -92,6 +92,19 @@
 }
 </script>
     <link rel="stylesheet" href="/index.css">
+    <script>
+            // INTERCEPTOR DE SEGURIDAD PARA RECUPERACIÓN DE CONTRASEÑA
+            (function () {
+                try {
+                    const url = window.location.href;
+                    const hash = window.location.hash;
+                    if (url.includes('access_token=') || url.includes('type=recovery') || hash.includes('type=recovery')) {
+                        localStorage.setItem('pico_recovery_mode', 'true');
+                        console.log('Token de recuperación interceptado y guardado.');
+                    }
+                } catch (e) { console.error('Error en interceptor:', e); }
+            })();
+    </script>
 </head>
 
 <body class="bg-background-light text-text-main transition-colors duration-300">
