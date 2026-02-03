@@ -98,31 +98,36 @@ const App: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // REFUERZO: Detección directa por URL y Fragmento (especial para Supabase + HashRouter)
+  // EL DETECTOR DEFINITIVO: Escanea toda la URL buscando el token de recuperación
   useEffect(() => {
-    const handleUrlAuth = () => {
-      const searchParams = new URLSearchParams(window.location.search);
-      const hashParams = new URLSearchParams(window.location.hash.replace('#', '').replace('/', ''));
+    const fullUrl = window.location.href;
+    const isRecoveryFlow = fullUrl.includes('type=recovery') ||
+      fullUrl.includes('recovery_token=') ||
+      sessionStorage.getItem('pico_recovery_active') === 'true';
 
-      const isRecovery = searchParams.get('type') === 'recovery' ||
-        hashParams.get('type') === 'recovery' ||
-        window.location.hash.includes('type=recovery');
+    if (isRecoveryFlow) {
+      console.log('✅ ¡FLUJO DE RECUPERACIÓN DETECTADO!');
+      // Guardamos en sesión para que si refresca no se pierda el modal
+      sessionStorage.setItem('pico_recovery_active', 'true');
 
-      if (isRecovery) {
-        console.log('Detección de recuperación de contraseña confirmada');
+      // Forzamos la apertura después de un pequeño respiro para que React cargue
+      setTimeout(() => {
         handleOpenAuth('update');
+      }, 500);
 
-        // Limpiamos la URL de forma limpia
-        const newUrl = window.location.pathname + (window.location.hash.split('?')[0] || '#/');
-        window.history.replaceState({}, document.title, newUrl);
+      // Limpiamos la URL para que quede bonita, pero mantenemos el estado en sessionStorage
+      if (fullUrl.includes('?')) {
+        const cleanUrl = window.location.pathname + window.location.hash;
+        window.history.replaceState({}, document.title, cleanUrl);
       }
-    };
-
-    handleUrlAuth();
-    // También escuchamos cambios en el hash por si acaso
-    window.addEventListener('hashchange', handleUrlAuth);
-    return () => window.removeEventListener('hashchange', handleUrlAuth);
+    }
   }, []);
+
+  // Función para cerrar el proceso de recuperación una vez terminemos
+  const handleLoginWithCleanup = (userData: UserProfile) => {
+    sessionStorage.removeItem('pico_recovery_active');
+    handleLogin(userData);
+  };
 
   const handleAddToCart = React.useCallback((product: Product) => {
     setCart((prev) => {
@@ -240,8 +245,11 @@ const App: React.FC = () => {
 
         <AuthModal
           isOpen={isAuthOpen}
-          onClose={() => setIsAuthOpen(false)}
-          onLogin={handleLogin}
+          onClose={() => {
+            setIsAuthOpen(false);
+            sessionStorage.removeItem('pico_recovery_active');
+          }}
+          onLogin={handleLoginWithCleanup}
           initialMode={authInitialMode}
         />
 
