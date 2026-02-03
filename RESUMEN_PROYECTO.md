@@ -2,46 +2,40 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🚀 Estado Actual (Actualizado: 3 de Febrero, 2026)
-La aplicación se encuentra en un estado de alta estabilidad con flujos de comunicación y venta optimizados.
+## 🚀 Estado Actual (Actualizado: 3 de Febrero, 2026 - 21:35h)
+La aplicación se encuentra en un estado de alta estabilidad tras resolver las incidencias en la comunicación por email.
 
-### 💎 Hitos de Estabilización y Mejoras
-1. **Seguridad Blindada (RLS Completado)**: 🔐
-    - Políticas de **Row Level Security** activas en todas las tablas.
-    - Administrador (`infopicoyamor@gmail.com`) con control total.
-2. **Flujo de Pago Blindado**:
-    - Sistema de recuperación de ID de pedido post-Stripe mediante `localStorage`.
-    - Eliminación de bucles infinitos en el carrito con `useCallback`.
-3. **Comunicación Optimizada (NUEVO)**: 📩
-    - **Doble Email en Contacto**: Al enviar un mensaje desde la web, se dispara automáticamente un aviso a la tienda y un email premium de confirmación al cliente.
-    - **Emails de Pedidos**: Sincronización completa con avisos de "Pedido Recibido" y "Pedido Enviado".
-4. **Actualización de Catálogo**:
-    - Categoría **"Forrajeo/Colgantes"** integrada.
-    - Nuevos productos añadidos y sincronizados con la base de datos.
+### 💎 Hitos de Estabilización y Mejoras Recientes
+1. **Comunicación 360º Activada (ÉXITO)**: 📩
+    - **Doble Aviso de Contacto**: Se ha implementado y verificado un sistema donde, al recibir una consulta, se envía un aviso inmediato a `infopicoyamor@gmail.com` y simultáneamente un email de confirmación con diseño premium al cliente.
+    - **Emails de Pedidos**: Sincronización completa de los estados de pedido (Pagado -> Enviado) con notificaciones automáticas al cliente.
+2. **Seguridad Blindada (RLS Completado)**: 🔐
+    - Políticas de **Row Level Security** activas. La base de datos está protegida y solo el admin tiene acceso total.
+3. **Flujo de Pago Robusto**:
+    - Sistema de persistencia de ID de pedido en `localStorage` para evitar fallos al volver de Stripe.
+    - Eliminado el bloqueo de scroll al finalizar la compra.
+4. **Catálogo y Forrajeo**:
+    - Categoría **"Forrajeo/Colgantes"** 100% operativa en código y base de datos.
 
 ### 🛠️ Infraestructura de Datos (Supabase)
-- **Tablas Clave**:
-    - `products`: Referencia de stock.
-    - `orders`: Transacciones y estados del pedido.
-    - `contact_messages`: Registro de consultas desde el formulario.
-    - `profiles`: Datos de usuario.
-- **Lógica de Servidor**: Triggers en PL/pgSQL gestionan el envío de emails vía API de Resend.
+- **Tablas**: `products` (stock), `orders` (ventas), `contact_messages` (consultas), `profiles` (usuarios), `reviews` (reseñas).
+- **Lógica en Base de Datos**: 
+    - El envío de emails se gestiona mediante triggers y funciones PL/pgSQL que llaman a la API de **Resend**.
+    - **Importante**: La extensión `pg_net` debe estar habilitada en Supabase.
 
-### 💰 Pasarela de Pago (Stripe)
-- **Flujo**: Checkout -> Stripe -> OrderSuccess.
-- Registro automático del pedido en Supabase tras el pago.
+### 📂 Guía de Archivos Críticos
+- `constants.tsx`: **Origen de la Verdad.** Modificar aquí para añadir productos o cambiar imágenes de la web.
+- `supabase_contact_table.sql`: Contiene el código para los emails de contacto.
+- `supabase_emails_config_full.sql`: Contiene el código para los emails de pedidos.
+- `App.tsx`: Lógica principal y rutas.
 
-### 📂 Archivos Clave y su Función
-- `constants.tsx`: Catálogo maestro y rutas de imágenes/videos.
-- `App.tsx`: Estado global y rutas.
-- `lib/supabase.ts`: Configuración del cliente Supabase.
-- `supabase_contact_table.sql`: Lógica de emails de contacto.
-- `supabase_emails_config_full.sql`: Lógica de emails de pedidos.
-
-## ⚠️ Notas para el Siguiente Agente
-1. **Claves de API**: Los archivos `.sql` contienen marcadores de posición para la clave de Resend por seguridad. Asegurarse de pegarla en la consola de Supabase al ejecutar cambios.
-2. **Scroll Lock**: El `Navbar` gestiona el body overflow; vigilar al añadir nuevas rutas.
-3. **Sincronización de Stock**: El sistema sincroniza productos automáticamente desde `constants.tsx`, pero el stock inicial debe ajustarse desde el Panel Admin.
+## ⚠️ Manual de Mantenimiento para el Futuro
+1. **Cambio de Claves**: Si la clave de Resend cambia, hay que actualizar las funciones `handle_contact_notification` (en `contact_messages`) y `handle_order_notifications` (en `orders`) a través del editor SQL de Supabase.
+2. **Añadir Productos**: 
+   1. Añadir a `constants.tsx`.
+   2. La web lo detectará y lo creará en Supabase con stock 0.
+   3. Entrar en el Panel Admin (`/admin`) para poner el stock real.
+3. **Gestión de Reseñas**: Se gestionan y aprueban exclusivamente desde el Panel Admin para evitar spam.
 
 ---
-*¡Proyecto restaurado, optimizado y con comunicación 360º activada!* 🦜✨🚀
+*¡Proyecto fino, seguro y listo para vender!* 🦜✨🚀
