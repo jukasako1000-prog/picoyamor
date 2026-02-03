@@ -26,12 +26,13 @@ import ImageModal from './components/ImageModal';
 import ScrollToTop from './components/ScrollToTop';
 import { Product, CartItem, UserProfile, Order } from './types';
 import { syncProducts, getUserOrders } from './lib/db';
+import { supabase } from './lib/supabase';
 
 const App: React.FC = () => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAuthOpen, setIsAuthOpen] = useState(false);
-  const [authInitialMode, setAuthInitialMode] = useState<'login' | 'register' | 'guest'>('login');
+  const [authInitialMode, setAuthInitialMode] = useState<'login' | 'register' | 'guest' | 'forgot' | 'update'>('login');
   const [viewingImage, setViewingImage] = useState<string | null>(null);
 
   const [user, setUser] = useState<UserProfile | null>(() => {
@@ -44,7 +45,7 @@ const App: React.FC = () => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const handleOpenAuth = (mode: 'login' | 'register' | 'guest' = 'login') => {
+  const handleOpenAuth = (mode: 'login' | 'register' | 'guest' | 'forgot' | 'update' = 'login') => {
     setAuthInitialMode(mode);
     setIsAuthOpen(true);
   };
@@ -82,6 +83,20 @@ const App: React.FC = () => {
 
     fetchUserOrders();
   }, [user]);
+
+  // Listener Global de Autenticación (Supabase)
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        // Si venimos de un email de recuperación, abrimos el modal en modo 'update'
+        handleOpenAuth('update');
+      } else if (event === 'SIGNED_IN' && session?.user) {
+        // Opcional: Podríamos sincronizar el perfil aquí también
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const handleAddToCart = React.useCallback((product: Product) => {
     setCart((prev) => {

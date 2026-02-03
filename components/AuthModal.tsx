@@ -11,7 +11,7 @@ interface AuthModalProps {
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initialMode = 'login' }) => {
-  const [mode, setMode] = useState<'login' | 'register' | 'guest'>(initialMode);
+  const [mode, setMode] = useState<'login' | 'register' | 'guest' | 'forgot' | 'update'>(initialMode);
   const [formData, setFormData] = useState<UserProfile & { password?: string }>({
     name: '',
     email: '',
@@ -24,10 +24,12 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<string | null>(null);
 
-  // Limpiar errores al cambiar de modo
+  // Limpiar estados al cambiar de modo
   useEffect(() => {
     setError(null);
+    setSuccess(null);
   }, [mode]);
 
   // Sincronizar modo inicial cuando se abre el modal
@@ -36,6 +38,17 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
       setMode(initialMode);
     }
   }, [isOpen, initialMode]);
+
+  // Escuchar evento de recuperación de contraseña
+  useEffect(() => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event) => {
+      if (event === 'PASSWORD_RECOVERY') {
+        setMode('update');
+      }
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   if (!isOpen) return null;
 
@@ -60,6 +73,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setSuccess(null);
     setLoading(true);
 
     try {
@@ -69,7 +83,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
           return;
         }
 
-        // 1. Supabase Auth Sign Up
         const { data: authData, error: authError } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password || '',
@@ -78,7 +91,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
         if (authError) throw authError;
 
         if (authData.user) {
-          // 2. Save Profile Data
           const profileData = {
             name: formData.name,
             email: formData.email,
@@ -90,13 +102,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
           };
 
           await saveProfile(authData.user.id, profileData);
-
           onLogin({ ...formData, id: authData.user.id, isGuest: false });
           alert('¡Cuenta creada con éxito! Bienvenido a la bandada 🦜✨');
           onClose();
         }
       } else if (mode === 'login') {
-        // Supabase Auth Sign In
         const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
           email: formData.email,
           password: formData.password || '',
@@ -105,7 +115,6 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
         if (authError) throw authError;
 
         if (authData.user) {
-          // Fetch Profile Data
           const { data: profile, error: profileError } = await supabase
             .from('profiles')
             .select('*')
@@ -125,13 +134,28 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
               isGuest: false
             });
           } else {
-            // Fallback if profile not found
             onLogin({ ...formData, id: authData.user.id, email: authData.user.email || '', isGuest: false });
           }
           onClose();
         }
+      } else if (mode === 'forgot') {
+        const { error: resetError } = await supabase.auth.resetPasswordForEmail(formData.email, {
+          redirectTo: window.location.origin + (window.location.pathname === '/' ? '' : window.location.pathname) + '#/',
+        });
+        if (resetError) throw resetError;
+        setSuccess('¡Email de recuperación enviado! Revisa tu bandeja de entrada o spam.');
+      } else if (mode === 'update') {
+        if (!validatePassword(formData.password || '')) {
+          setLoading(false);
+          return;
+        }
+        const { error: updateError } = await supabase.auth.updateUser({
+          password: formData.password
+        });
+        if (updateError) throw updateError;
+        alert('¡Contraseña actualizada con éxito! Ya puedes iniciar sesión.');
+        setMode('login');
       } else if (mode === 'guest') {
-        // Invitado sigue siendo local para velocidad
         onLogin({ ...formData, isGuest: true });
         onClose();
       }
@@ -159,15 +183,37 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
           </button>
           <div className="size-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-2">
             <span className="material-symbols-outlined text-2xl filled-icon">
-              {mode === 'register' ? 'person_add' : mode === 'guest' ? 'local_shipping' : 'account_circle'}
+              {mode === 'register' ? 'person_add' :
+                mode === 'guest' ? 'local_shipping' :
+                  mode === 'forgot' ? 'lock_reset' :
+                    mode === 'update' ? 'lock_open' :
+                      'account_circle'}
             </span>
           </div>
           <h2 className="text-xl font-black">
-            {mode === 'register' ? 'Únete a la Bandada' : mode === 'guest' ? 'Pedido Invitado' : 'Bienvenido de nuevo'}
+            {mode === 'register' ? 'Únete a la Bandada' :
+              mode === 'guest' ? 'Pedido Invitado' :
+                mode === 'forgot' ? 'Recuperar Cuenta' :
+                  mode === 'update' ? 'Nueva Contraseña' :
+                    'Bienvenido de nuevo'}
           </h2>
         </div>
 
         <form onSubmit={handleSubmit} className="p-8 space-y-4 overflow-y-auto hide-scrollbar">
+          {success && (
+            <div className="bg-green-50 border-2 border-green-100 p-4 rounded-2xl flex items-center gap-3 animate-fade-in mb-4">
+              <span className="material-symbols-outlined text-green-500">check_circle</span>
+              <p className="text-sm font-bold text-green-700">{success}</p>
+            </div>
+          )}
+
+          {error && (
+            <div className="bg-red-50 border-2 border-red-100 p-4 rounded-2xl flex items-center gap-3 animate-fade-in mb-4">
+              <span className="material-symbols-outlined text-red-500">error</span>
+              <p className="text-sm font-bold text-red-700">{error}</p>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {(mode === 'register' || mode === 'guest') && (
               <div className="space-y-1 md:col-span-2">
@@ -176,30 +222,29 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
               </div>
             )}
 
-            <div className="space-y-1">
-              <label className="text-[10px] font-black uppercase text-text-muted ml-2">Email</label>
-              <input required name="email" type="email" placeholder="tu@email.com" className="w-full bg-background-light border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-primary transition-all text-text-main font-medium" value={formData.email} onChange={handleChange} />
-            </div>
+            {mode !== 'update' && (
+              <div className={`space-y-1 ${mode === 'forgot' ? 'md:col-span-2' : ''}`}>
+                <label className="text-[10px] font-black uppercase text-text-muted ml-2">Email</label>
+                <input required name="email" type="email" placeholder="tu@email.com" className="w-full bg-background-light border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-primary transition-all text-text-main font-medium" value={formData.email} onChange={handleChange} />
+              </div>
+            )}
 
-            {mode !== 'guest' && (
-              <div className="space-y-1">
-                <label className="text-[10px] font-black uppercase text-text-muted ml-2">Contraseña</label>
+            {(mode === 'login' || mode === 'register' || mode === 'update') && (
+              <div className={`space-y-1 ${mode === 'update' ? 'md:col-span-2' : ''}`}>
+                <label className="text-[10px] font-black uppercase text-text-muted ml-2">
+                  {mode === 'update' ? 'Nueva Contraseña' : 'Contraseña'}
+                </label>
                 <input
                   required
                   name="password"
                   type="password"
                   placeholder="••••••••"
-                  className={`w-full bg-background-light border-none rounded-2xl px-5 py-3 focus:ring-2 transition-all text-text-main font-medium ${error ? 'ring-2 ring-red-400' : 'focus:ring-primary'}`}
+                  className="w-full bg-background-light border-none rounded-2xl px-5 py-3 focus:ring-2 focus:ring-primary transition-all text-text-main font-medium"
                   value={formData.password}
                   onChange={handleChange}
                 />
-                {mode === 'register' && !error && (
+                {mode !== 'login' && (
                   <p className="text-[9px] text-text-muted ml-2 italic">Mín. 8 caracteres, letras y números.</p>
-                )}
-                {mode === 'register' && error && (
-                  <p className="text-[10px] text-red-500 font-bold ml-2 flex items-center gap-1">
-                    <span className="material-symbols-outlined text-xs">error</span> {error}
-                  </p>
                 )}
               </div>
             )}
@@ -231,15 +276,35 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, onLogin, initial
           </div>
 
           <button disabled={loading} className="w-full bg-primary hover:bg-primary-hover text-white font-black py-4 rounded-2xl shadow-xl shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-2 mt-4">
-            {loading ? <div className="size-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : (mode === 'register' ? 'Crear mi Cuenta' : mode === 'guest' ? 'Continuar como Invitado' : 'Iniciar Sesión')}
+            {loading ? <div className="size-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : (
+              mode === 'register' ? 'Crear mi Cuenta' :
+                mode === 'guest' ? 'Continuar como Invitado' :
+                  mode === 'forgot' ? 'Enviar enlace de recuperación' :
+                    mode === 'update' ? 'Cambiar Contraseña' :
+                      'Iniciar Sesión'
+            )}
           </button>
 
           <div className="text-center pt-4 space-y-4">
-            <button type="button" onClick={() => setMode(mode === 'login' ? 'register' : 'login')} className="text-sm font-bold text-text-muted hover:text-primary transition-colors block w-full">
-              {mode === 'login' ? '¿Eres nuevo? Regístrate aquí' : '¿Ya tienes cuenta? Entra aquí'}
-            </button>
+            {mode === 'login' && (
+              <button type="button" onClick={() => setMode('forgot')} className="text-xs font-bold text-primary hover:underline block mx-auto">
+                ¿Has olvidado tu contraseña?
+              </button>
+            )}
 
-            {mode !== 'guest' && (
+            {(mode === 'login' || mode === 'register') && (
+              <button type="button" onClick={() => setMode(mode === 'login' ? 'register' : 'login')} className="text-sm font-bold text-text-muted hover:text-primary transition-colors block w-full">
+                {mode === 'login' ? '¿Eres nuevo? Regístrate aquí' : '¿Ya tienes cuenta? Entra aquí'}
+              </button>
+            )}
+
+            {(mode === 'forgot' || mode === 'update') && (
+              <button type="button" onClick={() => setMode('login')} className="text-sm font-bold text-text-muted hover:text-primary transition-colors block w-full">
+                Volver al inicio de sesión
+              </button>
+            )}
+
+            {(mode === 'login' || mode === 'register') && (
               <div className="pt-2 border-t border-gray-100">
                 <button type="button" onClick={() => setMode('guest')} className="text-sm font-black text-primary hover:text-primary-hover transition-colors flex items-center justify-center gap-1 mx-auto">
                   <span className="material-symbols-outlined text-lg">arrow_forward</span>
