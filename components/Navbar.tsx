@@ -192,14 +192,16 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
           </div>
 
           <div className="p-8 border-t border-background-light bg-background-light/30">
-            <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mb-4">Síguenos en las nubes</p>
+            <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mb-4">Síguenos en Instagram</p>
             <div className="flex gap-4">
-              <div className="size-10 bg-white rounded-full flex items-center justify-center shadow-sm text-primary">
-                <span className="material-symbols-outlined text-xl">photo_camera</span>
-              </div>
-              <div className="size-10 bg-white rounded-full flex items-center justify-center shadow-sm text-primary">
-                <span className="material-symbols-outlined text-xl filled-icon">chat</span>
-              </div>
+              <a
+                href="https://www.instagram.com/pico_y_amor/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="size-12 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform overflow-hidden p-0"
+              >
+                <img src="/LOGOS/ICONOINSTAGRAM.png" alt="Instagram" className="w-full h-full object-cover" />
+              </a>
             </div>
           </div>
         </div>
