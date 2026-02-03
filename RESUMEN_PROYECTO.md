@@ -2,8 +2,13 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🚀 Estado Actual (Actualizado: 3 de Febrero, 2026 - 21:35h)
-La aplicación se encuentra en un estado de alta estabilidad tras resolver las incidencias en la comunicación por email.
+## 🚀- **Estado Actual**: Activo (En mantenimiento)
+- **Última Actualización**: 3 de febrero, 2026 - 22:45h
+- **Hitos Recientes**: 
+  - ✅ Doble sistema de email de contacto (Tienda + Cliente).
+  - ✅ Recuperación de contraseña robusta con interceptor en index.html.
+  - ✅ Refinamiento estético de la pantalla de mantenimiento.
+  - ✅ Añadidos nuevos productos al catálogo (Columpio Globo, Colgante Aromas).
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
 1. **Comunicación 360º Activada (ÉXITO)**: 📩
