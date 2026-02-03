@@ -15,6 +15,16 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [stockLevels, setStockLevels] = useState<Record<string, number>>({});
   const [loadingStock, setLoadingStock] = useState(true);
+  const scrollContainerRef = React.useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      const progress = (scrollLeft / (scrollWidth - clientWidth)) * 100;
+      setScrollProgress(progress);
+    }
+  };
 
   const categories = ['Todos', 'Packs', 'Columpios', 'Forrajeo/Colgantes'];
 
@@ -74,9 +84,13 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
             />
           </div>
 
-          {/* Filtros de Categoría con indicador de scroll */}
-          <div className="relative w-full lg:w-auto group/scroll">
-            <div className="flex gap-3 overflow-x-auto hide-scrollbar py-2 shrink-0 w-full lg:w-auto">
+          {/* Filtros de Categoría con indicador de scroll real */}
+          <div className="relative w-full lg:w-auto">
+            <div
+              ref={scrollContainerRef}
+              onScroll={handleScroll}
+              className="flex gap-3 overflow-x-auto hide-scrollbar py-2 shrink-0 w-full lg:w-auto scroll-smooth"
+            >
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -89,18 +103,24 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
                   {cat}
                 </button>
               ))}
-              {/* Espaciador final para que el último item no quede tapado por el desvanecimiento */}
-              <div className="w-8 shrink-0 lg:hidden"></div>
+              {/* Espaciador final */}
+              <div className="w-12 shrink-0 lg:hidden"></div>
             </div>
 
             {/* Gradiente de desvanecimiento muy sutil */}
             <div className="absolute right-0 top-0 bottom-0 w-12 pointer-events-none bg-gradient-to-l from-background-light/80 to-transparent lg:hidden z-10"></div>
           </div>
 
-          {/* Barra de indicación sutil (Solo móvil) */}
+          {/* Barra de progreso de scroll interactiva (Solo móvil) */}
           <div className="flex justify-center lg:hidden -mt-2">
-            <div className="w-12 h-1 bg-primary/10 rounded-full overflow-hidden">
-              <div className="h-full bg-primary/40 rounded-full animate-scroll-hint"></div>
+            <div className="w-16 h-1 bg-primary/10 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-primary/40 rounded-full transition-transform duration-150 ease-out"
+                style={{
+                  width: '40%',
+                  transform: `translateX(${scrollProgress * 1.5}%)`
+                }}
+              ></div>
             </div>
           </div>
         </div>
@@ -137,13 +157,6 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
         </div>
       )}
       <style>{`
-        @keyframes bounceHorizontal {
-          0%, 100% { transform: translateX(0); }
-          50% { transform: translateX(5px); }
-        }
-        .animate-bounce-horizontal {
-          animation: bounceHorizontal 1.5s ease-in-out infinite;
-        }
         .animate-fade-in { animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
       `}</style>
