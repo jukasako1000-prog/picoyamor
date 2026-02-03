@@ -65,6 +65,7 @@ const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
 const IMG_COLGANTE_PAJARITA = '/colgantepajarita.png';
 const IMG_COLGANTE_NEW = '/COLGANTENEW.png';
 const IMG_FORRAJEO_MINIPARQUE = '/forrajeominiparque.jpg';
+const IMG_COLUMPIO_GLOBO = '/columpioglobo.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -242,6 +243,16 @@ export const PRODUCTS: Product[] = [
     image: IMG_FORRAJEO_MINIPARQUE,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
+  },
+  {
+    id: 'p32',
+    name: 'Columpio Globo',
+    price: 23.50,
+    description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
+    image: IMG_COLUMPIO_GLOBO,
+    category: 'Columpios',
+    badge: 'Premium',
+    scale: 1.2
   }
 ];
 
