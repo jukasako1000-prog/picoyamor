@@ -98,17 +98,30 @@ const App: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // REFUERZO: Detección directa por URL (para solventar problemas con HashRouter)
+  // REFUERZO: Detección directa por URL y Fragmento (especial para Supabase + HashRouter)
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
-    const type = searchParams.get('type');
-    if (type === 'recovery') {
-      // Forzamos la apertura del modal en modo actualización
-      handleOpenAuth('update');
-      // Limpiamos la URL para que no se quede el modal fijo al refrescar
-      const newUrl = window.location.pathname + window.location.hash;
-      window.history.replaceState({}, document.title, newUrl);
-    }
+    const handleUrlAuth = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      const hashParams = new URLSearchParams(window.location.hash.replace('#', '').replace('/', ''));
+
+      const isRecovery = searchParams.get('type') === 'recovery' ||
+        hashParams.get('type') === 'recovery' ||
+        window.location.hash.includes('type=recovery');
+
+      if (isRecovery) {
+        console.log('Detección de recuperación de contraseña confirmada');
+        handleOpenAuth('update');
+
+        // Limpiamos la URL de forma limpia
+        const newUrl = window.location.pathname + (window.location.hash.split('?')[0] || '#/');
+        window.history.replaceState({}, document.title, newUrl);
+      }
+    };
+
+    handleUrlAuth();
+    // También escuchamos cambios en el hash por si acaso
+    window.addEventListener('hashchange', handleUrlAuth);
+    return () => window.removeEventListener('hashchange', handleUrlAuth);
   }, []);
 
   const handleAddToCart = React.useCallback((product: Product) => {
