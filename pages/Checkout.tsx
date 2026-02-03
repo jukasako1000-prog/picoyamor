@@ -86,7 +86,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                 shipping_cost: shippingFee,
                 shipping_method: isExtraPeninsular ? 'Extra-Peninsular' : 'Península',
                 total: total,
-                status: 'pendiente' // El pedido empieza como pendiente de pago
+                status: 'pendiente_pago' // El pedido empieza como pendiente de pago
             };
 
             // 2. Save to Orders table to get an ID

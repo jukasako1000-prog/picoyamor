@@ -3,36 +3,48 @@ import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
 
 const corsHeaders = {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 serve(async (req) => {
-    if (req.method === "OPTIONS") {
-        return new Response("ok", { headers: corsHeaders });
+  if (req.method === "OPTIONS") {
+    return new Response("ok", { headers: corsHeaders });
+  }
+
+  try {
+    const payload = await req.json();
+    const { record, type } = payload; // Supabase Webhook payload format
+
+    if (!record) throw new Error("No record found in payload");
+
+    // HILAR FINO: Solo enviamos emails si el pedido está realmente PAGADO
+    // Esto evita que lleguen correos de pedidos que fallaron en Stripe (pendiente_pago)
+    if (record.status !== 'pagado') {
+      return new Response(JSON.stringify({
+        success: true,
+        message: `Ignorado: El pedido ${record.id} tiene estado '${record.status}' y no requiere email aún.`
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
     }
 
-    try {
-        const payload = await req.json();
-        const { record } = payload; // Supabase Webhook payload format
+    const { customer_name, customer_email, total, items, id } = record;
+    const orderIdShort = id.slice(0, 8).toUpperCase();
 
-        if (!record) throw new Error("No record found in payload");
-
-        const { customer_name, customer_email, total, items, id } = record;
-        const orderIdShort = id.slice(0, 8).toUpperCase();
-
-        // 1. Email para el Cliente (Confirmación)
-        const clientEmail = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${RESEND_API_KEY}`,
-            },
-            body: JSON.stringify({
-                from: "Pico & Amor <hola@picoyamor.com>",
-                to: [customer_email],
-                subject: `¡Gracias por tu pedido en Pico & Amor! (#${orderIdShort})`,
-                html: `
+    // 1. Email para el Cliente (Confirmación)
+    const clientEmail = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: "Pico & Amor <hola@picoyamor.com>",
+        to: [customer_email],
+        subject: `¡Gracias por tu pedido en Pico & Amor! (#${orderIdShort})`,
+        html: `
           <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #f0f0f0; border-radius: 20px; overflow: hidden;">
             <div style="background-color: #6c9371; padding: 40px; text-align: center;">
               <h1 style="color: white; margin: 0; font-size: 28px;">¡Hola ${customer_name}! 🦜</h1>
@@ -62,37 +74,37 @@ serve(async (req) => {
             </div>
           </div>
         `,
-            }),
-        });
+      }),
+    });
 
-        // 2. Email para el Administrador (Aviso)
-        const adminEmail = await fetch("https://api.resend.com/emails", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${RESEND_API_KEY}`,
-            },
-            body: JSON.stringify({
-                from: "Sistema Pico & Amor <hola@picoyamor.com>",
-                to: ["infopicoyamor@gmail.com"],
-                subject: `🚨 NUEVO PEDIDO RECIBIDO: #${orderIdShort}`,
-                html: `
+    // 2. Email para el Administrador (Aviso)
+    const adminEmail = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: "Sistema Pico & Amor <hola@picoyamor.com>",
+        to: ["infopicoyamor@gmail.com"],
+        subject: `🚨 NUEVO PEDIDO RECIBIDO: #${orderIdShort}`,
+        html: `
           <h1>¡Nuevo pedido de ${customer_name}!</h1>
           <p>Se ha registrado un nuevo pedido por valor de <strong>${total.toFixed(2)}€</strong>.</p>
           <p>Entra en el panel de administración para ver los detalles y gestionar el envío.</p>
           <a href="https://picoyamor.com/admin" style="background-color: #6c9371; color: white; padding: 15px 25px; text-decoration: none; border-radius: 10px; display: inline-block;">Ir al Panel Admin</a>
         `,
-            }),
-        });
+      }),
+    });
 
-        return new Response(JSON.stringify({ success: true }), {
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-            status: 200,
-        });
-    } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
-            headers: { ...corsHeaders, "Content-Type": "application/json" },
-            status: 500,
-        });
-    }
+    return new Response(JSON.stringify({ success: true }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 200,
+    });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+      status: 500,
+    });
+  }
 });

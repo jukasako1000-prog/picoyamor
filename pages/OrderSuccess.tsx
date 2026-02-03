@@ -1,6 +1,7 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { supabase } from '../lib/supabase';
 
 interface OrderSuccessProps {
     onClearCart: () => void;
@@ -23,39 +24,34 @@ const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
         // Limpiamos el carrito
         onClearCart();
 
-        // BUSCAR EL ID DEL PEDIDO
-        const getRealID = () => {
-            // 1. Mirar si lo tenemos en la "nota adhesiva" que pusimos en Checkout
+        // BUSCAR EL ID DEL PEDIDO Y MARCARLO COMO PAGADO
+        const finalizePayment = async () => {
             const lastId = localStorage.getItem('pico_last_order_id');
-            if (lastId) {
-                setOrderNumber(lastId.slice(0, 8).toUpperCase());
-                return;
-            }
-
-            // 2. Si no, mirar en el estado de la ruta (compra directa)
             const state = location.state as { orderId?: string } | null;
-            if (state?.orderId) {
-                setOrderNumber(state.orderId.slice(0, 8).toUpperCase());
-                return;
-            }
+            const realOrderId = lastId || state?.orderId;
 
-            // 3. Como último recurso, mirar el historial
-            const savedOrders = localStorage.getItem('pico_orders');
-            if (savedOrders) {
+            if (realOrderId) {
+                setOrderNumber(realOrderId.slice(0, 8).toUpperCase());
+
+                // HILAR FINO: Actualizamos el estado a 'pagado' en Supabase
+                // Esto hará que el Webhook handle-new-order detecte el cambio y envíe los emails
                 try {
-                    const orders = JSON.parse(savedOrders);
-                    if (orders && orders.length > 0) {
-                        setOrderNumber(orders[0].id.slice(0, 8).toUpperCase());
-                        return;
-                    }
-                } catch (e) { }
-            }
+                    const { error } = await supabase
+                        .from('orders')
+                        .update({ status: 'pagado' })
+                        .eq('id', realOrderId);
 
-            setOrderNumber('CONFIRMADO');
+                    if (error) throw error;
+                    console.log('Pedido marcado como pagado con éxito');
+                } catch (err) {
+                    console.error('Error al actualizar estado del pedido:', err);
+                }
+            } else {
+                setOrderNumber('CONFIRMADO');
+            }
         };
 
-        // Un pequeño retraso para asegurar que los datos locales están listos
-        setTimeout(getRealID, 300);
+        finalizePayment();
     }, [location.state, onClearCart]);
 
     return (
