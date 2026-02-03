@@ -98,35 +98,46 @@ const App: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // EL DETECTOR DEFINITIVO: Escanea toda la URL buscando el token de recuperación
+  // EL DETECTOR DEFINITIVO Y AGRESIVO
   useEffect(() => {
-    const fullUrl = window.location.href;
-    const isRecoveryFlow = fullUrl.includes('type=recovery') ||
-      fullUrl.includes('recovery_token=') ||
-      sessionStorage.getItem('pico_recovery_active') === 'true';
+    const checkRecovery = () => {
+      const fullUrl = window.location.href;
+      // Supabase suele enviar 'access_token', 'type=recovery' o 'recovery_token'
+      const hasToken = fullUrl.includes('access_token=') ||
+        fullUrl.includes('type=recovery') ||
+        fullUrl.includes('recovery_token=');
 
-    if (isRecoveryFlow) {
-      console.log('✅ ¡FLUJO DE RECUPERACIÓN DETECTADO!');
-      // Guardamos en sesión para que si refresca no se pierda el modal
-      sessionStorage.setItem('pico_recovery_active', 'true');
+      const isPersistentRecovery = localStorage.getItem('pico_recovery_mode') === 'true';
 
-      // Forzamos la apertura después de un pequeño respiro para que React cargue
-      setTimeout(() => {
-        handleOpenAuth('update');
-      }, 500);
+      if (hasToken || isPersistentRecovery) {
+        console.log('🛡️ Radar Pico & Amor: Detectado flujo de recuperación');
 
-      // Limpiamos la URL para que quede bonita, pero mantenemos el estado en sessionStorage
-      if (fullUrl.includes('?')) {
-        const cleanUrl = window.location.pathname + window.location.hash;
-        window.history.replaceState({}, document.title, cleanUrl);
+        // Marcamos en localStorage para que no se pierda al redireccionar
+        localStorage.setItem('pico_recovery_mode', 'true');
+
+        // Forzamos el modo actualización
+        setAuthInitialMode('update');
+        setIsAuthOpen(true);
+
+        // Si ya tenemos el modal abierto, podemos empezar a limpiar la URL
+        if (hasToken) {
+          const cleanUrl = window.location.origin + window.location.pathname + '#/';
+          window.history.replaceState({}, document.title, cleanUrl);
+        }
       }
-    }
+    };
+
+    // Ejecutar al cargar
+    checkRecovery();
+
+    // Y estar atentos a cambios de ruta
+    window.addEventListener('hashchange', checkRecovery);
+    return () => window.removeEventListener('hashchange', checkRecovery);
   }, []);
 
-  // Función para cerrar el proceso de recuperación una vez terminemos
   const handleLoginWithCleanup = (userData: UserProfile) => {
-    sessionStorage.removeItem('pico_recovery_active');
-    handleLogin(userData);
+    localStorage.removeItem('pico_recovery_mode');
+    setUser(userData);
   };
 
   const handleAddToCart = React.useCallback((product: Product) => {
@@ -247,7 +258,7 @@ const App: React.FC = () => {
           isOpen={isAuthOpen}
           onClose={() => {
             setIsAuthOpen(false);
-            sessionStorage.removeItem('pico_recovery_active');
+            localStorage.removeItem('pico_recovery_mode');
           }}
           onLogin={handleLoginWithCleanup}
           initialMode={authInitialMode}
