@@ -2,45 +2,46 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🚀 Estado Actual (Actualizado: 2 de Febrero, 2026)
-La aplicación ha sido estabilizada tras una sesión de depuración crítica. Se ha restaurado a un punto funcional y se han corregido errores graves en el flujo de compra.
+## 🚀 Estado Actual (Actualizado: 3 de Febrero, 2026)
+La aplicación se encuentra en un estado de alta estabilidad con flujos de comunicación y venta optimizados.
 
-### 💎 Hitos de Estabilización (2 de Febrero, 2026)
+### 💎 Hitos de Estabilización y Mejoras
 1. **Seguridad Blindada (RLS Completado)**: 🔐
-    - Se han activado las políticas de **Row Level Security** en todas las tablas de Supabase.
-    - La base de datos está protegida contra accesos no autorizados.
-    - El administrador (`infopicoyamor@gmail.com`) tiene control total, mientras que los clientes solo pueden insertar pedidos y ver productos/reseñas.
+    - Políticas de **Row Level Security** activas en todas las tablas.
+    - Administrador (`infopicoyamor@gmail.com`) con control total.
 2. **Flujo de Pago Blindado**:
-    - **Corrección de ID**: El ID del pedido ya no muestra "#PAGADO" ni queda en blanco. Se implementó un sistema de "nota adhesiva" en `localStorage` que guarda el ID justo antes de ir a Stripe y lo recupera al volver.
-    - **Fin del Bucle Infinito**: Se estabilizaron las funciones de `App.tsx` (`handleClearCart`, etc.) con `useCallback` para evitar que la web entrara en un bucle de refresco infinito al vaciar el carrito.
-    - **Desbloqueo de Scroll**: Se eliminó un error en el `Navbar` que dejaba la pantalla "congelada" (bloqueo de scroll) al navegar hacia la pantalla de éxito.
-2. **Actualización de Catálogo**:
-    - **Nueva Categoría**: La sección "Forrajeo" ha sido renombrada a **"Forrajeo/Colgantes"** en el código (`types.ts`, `constants.tsx`, `Packs.tsx`).
-    - **Nuevos Productos**: Añadidos con éxito `Colgante Pajarita`, `Colgante Ejercicio` y `Forrajeo Mini Parque`, vinculando sus archivos reales de la carpeta `/public`.
-3. **Sincronización Supabase**:
-    - El sistema detecta automáticamente nuevos productos en el código y los añade a la base de datos (con stock 0 inicial).
+    - Sistema de recuperación de ID de pedido post-Stripe mediante `localStorage`.
+    - Eliminación de bucles infinitos en el carrito con `useCallback`.
+3. **Comunicación Optimizada (NUEVO)**: 📩
+    - **Doble Email en Contacto**: Al enviar un mensaje desde la web, se dispara automáticamente un aviso a la tienda y un email premium de confirmación al cliente.
+    - **Emails de Pedidos**: Sincronización completa con avisos de "Pedido Recibido" y "Pedido Enviado".
+4. **Actualización de Catálogo**:
+    - Categoría **"Forrajeo/Colgantes"** integrada.
+    - Nuevos productos añadidos y sincronizados con la base de datos.
 
 ### 🛠️ Infraestructura de Datos (Supabase)
 - **Tablas Clave**:
-    - `products`: Referencia de stock (`id`, `name`, `stock_quantity`).
-    - `orders`: Transacciones (`id`, `customer_email`, `total`, `items` como JSONB, `status`).
-    - `profiles`: Datos de usuario extendidos.
-- **Seguridad (RLS)**: Las políticas permiten compras anónimas (invitados) y que el Admin controle todo el catálogo.
+    - `products`: Referencia de stock.
+    - `orders`: Transacciones y estados del pedido.
+    - `contact_messages`: Registro de consultas desde el formulario.
+    - `profiles`: Datos de usuario.
+- **Lógica de Servidor**: Triggers en PL/pgSQL gestionan el envío de emails vía API de Resend.
 
 ### 💰 Pasarela de Pago (Stripe)
 - **Flujo**: Checkout -> Stripe -> OrderSuccess.
-- **Mejora**: `OrderSuccess.tsx` ahora es "paciente" y espera unos milisegundos a que los datos locales se asienten para mostrar el ID correcto.
+- Registro automático del pedido en Supabase tras el pago.
 
 ### 📂 Archivos Clave y su Función
-- `constants.tsx`: Catálogo maestro. **Es el origen de la verdad.** Si un producto está aquí, la web lo enseña y Supabase lo sincroniza.
-- `types.ts`: Define las categorías permitidas.
-- `App.tsx`: Gestiona el estado global (carrito, usuario, pedidos) de forma estable.
-- `pages/OrderSuccess.tsx`: Pantalla de éxito blindada contra bloqueos.
+- `constants.tsx`: Catálogo maestro y rutas de imágenes/videos.
+- `App.tsx`: Estado global y rutas.
+- `lib/supabase.ts`: Configuración del cliente Supabase.
+- `supabase_contact_table.sql`: Lógica de emails de contacto.
+- `supabase_emails_config_full.sql`: Lógica de emails de pedidos.
 
 ## ⚠️ Notas para el Siguiente Agente
-1. **Evitar bucles**: Cualquier función pasada desde `App.tsx` a hijos que se ejecute en un `useEffect` debe estar envuelta en `useCallback`.
-2. **Scroll Lock**: El `Navbar` gestiona el bloqueo del body; siempre asegurarse de que `overflow = 'unset'` se ejecute al desmontar o cambiar de ruta.
-3. **Nuevos Productos**: Añadirlos a `constants.tsx` con su respectiva constante de imagen. El sistema de tipos en `types.ts` debe admitir la categoría elegida.
+1. **Claves de API**: Los archivos `.sql` contienen marcadores de posición para la clave de Resend por seguridad. Asegurarse de pegarla en la consola de Supabase al ejecutar cambios.
+2. **Scroll Lock**: El `Navbar` gestiona el body overflow; vigilar al añadir nuevas rutas.
+3. **Sincronización de Stock**: El sistema sincroniza productos automáticamente desde `constants.tsx`, pero el stock inicial debe ajustarse desde el Panel Admin.
 
 ---
-*¡Proyecto restaurado, optimizado y listo para seguir volando!* 🦜✨🚀
+*¡Proyecto restaurado, optimizado y con comunicación 360º activada!* 🦜✨🚀
