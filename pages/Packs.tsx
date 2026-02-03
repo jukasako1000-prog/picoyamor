@@ -93,15 +93,14 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
               <div className="w-8 shrink-0 lg:hidden"></div>
             </div>
 
-            {/* Gradiente de desvanecimiento sutil */}
-            <div className="absolute right-0 top-0 bottom-0 w-20 pointer-events-none bg-gradient-to-l from-background-light/95 via-background-light/40 to-transparent lg:hidden z-10"></div>
+            {/* Gradiente de desvanecimiento muy sutil */}
+            <div className="absolute right-0 top-0 bottom-0 w-12 pointer-events-none bg-gradient-to-l from-background-light/80 to-transparent lg:hidden z-10"></div>
+          </div>
 
-            {/* Indicador llamativo de "DESLIZA" */}
-            <div className="absolute right-2 top-1/2 -translate-y-1/2 lg:hidden z-20 pointer-events-none">
-              <div className="flex items-center gap-1 bg-primary text-white px-3 py-1.5 rounded-full shadow-lg shadow-primary/40 animate-bounce-horizontal">
-                <span className="text-[9px] font-black uppercase tracking-tighter">Desliza</span>
-                <span className="material-symbols-outlined text-xs">arrow_forward_ios</span>
-              </div>
+          {/* Barra de indicación sutil (Solo móvil) */}
+          <div className="flex justify-center lg:hidden -mt-2">
+            <div className="w-12 h-1 bg-primary/10 rounded-full overflow-hidden">
+              <div className="h-full bg-primary/40 rounded-full animate-scroll-hint"></div>
             </div>
           </div>
         </div>
