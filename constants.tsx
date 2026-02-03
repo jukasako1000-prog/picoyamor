@@ -66,6 +66,7 @@ const IMG_COLGANTE_PAJARITA = '/colgantepajarita.png';
 const IMG_COLGANTE_NEW = '/COLGANTENEW.png';
 const IMG_FORRAJEO_MINIPARQUE = '/forrajeominiparque.jpg';
 const IMG_COLUMPIO_GLOBO = '/columpioglobo.png';
+const IMG_COLGANTE_AROMAS = '/AROMASCOLGANTE.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -253,6 +254,16 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Premium',
     scale: 1.2
+  },
+  {
+    id: 'p33',
+    name: 'Colgante Aromas',
+    price: 9.80,
+    description: 'Mini aro de cuerda de algodón y colgante para aves pequeñas. Incluye mazorca, cuentas de madera, taco de árbol y fruta de caoba para una distracción total. Medidas: 16x17 cm.',
+    image: IMG_COLGANTE_AROMAS,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo',
+    scale: 1.25
   }
 ];
 
