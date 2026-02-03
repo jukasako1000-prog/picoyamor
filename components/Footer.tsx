@@ -29,14 +29,8 @@ const Footer: React.FC = () => {
 
             {/* Redes Sociales Seguras */}
             <div className="flex gap-4 items-center">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
-                <img src="/LOGOS/ICONOFACEBOOK.png" alt="Facebook" className="w-full h-full object-cover" />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
+              <a href="https://www.instagram.com/pico_y_amor/" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
                 <img src="/LOGOS/ICONOINSTAGRAM.png" alt="Instagram" className="w-full h-full object-cover" />
-              </a>
-              <a href="https://wa.me/34000000000" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
-                <img src="/LOGOS/ICONOWASAP.png" alt="WhatsApp" className="w-full h-full object-cover" />
               </a>
             </div>
           </div>
