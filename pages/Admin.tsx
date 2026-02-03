@@ -451,15 +451,15 @@ const Admin: React.FC = () => {
                                         <div>
                                             <div className="flex flex-wrap items-center gap-3 mb-1">
                                                 <select
-                                                    value={order.status === 'pendiente' ? 'pendiente_pago' : (order.status || 'pagado')}
+                                                    value={order.status === 'pendiente' ? 'pendiente' : (order.status || 'pagado')}
                                                     onChange={(e) => handleUpdateOrderStatus(order.id, e.target.value)}
                                                     className={`text-[10px] font-black px-3 py-1.5 rounded-full uppercase border-none focus:ring-2 focus:ring-primary cursor-pointer transition-all
-                                                    ${(order.status === 'pendiente_pago' || order.status === 'pendiente') ? 'bg-red-500 text-white shadow-md' :
+                                                    ${order.status === 'pendiente' ? 'bg-red-500 text-white shadow-md' :
                                                             order.status === 'enviado' ? 'bg-blue-100 text-blue-600' :
                                                                 order.status === 'entregado' ? 'bg-green-600 text-white shadow-sm font-bold' :
                                                                     'bg-primary/10 text-primary'}`}
                                                 >
-                                                    <option value="pendiente_pago">🔴 Pedido Pendiente de Pago</option>
+                                                    <option value="pendiente">🔴 Pedido Pendiente de Pago</option>
                                                     <option value="pagado">🟢 Pagado (Procesando)</option>
                                                     <option value="enviado">🔵 Enviado</option>
                                                     <option value="entregado">✅ Entregado</option>
