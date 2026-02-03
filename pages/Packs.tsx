@@ -74,20 +74,32 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
             />
           </div>
 
-          {/* Filtros de Categoría */}
-          <div className="flex gap-3 overflow-x-auto hide-scrollbar py-2 shrink-0 w-full lg:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFilter(cat)}
-                className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 focus:outline-none ${filter === cat
-                  ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
-                  : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm'
-                  }`}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Filtros de Categoría con indicador de scroll */}
+          <div className="relative w-full lg:w-auto group/scroll">
+            <div className="flex gap-3 overflow-x-auto hide-scrollbar py-2 shrink-0 w-full lg:w-auto">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setFilter(cat)}
+                  className={`whitespace-nowrap px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all duration-300 focus:outline-none ${filter === cat
+                    ? 'bg-primary text-white shadow-xl shadow-primary/30 scale-105'
+                    : 'bg-white hover:bg-background-light text-text-main border-2 border-background-light shadow-sm'
+                    }`}
+                >
+                  {cat}
+                </button>
+              ))}
+              {/* Espaciador final para que el último item no quede tapado por el desvanecimiento */}
+              <div className="w-8 shrink-0 lg:hidden"></div>
+            </div>
+
+            {/* Gradiente de desvanecimiento (Aviso de más contenido) */}
+            <div className="absolute right-0 top-0 bottom-0 w-16 pointer-events-none bg-gradient-to-l from-background-light via-background-light/80 to-transparent lg:hidden z-10"></div>
+
+            {/* Icono sutil de indicación */}
+            <div className="absolute right-2 top-1/2 -translate-y-1/2 lg:hidden z-20 animate-pulse pointer-events-none opacity-50">
+              <span className="material-symbols-outlined text-primary text-lg">chevron_right</span>
+            </div>
           </div>
         </div>
       </div>
