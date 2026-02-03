@@ -138,7 +138,7 @@ const ClubPico: React.FC = () => {
             {/* Stats / Benefits */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
                 {[
-                    { label: "Clientes Felices", value: "500+", icon: "sentiment_very_satisfied" },
+                    { label: "Clientes Felices", value: "200+", icon: "sentiment_very_satisfied" },
                     { label: "Puntuación Media", value: "4.9/5", icon: "grade" },
                     { label: "Juguetes Seguros", value: "100%", icon: "verified" }
                 ].map((stat, i) => (
