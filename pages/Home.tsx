@@ -178,9 +178,9 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
       {/* Featured Products */}
       <section className="px-4 md:px-8 pb-16">
         <div className="max-w-7xl mx-auto space-y-10">
-          <div className="flex flex-col md:flex-row justify-between items-end gap-6">
+          <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 text-center md:text-left">
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
                 <div className="size-2 bg-primary rounded-full animate-pulse"></div>
                 <span className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">Nuestros Favoritos</span>
               </div>
