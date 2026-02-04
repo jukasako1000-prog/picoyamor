@@ -29,7 +29,7 @@ const Footer: React.FC = () => {
 
             {/* Redes Sociales Seguras */}
             <div className="flex gap-4 items-center">
-              <a href="https://www.instagram.com/pico_y_amor/" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
+              <a href="https://www.instagram.com/picoyamor.juguetes?igsh=MXQ2dHoxbnRkZW13cQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" className="size-10 rounded-full overflow-hidden hover:scale-110 transition-transform duration-300 shadow-md">
                 <img src="/LOGOS/ICONOINSTAGRAM.png" alt="Instagram" className="w-full h-full object-cover" />
               </a>
             </div>

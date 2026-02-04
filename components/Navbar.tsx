@@ -195,7 +195,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
             <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em] mb-4">Síguenos en Instagram</p>
             <div className="flex gap-4">
               <a
-                href="https://www.instagram.com/pico_y_amor/"
+                href="https://www.instagram.com/picoyamor.juguetes?igsh=MXQ2dHoxbnRkZW13cQ%3D%3D&utm_source=qr"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="size-12 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform overflow-hidden p-0"
