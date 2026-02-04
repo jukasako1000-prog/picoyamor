@@ -40,12 +40,12 @@ const NewArrivals: React.FC = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent font-black text-xs uppercase tracking-[0.2em]">
                     <span className="material-symbols-outlined text-sm filled-icon animate-spin-slow">settings</span> Proceso Artesanal
                 </div>
-                <h1 className="text-5xl md:text-7xl font-black text-text-main uppercase tracking-tighter leading-[0.9]">
+                <h1 className="text-4xl md:text-6xl font-black text-text-main uppercase tracking-tighter leading-[0.9]">
                     Cuidando cada detalle <br />
                     <span className="text-primary italic">desde nuestro taller</span> <br />
                     artesanal 🦜✨
                 </h1>
-                <p className="text-xl text-text-muted font-medium max-w-3xl mx-auto leading-relaxed italic">
+                <p className="text-lg text-text-muted font-medium max-w-3xl mx-auto leading-relaxed italic">
                     "Cada pieza que sale de nuestras manos es fruto de un proceso lento y respetuoso." Trabajamos con materiales que la naturaleza nos regala para asegurar que tu ave reciba lo mejor. Así es como nace la magia en Pico & Amor.
                 </p>
             </div>
