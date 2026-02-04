@@ -82,7 +82,7 @@ export const PRODUCTS: Product[] = [
     id: 'p14',
     name: 'Columpio más cuerda',
     price: 12.75,
-    description: 'Cuerda de sisal natural de 10mm x 80cm de largo. Forrado en cuerda de yute para mayor comodidad de las patitas. Ideal para aves pequeñas y medianas. Medidas: 19cm largo x 17cm ancho.',
+    description: 'Columpio en cuerda de sisal. Barrita forrada en cuerda de yute para mejor agarre y comodidad de sus patitas más cuerda de sisal para jaula. Para aves medianas y pequeñas. Medidas cuerda: 10 MM por 80 CM.',
     image: IMG_PROD_NATURA,
     category: 'Packs',
     badge: 'Nuevo',
@@ -258,7 +258,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p33',
     name: 'Colgante Aromas',
-    price: 9.80,
+    price: 7.50,
     description: 'Mini aro de cuerda de algodón y colgante para aves pequeñas. Incluye mazorca, cuentas de madera, taco de árbol y fruta de caoba para una distracción total. Medidas: 16x17 cm.',
     image: IMG_COLGANTE_AROMAS,
     category: 'Forrajeo/Colgantes',
