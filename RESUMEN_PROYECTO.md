@@ -3,11 +3,12 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: Activo (En mantenimiento)
-- **Última Actualización**: 3 de febrero, 2026 - 23:55h
+- **Última Actualización**: 4 de febrero, 2026 - 16:10h
 - **Hitos Recientes**: 
+  - ✅ **Transformación Artesanal**: Rediseño de la sección "Novedades" a **"En el Taller"**, integrando fotos reales del proceso y narrativa de marca enfocada en la calidad hecha a mano.
+  - ✅ **Ampliación de Catálogo**: Añadidos nuevos productos (Columpio Tricolor, Columpio Forrajeo Natural) y actualización estratégica de precios y descripciones.
+  - ✅ **Refinamiento Visual**: Implementada la capacidad de ajuste vertical (`translateY`) para imágenes de productos, logrando una maquetación "hilar fino" perfecta.
   - ✅ **Logística Inteligente**: Implementado sistema de estados de pedido (Pendiente de Pago 🔴, Pagado 🟢, Enviado 🔵).
-  - ✅ **Automatización de Emails**: Diseño y despliegue de emails premium para confirmación de pago y aviso de envío (automáticos vía Supabase Triggers).
-  - ✅ **Panel Admin Potenciado**: Recepción de albaranes detallados por email y gestión visual de estados.
   - ✅ **Checkout Robusto**: Sincronización automática de estados tras el pago en Stripe (OrderSuccess 🔄 Supabase).
   - ✅ **Refinamiento Mobile**: Barra de scroll interactiva sincronizada con el movimiento del usuario y limpieza estética de navegación.
   - ✅ **Seguridad**: Interceptor de recuperación de claves y RLS optimizado.
