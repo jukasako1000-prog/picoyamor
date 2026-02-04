@@ -127,10 +127,10 @@ const ClubPico: React.FC = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary font-black text-xs uppercase tracking-[0.2em] mb-6">
                     <span className="material-symbols-outlined text-sm filled-icon">stars</span> Comunidad Pico & Amor
                 </div>
-                <h1 className="text-6xl md:text-8xl font-black text-text-main uppercase tracking-tighter leading-none mb-8">
+                <h1 className="text-4xl md:text-6xl font-black text-text-main uppercase tracking-tighter leading-none mb-8">
                     Club <span className="text-primary italic">Pico</span> ⭐
                 </h1>
-                <p className="text-2xl text-text-muted font-medium max-w-3xl mx-auto leading-relaxed">
+                <p className="text-lg text-text-muted font-medium max-w-3xl mx-auto leading-relaxed">
                     Donde la felicidad de nuestras aves es la protagonista. Comparte, inspírate y descubre por qué somos la tienda favorita de los más aventureros.
                 </p>
             </div>

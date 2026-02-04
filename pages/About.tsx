@@ -12,10 +12,10 @@ const About: React.FC = () => {
             <span className="material-symbols-outlined text-primary text-sm filled-icon">nest_eco_leaf</span>
             <span className="text-primary text-xs font-black uppercase tracking-widest">Natural & Orgánico</span>
           </div>
-          <h1 className="text-6xl md:text-8xl font-black text-text-main leading-[0.9] tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-black text-text-main leading-[0.9] tracking-tight">
             Nuestra <br /><span className="text-primary italic">Pasión</span> <br />con Alas.
           </h1>
-          <p className="text-2xl text-text-muted leading-relaxed max-w-lg font-medium">
+          <p className="text-lg text-text-muted leading-relaxed max-w-lg font-medium">
             Descubre cómo convertimos el amor por los agapornis en juguetes seguros, naturales y llenos de diversión con Pico & Amor.
           </p>
         </div>
@@ -50,9 +50,9 @@ const About: React.FC = () => {
           <div className="space-y-10">
             <div>
               <h3 className="text-primary font-black text-sm uppercase tracking-[0.3em] mb-6">Nuestra Historia</h3>
-              <h2 className="text-5xl font-black text-text-main mb-8 leading-tight tracking-tight">Un Comienzo Lleno de Plumas</h2>
+              <h2 className="text-4xl font-black text-text-main mb-8 leading-tight tracking-tight">Un Comienzo Lleno de Plumas</h2>
             </div>
-            <div className="space-y-8 text-text-muted text-xl leading-relaxed font-medium">
+            <div className="space-y-8 text-text-muted text-lg leading-relaxed font-medium">
               <p>Todo comenzó con nuestra propia bandada de agapornis y una búsqueda frustrante de juguetes verdaderamente seguros. Convivir con ellos a diario nos enseñó que todo se pica, sin excepción, y que no cualquier material vale cuando hay picos curiosos de por medio. Así nos dimos cuenta de lo importante que era ofrecerles opciones naturales y fiables, y de que el mercado estaba saturado de plásticos y materiales dudosos.</p>
               <p>Al no encontrar lo que buscábamos, decidimos crearlo nosotros mismos utilizando materiales 100 % naturales, seleccionados con cuidado y, siempre que es posible, de origen español. No hacemos juguetes pensados solo para ser bonitos, sino para que a ellos les resulten divertidos, entretenidos y duraderos, porque al final son ellos quienes deciden si algo merece la pena… y normalmente lo hacen a base de picotazos.</p>
             </div>
@@ -63,8 +63,8 @@ const About: React.FC = () => {
       {/* Values */}
       <section className="text-center space-y-20 py-10">
         <div className="max-w-3xl mx-auto space-y-6">
-          <h2 className="text-5xl md:text-6xl font-black text-text-main tracking-tight">Nuestros Valores</h2>
-          <p className="text-2xl text-text-muted font-medium">Creemos firmemente en tres pilares para asegurar la felicidad y salud de tu ave.</p>
+          <h2 className="text-4xl md:text-5xl font-black text-text-main tracking-tight">Nuestros Valores</h2>
+          <p className="text-lg text-text-muted font-medium">Creemos firmemente en tres pilares para asegurar la felicidad y salud de tu ave.</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {[

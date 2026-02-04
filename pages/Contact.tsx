@@ -55,8 +55,8 @@ const Contact: React.FC = () => {
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-bold text-[10px] uppercase tracking-widest">
           <span className="material-symbols-outlined text-sm">mail</span> Hablemos
         </div>
-        <h1 className="text-6xl font-black text-text-main tracking-tight">Contacto</h1>
-        <p className="text-2xl text-text-muted leading-relaxed font-medium">
+        <h1 className="text-4xl md:text-5xl font-black text-text-main tracking-tight">Contacto</h1>
+        <p className="text-lg text-text-muted leading-relaxed font-medium">
           ¿Tienes dudas? Estamos aquí para ayudarte a crear un entorno feliz y seguro para tu agapornis.
         </p>
       </div>
