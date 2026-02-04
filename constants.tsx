@@ -67,6 +67,7 @@ const IMG_COLGANTE_NEW = '/COLGANTENEW.png';
 const IMG_FORRAJEO_MINIPARQUE = '/forrajeominiparque.jpg';
 const IMG_COLUMPIO_GLOBO = '/columpioglobo.png';
 const IMG_COLGANTE_AROMAS = '/AROMASCOLGANTE.png';
+const IMG_COLUMPIO_TRICOLOR = '/columpiotricolor.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -264,6 +265,15 @@ export const PRODUCTS: Product[] = [
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo',
     scale: 1.25
+  },
+  {
+    id: 'p34',
+    name: 'Columpio Tricolor',
+    price: 7.85,
+    description: 'Este columpio está hecho con cuentas de maderas y colores, no tóxicos, entretenido y sobre todo duradero. Para aves pequeñas y medianas. Medidas: 16cm de alto x 14,30cm de ancho.',
+    image: IMG_COLUMPIO_TRICOLOR,
+    category: 'Columpios',
+    badge: 'Nuevo'
   }
 ];
 
