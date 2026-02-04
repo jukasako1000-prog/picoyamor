@@ -11,6 +11,7 @@ export interface Product {
   isOffer?: boolean;
   oldPrice?: number;
   scale?: number;
+  translateY?: number;
 }
 
 export interface CartItem extends Product {
