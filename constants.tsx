@@ -274,7 +274,8 @@ export const PRODUCTS: Product[] = [
     description: 'Este columpio está hecho con cuentas de maderas y colores, no tóxicos, entretenido y sobre todo duradero. Para aves pequeñas y medianas. Medidas: 16cm de alto x 14,30cm de ancho.',
     image: IMG_COLUMPIO_TRICOLOR,
     category: 'Columpios',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.35
   },
   {
     id: 'p35',
