@@ -44,7 +44,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
   const navLinks = [
     { name: 'Inicio', path: '/' },
     { name: 'Tienda', path: '/tienda' },
-    { name: 'Novedades', path: '/novedades' },
+    { name: 'En el Taller', path: '/novedades' },
     { name: 'Blog', path: '/blog' },
     { name: 'Club Pico 🦜', path: '/club-pico', isSpecial: true },
     { name: 'Nosotros', path: '/about' },

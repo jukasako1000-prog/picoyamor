@@ -7,27 +7,27 @@ const NewArrivals: React.FC = () => {
         window.scrollTo(0, 0);
     }, []);
 
-    const upcomingProducts = [
+    const workshopSteps = [
         {
-            id: 'up-1',
-            name: 'Proyecto "Nube"',
-            description: 'Explorando texturas ultrasuaves y materiales biodegradables para el descanso perfecto. El confort que tu ave merece está en camino.',
-            status: 'Fase de Prototipo',
-            date: 'Próximamente'
+            id: 'step-1',
+            name: 'CORTE NATURAL',
+            description: 'Seleccionamos y preparamos a mano cada pieza de madera natural. Sin procesos industriales, respetando la textura y la esencia de la madera para un limado de pico y uñas perfecto.',
+            status: 'Paso 1',
+            image: '/cortepalo.png'
         },
         {
-            id: 'up-2',
-            name: 'Colección "Forrajeo 2026"',
-            description: 'Rediseñando la forma en que juegan. Nuevos retos intelectuales basados en el comportamiento natural de búsqueda.',
-            status: 'Pruebas de Seguridad',
-            date: 'Edición limitada'
+            id: 'step-2',
+            name: 'MANOS QUE CREAN',
+            description: 'El corazón de Pico & Amor. Con paciencia y dedicación, damos forma a cada juguete, trenzando fibras naturales y ensamblando piezas seguras pensadas para la felicidad de tu ave.',
+            status: 'Paso 2',
+            image: '/manosquecrean.png'
         },
         {
-            id: 'up-3',
-            name: 'Línea "Artesanía Pura"',
-            description: 'Trabajando mano a mano con la naturaleza. Juguetes modulares tallados en maderas nobles y seguras.',
-            status: 'Diseño Final',
-            date: 'Muy muy pronto'
+            id: 'step-3',
+            name: 'HILANDO FINO',
+            description: 'El último paso es el más importante. Revisamos cada nudo, cada acabado y cada detalle para asegurar que cada pieza sea pura magia y 100% segura para tu bandada.',
+            status: 'Paso 3',
+            image: '/hilandofino.png'
         }
     ];
 
@@ -38,55 +38,47 @@ const NewArrivals: React.FC = () => {
 
             <div className="text-center mb-24 space-y-6">
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-accent/10 text-accent font-black text-xs uppercase tracking-[0.2em]">
-                    <span className="material-symbols-outlined text-sm filled-icon animate-spin-slow">settings</span> En el Taller
+                    <span className="material-symbols-outlined text-sm filled-icon animate-spin-slow">settings</span> Proceso Artesanal
                 </div>
                 <h1 className="text-5xl md:text-7xl font-black text-text-main uppercase tracking-tighter leading-[0.9]">
-                    Estamos creando <br />
-                    <span className="text-primary italic">algo mágico</span> <br />
-                    para tu ave 🦜✨
+                    Cuidando cada detalle <br />
+                    <span className="text-primary italic">desde nuestro taller</span> <br />
+                    artesanal 🦜✨
                 </h1>
                 <p className="text-xl text-text-muted font-medium max-w-3xl mx-auto leading-relaxed italic">
-                    "La inspiración no descansa, y nosotros tampoco." Estamos inmersos en el diseño de la nueva colección de Pico & Amor. Aquí puedes ver en qué estamos trabajando entre bambalinas.
+                    "Cada pieza que sale de nuestras manos es fruto de un proceso lento y respetuoso." Trabajamos con materiales que la naturaleza nos regala para asegurar que tu ave reciba lo mejor. Así es como nace la magia en Pico & Amor.
                 </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-                {upcomingProducts.map((product) => (
-                    <div key={product.id} className="group bg-white rounded-[4rem] overflow-hidden border border-background-light shadow-soft hover:shadow-2xl transition-all duration-700">
-                        <div className="aspect-[4/5] overflow-hidden relative bg-[#E8E1D6]">
-                            {/* Blueprints overlay effect replacing actual image */}
-                            <div className="absolute inset-0 opacity-40"
-                                style={{
-                                    backgroundImage: `
-                                        linear-gradient(rgba(108, 147, 113, 0.1) 1px, transparent 1px),
-                                        linear-gradient(90deg, rgba(108, 147, 113, 0.1) 1px, transparent 1px)
-                                    `,
-                                    backgroundSize: '30px 30px'
-                                }}
+                {workshopSteps.map((step) => (
+                    <div key={step.id} className="group bg-white rounded-[4rem] overflow-hidden border border-background-light shadow-soft hover:shadow-2xl transition-all duration-700">
+                        <div className="aspect-[4/5] overflow-hidden relative">
+                            <img
+                                src={step.image}
+                                alt={step.name}
+                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 
-                            <div className="absolute inset-0 flex items-center justify-center">
-                                <span className="material-symbols-outlined text-7xl text-primary/20 group-hover:scale-110 transition-transform duration-700">architecture</span>
-                            </div>
+                            <div className="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-700" />
 
                             <div className="absolute top-8 left-8">
                                 <div className="bg-accent text-white px-5 py-3 rounded-2xl shadow-xl">
-                                    <p className="text-[10px] font-black uppercase tracking-[0.2em]">{product.status}</p>
+                                    <p className="text-[10px] font-black uppercase tracking-[0.2em]">{step.status}</p>
                                 </div>
                             </div>
 
-                            <div className="absolute bottom-8 left-8 right-8 text-text-main">
-                                <p className="text-[10px] font-black uppercase tracking-[0.3em] mb-2 opacity-60">Proyecto confidencial: {product.date}</p>
-                                <h3 className="text-3xl font-black uppercase tracking-tighter leading-none">{product.name}</h3>
+                            <div className="absolute bottom-8 left-8 right-8 text-white drop-shadow-lg">
+                                <h3 className="text-3xl font-black uppercase tracking-tighter leading-none">{step.name}</h3>
                             </div>
                         </div>
                         <div className="p-10 space-y-6">
                             <p className="text-lg text-text-muted font-medium leading-relaxed">
-                                {product.description}
+                                {step.description}
                             </p>
                             <div className="flex items-center gap-4 text-primary font-black uppercase text-[10px] tracking-[0.2em]">
                                 <div className="h-px flex-1 bg-background-light" />
-                                <span>I+D Pico & Amor</span>
+                                <span>Calidad Pico & Amor</span>
                                 <div className="h-px flex-1 bg-background-light" />
                             </div>
                         </div>
