@@ -3,16 +3,15 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: Activo (En mantenimiento)
-- **Última Actualización**: 4 de febrero, 2026 - 16:10h
+- **Última Actualización**: 4 de febrero, 2026 - 23:25h
 - **Hitos Recientes**: 
-  - ✅ **Transformación Artesanal**: Rediseño de la sección "Novedades" a **"En el Taller"**, integrando fotos reales del proceso y narrativa de marca enfocada en la calidad hecha a mano.
-  - ✅ **Ampliación de Catálogo**: Añadidos nuevos productos (Columpio Tricolor, Columpio Forrajeo Natural) y actualización estratégica de precios y descripciones.
-  - ✅ **Refinamiento Visual**: Implementada la capacidad de ajuste vertical (`translateY`) para imágenes de productos, logrando una maquetación "hilar fino" perfecta.
-  - ✅ **Logística Inteligente**: Implementado sistema de estados de pedido (Pendiente de Pago 🔴, Pagado 🟢, Enviado 🔵).
-  - ✅ **Checkout Robusto**: Sincronización automática de estados tras el pago en Stripe (OrderSuccess 🔄 Supabase).
-  - ✅ **Refinamiento Mobile**: Barra de scroll interactiva sincronizada con el movimiento del usuario y limpieza estética de navegación.
-  - ✅ **Seguridad**: Interceptor de recuperación de claves y RLS optimizado.
-  - ✅ Añadidos nuevos productos al catálogo (Columpio Globo, Colgante Aromas).
+  - ✅ **Tipografía Refinada (Premium)**: Ajuste de jerarquía visual y tamaños de letra en toda la web ("En el Taller", "Nosotros", "Club Pico", "Contacto") para un acabado más elegante y equilibrado.
+  - ✅ **Email Administrativo Completo**: La notificación de venta para la tienda ahora incluye Email y Provincia del cliente, optimizando el proceso de envío.
+  - ✅ **Sincronización de RRSS**: Actualizados todos los enlaces de la web a la nueva cuenta de Instagram oficial.
+  - ✅ **Optimización de Assets**: Migración de imágenes externas a local (Bolsita de Forrajeo) para mejorar la carga y consistencia.
+  - ✅ **Transformación Artesanal**: Rediseño de la sección "Novedades" a **"En el Taller"**, enfocada en la narrativa de marca y calidad hecha a mano.
+  - ✅ **Ampliación de Catálogo**: Añadidos nuevos productos (Columpio Globo, Colgante Aromas, Columpio Tricolor, Columpio Forrajeo Natural).
+  - ✅ **Logística Inteligente**: Sistema de estados de pedido operativo (Pendiente 🔴, Pagado 🟢, Enviado 🔵).
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
 1. **Comunicación 360º Activada (ÉXITO)**: 📩
