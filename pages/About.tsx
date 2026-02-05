@@ -12,10 +12,10 @@ const About: React.FC = () => {
             <span className="material-symbols-outlined text-primary text-sm filled-icon">nest_eco_leaf</span>
             <span className="text-primary text-xs font-black uppercase tracking-widest">Natural & Orgánico</span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-black text-text-main leading-[0.9] tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-black text-text-main leading-[0.9] tracking-tight">
             Nuestra <br /><span className="text-primary italic">Pasión</span> <br />con Alas.
           </h1>
-          <p className="text-lg text-text-muted leading-relaxed max-w-lg font-medium">
+          <p className="text-xl md:text-2xl text-text-muted leading-relaxed max-w-xl font-medium">
             Descubre cómo convertimos el amor por los agapornis en juguetes seguros, naturales y llenos de diversión con Pico & Amor.
           </p>
         </div>
