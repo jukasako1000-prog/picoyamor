@@ -233,7 +233,7 @@ export const PRODUCTS: Product[] = [
     id: 'p29',
     name: 'Colgante Ejercicio',
     price: 3.50,
-    description: 'Divertido colgante para ejercitarse. Con liga, cuentas de madera y bolitas de rattán. Medidas: 23 centímetros de largo.',
+    description: 'Divertido colgante para ejercitarse, cuenta de maderas colores no tóxicos y dos bolitas de rattan ,cuenta con una rodaja de lufa natural\nMedidas:23cm de largo',
     image: IMG_COLGANTE_NEW,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
