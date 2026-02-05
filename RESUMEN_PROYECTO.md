@@ -3,15 +3,14 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: Activo (En mantenimiento)
-- **Última Actualización**: 4 de febrero, 2026 - 23:25h
+- **Última Actualización**: 5 de febrero, 2026 - 23:10h
 - **Hitos Recientes**: 
-  - ✅ **Tipografía Refinada (Premium)**: Ajuste de jerarquía visual y tamaños de letra en toda la web ("En el Taller", "Nosotros", "Club Pico", "Contacto") para un acabado más elegante y equilibrado.
-  - ✅ **Email Administrativo Completo**: La notificación de venta para la tienda ahora incluye Email y Provincia del cliente, optimizando el proceso de envío.
-  - ✅ **Sincronización de RRSS**: Actualizados todos los enlaces de la web a la nueva cuenta de Instagram oficial.
-  - ✅ **Optimización de Assets**: Migración de imágenes externas a local (Bolsita de Forrajeo) para mejorar la carga y consistencia.
-  - ✅ **Transformación Artesanal**: Rediseño de la sección "Novedades" a **"En el Taller"**, enfocada en la narrativa de marca y calidad hecha a mano.
-  - ✅ **Ampliación de Catálogo**: Añadidos nuevos productos (Columpio Globo, Colgante Aromas, Columpio Tricolor, Columpio Forrajeo Natural).
-  - ✅ **Logística Inteligente**: Sistema de estados de pedido operativo (Pendiente 🔴, Pagado 🟢, Enviado 🔵).
+  - ✅ **Optimización Móvil Quirúrgica**: Rediseño del Hero de inicio para móviles con formato "split" (título arriba, acción abajo) dejando el centro libre para las aves.
+  - ✅ **UX de Blog Mejorada**: Implementación de slider horizontal con barra de progreso en categorías del Blog, unificando la experiencia con la tienda.
+  - ✅ **Encuadre de Vídeo Pro**: Ajuste de posición `object-top` para los vídeos del Hero en móvil, asegurando que las aves siempre estén en plano.
+  - ✅ **Impacto en "Nosotros"**: Aumento de jerarquía tipográfica en la página About y limpieza de elementos visuales secundarios (badges) para un look más premium.
+  - ✅ **Ficha Técnica de Productos**: Actualización de descripciones (Combo Forrajeo, Colgante Ejercicio) especificando materiales naturales (lufa, sisal de 14mm) y medidas.
+  - ✅ **Tipografía Refinada (Premium)**: Ajuste de jerarquía visual y tamaños de letra en toda la web para un acabado más elegante y equilibrado.
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
 1. **Comunicación 360º Activada (ÉXITO)**: 📩
