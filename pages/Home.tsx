@@ -95,7 +95,7 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                     muted
                     loop
                     playsInline
-                    className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+                    className="absolute inset-0 w-full h-full object-cover object-top md:object-center pointer-events-none"
                   />
                 ) : (
                   <img
