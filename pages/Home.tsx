@@ -108,10 +108,10 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                     }}
                   />
                 )}
-                <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/20 to-transparent md:bg-gradient-to-br md:from-black/75 md:via-black/15 md:to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/40 md:bg-gradient-to-br md:from-black/75 md:via-black/15 md:to-transparent"></div>
 
-                <div className="relative h-full flex flex-col justify-start items-start p-8 md:p-16 lg:p-20 max-w-4xl pt-6 md:pt-10 lg:pt-12">
-                  <h2 className="text-white text-3xl md:text-5xl lg:text-6xl font-black leading-[0.92] mb-5 tracking-tighter drop-shadow-2xl">
+                <div className="relative h-full flex flex-col justify-end md:justify-start items-start p-8 md:p-16 lg:p-20 max-w-4xl pb-16 md:pb-0 pt-6 md:pt-10 lg:pt-12">
+                  <h2 className="text-white text-2xl md:text-5xl lg:text-6xl font-black leading-[0.92] mb-4 md:mb-5 tracking-tighter drop-shadow-2xl">
                     {slide.title.split('\n').map((line, i) => (
                       <span key={i} className="block whitespace-nowrap uppercase">{line}</span>
                     ))}
@@ -122,14 +122,14 @@ const Home: React.FC<HomeProps> = ({ onAddToCart, onImageClick }) => {
                     ))}
                   </h2>
 
-                  <p className="text-white/90 text-sm md:text-base font-medium mb-8 max-w-sm leading-relaxed drop-shadow-lg">
+                  <p className="text-white/90 text-[12px] md:text-base font-medium mb-6 md:mb-8 max-w-sm leading-relaxed drop-shadow-lg">
                     {slide.desc}
                   </p>
 
                   <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
                     <Link
                       to="/tienda"
-                      className="bg-accent hover:bg-[#b8e030] text-text-main font-black text-base md:text-lg px-10 py-4 rounded-[1.6rem] transition-all duration-300 shadow-2xl shadow-black/20 active:scale-95 flex items-center justify-center gap-3 group"
+                      className="bg-accent hover:bg-[#b8e030] text-text-main font-black text-sm md:text-lg px-8 md:px-10 py-3.5 md:py-4 rounded-[1.4rem] md:rounded-[1.6rem] transition-all duration-300 shadow-2xl shadow-black/20 active:scale-95 flex items-center justify-center gap-3 group"
                     >
                       Ver Colección
                       <span className="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
