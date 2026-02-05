@@ -194,7 +194,7 @@ export const PRODUCTS: Product[] = [
     id: 'p26',
     name: 'Combo forrajeo Bolsas de rafia seca natural y hojas de olivo',
     price: 13.50,
-    description: 'Bolsa de 50g de rafia más bolsita de hojas y 100g ramitas de olivo sin pesticida más cuerdas de sisal natural de 14 mm por 70 de largo.',
+    description: 'Bolsa de 50 g de rafia + 100 g de ramitas de olivo, sin pesticida más cuerda de sisal natural  de 14 mm diámetro por 70cm de largo.',
     image: IMG_FORRAJEO_COMBO_RAFIA,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo',
