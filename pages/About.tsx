@@ -8,10 +8,7 @@ const About: React.FC = () => {
       {/* Hero About */}
       <section className="grid md:grid-cols-2 gap-20 items-center">
         <div className="space-y-8">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full w-fit">
-            <span className="material-symbols-outlined text-primary text-sm filled-icon">nest_eco_leaf</span>
-            <span className="text-primary text-xs font-black uppercase tracking-widest">Natural & Orgánico</span>
-          </div>
+
           <h1 className="text-5xl md:text-7xl font-black text-text-main leading-[0.9] tracking-tight">
             Nuestra <br /><span className="text-primary italic">Pasión</span> <br />con Alas.
           </h1>
