@@ -116,7 +116,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
             {user ? (
               <div className={`flex items-center gap-1 sm:gap-2 rounded-full pl-2 sm:pl-3 pr-1 py-1 transition-colors ${isScrolled ? 'bg-background-light/50' : 'bg-background-light'}`}>
                 <Link to="/profile" className="text-[10px] font-black uppercase tracking-wider text-text-main hover:text-primary transition-colors pr-1">
-                  {user.isGuest ? 'Invitado' : user.name.split(' ')[0]}
+                  {user.email === 'infopicoyamor@gmail.com' ? 'ADMIN' : (user.isGuest ? 'Invitado' : user.name.split(' ')[0])}
                 </Link>
                 <button
                   onClick={onLogout}
