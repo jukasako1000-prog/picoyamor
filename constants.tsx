@@ -46,7 +46,7 @@ export const IMG_CONTACT_MAIN = '/MISION.jpeg';
 
 // --- CATÁLOGO DE PRODUCTOS ---
 const IMG_PROD_AVENTURA = '/packaventura.jpeg';
-const IMG_PROD_NATURA = 'https://i.postimg.cc/ZKpqJs3w/Whats-App-Image-2026-01-25-at-12-13-58.jpg';
+const IMG_PROD_NATURA = '/columpiomascuerda.jpeg';
 const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
 const IMG_COLUMPIO_PLATAFORMA = '/COLUMPIOA.png';
 const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
