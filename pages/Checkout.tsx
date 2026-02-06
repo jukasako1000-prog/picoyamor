@@ -57,7 +57,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
         return isProvinceMatch || isPostalMatch;
     })();
 
-    const isAdmin = user?.email === 'infopicoyamor@gmail.com';
+    const isAdmin = user && !user.isGuest && user.email === 'infopicoyamor@gmail.com';
 
     const shippingFee = isAdmin
         ? 0
