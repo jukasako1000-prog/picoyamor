@@ -281,7 +281,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p35',
     name: 'Columpio Forrajeo Natural',
-    price: 15.85,
+    price: 14.50,
     description: 'Este columpio tiene una rama de corcho natural para limar pico y uñas, y entretenerles haciéndola añicos. Su cuerda es de cáñamo natural y lleva piezas de forrajeo (rafia, palma, cuero y rattan), ideal para esconder premios. La ramita de corcho puede variar de tamaño y puedes ajustarla según tu jaula. Medidas: 14cm de largo x 2-3 cm de diámetro.',
     image: IMG_COLUMPIO_FORRAJEO,
     category: 'Columpios',
