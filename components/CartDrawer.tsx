@@ -14,7 +14,7 @@ interface CartDrawerProps {
   onCompleteOrder: (items: CartItem[], total: number) => void;
 }
 
-const FREE_SHIPPING_PENINSULA = 15;
+const FREE_SHIPPING_PENINSULA = 20;
 const FREE_SHIPPING_EXTRA = 25;
 const SHIPPING_PENINSULA = 4;
 const SHIPPING_EXTRA = 7;
