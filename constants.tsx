@@ -382,7 +382,7 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>No necesitas gastar mucho. Puedes empezar envolviendo algunas semillas en papel de seda limpio o escondiéndolas dentro de tapones de corcho natural (sin pegamento). Verás cómo su curiosidad natural se activa de inmediato.</p>
     `,
     category: 'Juegos',
-    image: 'https://i.postimg.cc/cHHm3ZZs/Whisk_e3f256255886d85880949b8daaa168cadr.png',
+    image: '/juegos.png',
     date: '12 ENE 2024',
     readTime: '4 min'
   },
@@ -412,7 +412,7 @@ export const BLOG_POSTS: BlogPost[] = [
       </ul>
     `,
     category: 'Salud',
-    image: 'https://i.postimg.cc/2yX85QGn/Whisk_b2f70ac7cf17222881241d77102b60dadr.jpg',
+    image: '/salud.jpeg',
     date: '08 ENE 2024',
     readTime: '6 min'
   },
@@ -438,7 +438,7 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>Recuerda que crear un vínculo lleva tiempo. Empieza hablándole suavemente y ofreciéndole premios a través de los barrotes antes de intentar cualquier contacto físico directo.</p>
     `,
     category: 'Cuidados',
-    image: 'https://i.postimg.cc/pXYq3s0p/Whisk_6fbdc3e46ffed709c5f4fc94a9ca9f4cdr.jpg',
+    image: '/cuidados.jpeg',
     date: '05 ENE 2024',
     readTime: '5 min'
   }
