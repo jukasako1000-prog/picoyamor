@@ -6,8 +6,8 @@ import { Product, Testimonial } from './types';
  */
 
 // --- ICONOS DE SILUETAS (TESTIMONIOS) ---
-export const ICON_FEMALE = 'https://i.postimg.cc/KzTZmb8w/ICONO_MUJER.png';
-export const ICON_MALE = 'https://i.postimg.cc/ZRNTJm5g/ICONO_HOMBRE.png';
+export const ICON_FEMALE = '/ICONOMUJER.png';
+export const ICON_MALE = '/ICONOHOMBRE.png';
 
 // --- CARRUSEL PRINCIPAL (HOME HERO) ---
 export const IMG_HERO_SLIDE_1 = 'https://i.postimg.cc/m289NTF5/Whisk_730685564a8a287af1246ccd07793773dr.png';
