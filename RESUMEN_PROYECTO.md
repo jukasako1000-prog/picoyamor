@@ -3,14 +3,14 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: Activo (En mantenimiento)
-- **Última Actualización**: 5 de febrero, 2026 - 23:10h
+- **Última Actualización**: 6 de febrero, 2026 - 14:35h
 - **Hitos Recientes**: 
+  - ✅ **Ampliación de Forrajeo**: Incorporado el nuevo pack "Heno más corteza de pino natural" (p36) en la categoría de Forrajeo, posicionado estratégicamente junto a la bolsita estándar.
+  - ✅ **Ajustes Quirúrgicos de Precios**: Actualización del precio del "Columpio Forrajeo Natural" a 14.50€ para optimizar la competitividad.
   - ✅ **Optimización Móvil Quirúrgica**: Rediseño del Hero de inicio para móviles con formato "split" (título arriba, acción abajo) dejando el centro libre para las aves.
   - ✅ **UX de Blog Mejorada**: Implementación de slider horizontal con barra de progreso en categorías del Blog, unificando la experiencia con la tienda.
   - ✅ **Encuadre de Vídeo Pro**: Ajuste de posición `object-top` para los vídeos del Hero en móvil, asegurando que las aves siempre estén en plano.
   - ✅ **Impacto en "Nosotros"**: Aumento de jerarquía tipográfica en la página About y limpieza de elementos visuales secundarios (badges) para un look más premium.
-  - ✅ **Ficha Técnica de Productos**: Actualización de descripciones (Combo Forrajeo, Colgante Ejercicio) especificando materiales naturales (lufa, sisal de 14mm) y medidas.
-  - ✅ **Tipografía Refinada (Premium)**: Ajuste de jerarquía visual y tamaños de letra en toda la web para un acabado más elegante y equilibrado.
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
 1. **Comunicación 360º Activada (ÉXITO)**: 📩
