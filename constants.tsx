@@ -42,7 +42,7 @@ export const HERO_SLIDES = [
 // --- SECCIONES EXCLUSIVAS ---
 export const IMG_ABOUT_MAIN = 'https://i.postimg.cc/yxrnjMFW/Whisk_ym2njlzy5y2ywiwytmwozgtlhzwm00czxumytyg.jpg';
 export const IMG_ABOUT_STORY = '/nosotrosfoto.jpeg';
-export const IMG_CONTACT_MAIN = 'https://i.postimg.cc/DZbGhN5m/Whisk_e76e908bd2c480eb69642d4a60cc9a4cdr.png';
+export const IMG_CONTACT_MAIN = '/MISION.jpeg';
 
 // --- CATÁLOGO DE PRODUCTOS ---
 const IMG_PROD_AVENTURA = '/packaventura.jpeg';
