@@ -144,6 +144,15 @@ export const PRODUCTS: Product[] = [
     badge: 'Recomendado'
   },
   {
+    id: 'p36',
+    name: 'Heno más corteza de pino natural',
+    price: 5.85,
+    description: 'Heno mas corteza de pino 100 %natural, un buen cóctel de forrajeo para base de bandeja sobre todo para la búsqueda de alimentos.\nHeno 40g\n7 piezas de corteza , puede variar su tamaño al tratarse de una pieza natural\nAprox:280g,7 piezas',
+    image: IMG_PROD_HENO_CORTEZA,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
     id: 'p18',
     name: 'Combo Forrajeo Natural',
     price: 18.75,
@@ -287,15 +296,6 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_FORRAJEO,
     category: 'Columpios',
     badge: 'Premium'
-  },
-  {
-    id: 'p36',
-    name: 'Heno más corteza de pino natural',
-    price: 5.85,
-    description: 'Heno mas corteza de pino 100 %natural, un buen cóctel de forrajeo para base de bandeja sobre todo para la búsqueda de alimentos.\nHeno 40g\n7 piezas de corteza , puede variar su tamaño al tratarse de una pieza natural\nAprox:280g,7 piezas',
-    image: IMG_PROD_HENO_CORTEZA,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
   }
 ];
 
