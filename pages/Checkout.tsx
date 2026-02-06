@@ -57,9 +57,13 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
         return isProvinceMatch || isPostalMatch;
     })();
 
-    const shippingFee = isExtraPeninsular
-        ? (subtotal >= FREE_SHIPPING_EXTRA ? 0 : SHIPPING_EXTRA)
-        : (subtotal >= FREE_SHIPPING_PENINSULA ? 0 : SHIPPING_PENINSULA);
+    const isAdmin = user?.email === 'infopicoyamor@gmail.com';
+
+    const shippingFee = isAdmin
+        ? 0
+        : (isExtraPeninsular
+            ? (subtotal >= FREE_SHIPPING_EXTRA ? 0 : SHIPPING_EXTRA)
+            : (subtotal >= FREE_SHIPPING_PENINSULA ? 0 : SHIPPING_PENINSULA));
 
     const total = subtotal + shippingFee;
 
@@ -235,7 +239,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cart, user, onClearCart, onComplete
                             <div className="flex justify-between items-center text-text-muted font-bold text-xs uppercase tracking-widest">
                                 <span>Envío</span>
                                 <span className={`${shippingFee === 0 ? 'text-primary font-black' : 'text-text-main'}`}>
-                                    {user ? (shippingFee === 0 ? 'GRATIS' : `${shippingFee.toFixed(2)}€`) : 'PENDIENTE'}
+                                    {user ? (shippingFee === 0 ? (isAdmin ? 'GRATIS (ADMIN)' : 'GRATIS') : `${shippingFee.toFixed(2)}€`) : 'PENDIENTE'}
                                 </span>
                             </div>
 
