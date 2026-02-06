@@ -16,7 +16,7 @@ const Blog: React.FC = () => {
     }
   };
 
-  const categories = ['Todos', 'Cuidados', 'Salud', 'Juegos'];
+  const categories = ['Todos', 'Juegos', 'Salud', 'Cuidados'];
 
   const filteredPosts = filter === 'Todos'
     ? BLOG_POSTS
