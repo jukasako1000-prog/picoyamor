@@ -3,9 +3,9 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: Activo (En mantenimiento)
-- **Última Actualización**: 6 de febrero, 2026 - 14:55h
+- **Última Actualización**: 6 de febrero, 2026 - 15:05h
 - **Hitos Recientes**: 
-  - ✅ **Modo Test Administrador**: Implementada identificación automática por email (`infopicoyamor@gmail.com`) en el Checkout. Permite al administrador realizar compras de prueba sin gastos de envío y sin restricciones de pedido mínimo.
+  - ✅ **Modo Test Administrador**: Implementada identificación automática por email en el Checkout y Navbar. Ahora, al iniciar sesión como administrador, aparece la etiqueta **"ADMIN"** en la cabecera y se activan automáticamente el envío gratis y la omisión de pedido mínimo para pruebas reales.
   - ✅ **Ampliación de Forrajeo**: Incorporado el nuevo pack "Heno más corteza de pino natural" (p36) en la categoría de Forrajeo, posicionado estratégicamente junto a la bolsita estándar.
   - ✅ **Ajustes Quirúrgicos de Precios**: Actualización del precio del "Columpio Forrajeo Natural" a 14.50€ para optimizar la competitividad.
   - ✅ **Optimización Móvil Quirúrgica**: Rediseño del Hero de inicio para móviles con formato "split" (título arriba, acción abajo) dejando el centro libre para las aves.
