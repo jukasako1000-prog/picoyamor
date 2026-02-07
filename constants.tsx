@@ -54,7 +54,7 @@ const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.jpeg';
 const IMG_COLUMPIO_CORCHO = '/columpio-AVE.png';
 const IMG_FORRAJEO_CAJA = '/bolsadeheno.png';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
-const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.PNG';
+const IMG_FORRAJEO_COMBO = '/combogrande-forrajeo.png';
 const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
 const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
 const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
@@ -157,12 +157,11 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p18',
-    name: 'Combo Forrajeo Natural',
-    price: 18.75,
-    description: 'Pack completo con ramitas de olivo (100g), heno (100g), cortezas (150g) y 8 piñas. Ideal para fondo de bandeja y enriquecimiento natural.',
+    name: 'Combo Forrajeo',
+    price: 8.75,
+    description: 'Combo de tres bolsitas para un forrajeo perfecto .\n100g de de ramitas de olivo\n50g de heno\n12 piezas de cortezas de pino natural.\nTodo está desinfectado y Elaborado.',
     image: IMG_FORRAJEO_COMBO,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Ahorro'
+    category: 'Forrajeo/Colgantes'
   },
   {
     id: 'p22',
