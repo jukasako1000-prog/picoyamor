@@ -71,6 +71,7 @@ const IMG_COLUMPIO_TRICOLOR = '/columpiotricolor.png';
 const IMG_COLUMPIO_FORRAJEO = '/columpioforrajeo.png';
 const IMG_PROD_HENO_CORTEZA = '/PACKHENOYCORTEZAS.png';
 const IMG_CORTEZA_ALCORNOQUE = '/cortezadealcornoque.png';
+const IMG_CUERDA_SISAL = '/cuerdasisal.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -304,6 +305,15 @@ export const PRODUCTS: Product[] = [
     price: 8.50,
     description: 'Corteza de alcornoque ya tratado para eliminar cualquier impureza o insecto ideal para jaulas ideal para las aves exóticas que les encanta picar y entretiene muchísimo al ser una pieza única natural. Sus medidas son orientativas.\nMedidas : 16 cm de largo por 12 de ancho.',
     image: IMG_CORTEZA_ALCORNOQUE,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p38',
+    name: 'Cuerda sisal natural',
+    price: 6.75,
+    description: 'Cuerda natural para aves exóticas para colgar en jaula o hacer su juguete. Incluye flor de hojas de palmera seca con una estrella de corcho natural, elementos pensados para estimular el forrajeo y el juego. Perfecto para picotear, deshilachar y mantener a las aves entretenidas de forma segura y natural, favoreciendo su bienestar.\nMedidas : 90 cm de cuerda.',
+    image: IMG_CUERDA_SISAL,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   }
