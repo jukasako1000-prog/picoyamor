@@ -106,7 +106,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p17',
     name: 'Columpio de Corteza de Pino Natural',
-    price: 16.50,
+    price: 14.50,
     description: 'Elaborado con corteza de pino natural de España con lacito de rafia para mayor diversión. Cuerda regulable (se puede acortar con un nudo inferior) para adaptarse a cualquier jaula. Medidas aprox: 27cm alto x 19cm ancho (al ser natural, cada pieza es única).',
     image: IMG_COLUMPIO_CORTEZA,
     category: 'Columpios'
@@ -147,15 +147,6 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Nuevo',
     scale: 1.3
-  },
-  {
-    id: 'p12',
-    name: 'Bolsita de Forrajeo',
-    price: 1.20,
-    description: 'Heno natural de alta calidad (40gramos). Perfecta para fomentar el instinto de búsqueda y mantener a tu ave entretenida y saludable.',
-    image: IMG_FORRAJEO_CAJA,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Recomendado'
   },
   {
     id: 'p36',
