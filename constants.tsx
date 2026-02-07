@@ -122,7 +122,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p20',
     name: 'Tarta de Corcho',
-    price: 17.50,
+    price: 14.20,
     description: 'Corcho auténtico en formato tarta con bolita de enriquecimiento. Textura irresistible para picar y jugar. Un pastel de diversión natural.',
     image: IMG_COLUMPIO_CORCHO,
     category: 'Columpios',
