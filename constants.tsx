@@ -77,6 +77,26 @@ const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'p36',
+    name: 'Heno más corteza de pino natural',
+    price: 5.85,
+    description: 'Heno mas corteza de pino 100 %natural, un buen cóctel de forrajeo para base de bandeja sobre todo para la búsqueda de alimentos.\nHeno 40g\n7 piezas de corteza , puede variar su tamaño al tratarse de una pieza natural\nAprox:280g,7 piezas',
+    image: IMG_PROD_HENO_CORTEZA,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p32',
+    name: 'Columpio Globo',
+    price: 16.90,
+    description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
+    image: IMG_COLUMPIO_GLOBO,
+    category: 'Columpios',
+    badge: 'Premium',
+    scale: 1.4,
+    translateY: 15
+  },
+  {
     id: 'p1',
     name: 'Pack Aventura',
     price: 14.90,
@@ -106,7 +126,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p17',
     name: 'Columpio de Corteza de Pino Natural',
-    price: 14.50,
+    price: 12.90,
     description: 'Elaborado con corteza de pino natural de España con lacito de rafia para mayor diversión. Cuerda regulable (se puede acortar con un nudo inferior) para adaptarse a cualquier jaula. Medidas aprox: 27cm alto x 19cm ancho (al ser natural, cada pieza es única).',
     image: IMG_COLUMPIO_CORTEZA,
     category: 'Columpios'
@@ -122,7 +142,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p20',
     name: 'Tarta de Corcho',
-    price: 14.20,
+    price: 13.85,
     description: 'Corcho auténtico en formato tarta con bolita de enriquecimiento. Textura irresistible para picar y jugar. Un pastel de diversión natural.',
     image: IMG_COLUMPIO_CORCHO,
     category: 'Columpios',
@@ -147,15 +167,6 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Nuevo',
     scale: 1.3
-  },
-  {
-    id: 'p36',
-    name: 'Heno más corteza de pino natural',
-    price: 5.85,
-    description: 'Heno mas corteza de pino 100 %natural, un buen cóctel de forrajeo para base de bandeja sobre todo para la búsqueda de alimentos.\nHeno 40g\n7 piezas de corteza , puede variar su tamaño al tratarse de una pieza natural\nAprox:280g,7 piezas',
-    image: IMG_PROD_HENO_CORTEZA,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
   },
   {
     id: 'p18',
@@ -207,7 +218,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p26',
     name: 'Combo forrajeo Bolsas de rafia seca natural y hojas de olivo',
-    price: 13.50,
+    price: 11.70,
     description: 'Bolsa de 50 g de rafia + 100 g de ramitas de olivo, sin pesticida más cuerda de sisal natural  de 14 mm diámetro por 70cm de largo.',
     image: IMG_FORRAJEO_COMBO_RAFIA,
     category: 'Forrajeo/Colgantes',
@@ -289,17 +300,6 @@ export const PRODUCTS: Product[] = [
     badge: 'Nuevo'
   },
   {
-    id: 'p32',
-    name: 'Columpio Globo',
-    price: 23.50,
-    description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
-    image: IMG_COLUMPIO_GLOBO,
-    category: 'Columpios',
-    badge: 'Premium',
-    scale: 1.4,
-    translateY: 15
-  },
-  {
     id: 'p33',
     name: 'Colgante Aromas',
     price: 7.50,
@@ -322,7 +322,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p35',
     name: 'Columpio Forrajeo Natural',
-    price: 12.80,
+    price: 13.85,
     description: 'Este columpio tiene una rama de corcho natural para limar pico y uñas, y entretenerles haciéndola añicos. Su cuerda es de cáñamo natural y lleva piezas de forrajeo (rafia, palma, cuero y rattan), ideal para esconder premios. La ramita de corcho puede variar de tamaño y puedes ajustarla según tu jaula. Medidas: 14cm de largo x 2-3 cm de diámetro.',
     image: IMG_COLUMPIO_FORRAJEO,
     category: 'Columpios',
