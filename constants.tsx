@@ -77,6 +77,26 @@ const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
 
 export const PRODUCTS: Product[] = [
   {
+    id: 'p36',
+    name: 'Heno más corteza de pino natural',
+    price: 5.85,
+    description: 'Heno mas corteza de pino 100 %natural, un buen cóctel de forrajeo para base de bandeja sobre todo para la búsqueda de alimentos.\nHeno 40g\n7 piezas de corteza , puede variar su tamaño al tratarse de una pieza natural\nAprox:280g,7 piezas',
+    image: IMG_PROD_HENO_CORTEZA,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p32',
+    name: 'Columpio Globo',
+    price: 16.90,
+    description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
+    image: IMG_COLUMPIO_GLOBO,
+    category: 'Columpios',
+    badge: 'Premium',
+    scale: 1.4,
+    translateY: 15
+  },
+  {
     id: 'p1',
     name: 'Pack Aventura',
     price: 14.90,
@@ -147,15 +167,6 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Nuevo',
     scale: 1.3
-  },
-  {
-    id: 'p36',
-    name: 'Heno más corteza de pino natural',
-    price: 5.85,
-    description: 'Heno mas corteza de pino 100 %natural, un buen cóctel de forrajeo para base de bandeja sobre todo para la búsqueda de alimentos.\nHeno 40g\n7 piezas de corteza , puede variar su tamaño al tratarse de una pieza natural\nAprox:280g,7 piezas',
-    image: IMG_PROD_HENO_CORTEZA,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
   },
   {
     id: 'p18',
@@ -287,17 +298,6 @@ export const PRODUCTS: Product[] = [
     image: IMG_JUGUETE_BALANCEO,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
-  },
-  {
-    id: 'p32',
-    name: 'Columpio Globo',
-    price: 16.90,
-    description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
-    image: IMG_COLUMPIO_GLOBO,
-    category: 'Columpios',
-    badge: 'Premium',
-    scale: 1.4,
-    translateY: 15
   },
   {
     id: 'p33',
