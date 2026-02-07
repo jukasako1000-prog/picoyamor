@@ -126,7 +126,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p17',
     name: 'Columpio de Corteza de Pino Natural',
-    price: 14.50,
+    price: 12.90,
     description: 'Elaborado con corteza de pino natural de España con lacito de rafia para mayor diversión. Cuerda regulable (se puede acortar con un nudo inferior) para adaptarse a cualquier jaula. Medidas aprox: 27cm alto x 19cm ancho (al ser natural, cada pieza es única).',
     image: IMG_COLUMPIO_CORTEZA,
     category: 'Columpios'
