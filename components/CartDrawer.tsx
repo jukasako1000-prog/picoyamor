@@ -15,9 +15,9 @@ interface CartDrawerProps {
 }
 
 const FREE_SHIPPING_PENINSULA = 20;
-const FREE_SHIPPING_EXTRA = 25;
+const FREE_SHIPPING_EXTRA = 30;
 const SHIPPING_PENINSULA = 4;
-const SHIPPING_EXTRA = 7;
+const SHIPPING_EXTRA = 8;
 
 // Listado de provincias por nombre para detección automática
 const EXTRA_PENINSULAR_PROVINCES = [

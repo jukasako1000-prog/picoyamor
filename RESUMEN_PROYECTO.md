@@ -7,7 +7,7 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
 - **Hitos Recientes**: 
   - ✅ **Blindaje de Activos (Inmortalidad Visual)**: Migración masiva de imágenes críticas (Logo, Productos, Blog, Nosotros, Contacto) de servidores externos (Postimages) a archivos locales en la carpeta `public`. La web es ahora mucho más rápida y 100% independiente de caídas externas.
   - ✅ **Seguridad Admin Reforzada**: Blindaje del acceso a privilegios de administrador. Ahora, el envío gratis y el modo test solo se activan para el email oficial si el usuario está **autenticado con contraseña** (`!isGuest`), eliminando la vulnerabilidad del campo de email en el modo invitado.
-  - ✅ **Nueva Política de Envíos**: Actualizado el umbral de envío gratuito para la Península de **15€ a 20€** en toda la lógica de la tienda (Checkout, Carrito y página de Envíos).
+  - ✅ **Nueva Política de Envíos**: Actualizado el umbral de envío gratuito para la Península de **15€ a 20€**. Para **Otros Destinos** (Islas, Ceuta y Melilla), la tarifa plana sube de **7€ a 8€** y el envío gratuito de **25€ a 30€**, unificando la lógica en Checkout, Carrito y documentación.
   - ✅ **Optimización del Blog**: Reordenación estratégica de categorías (Todos, Juegos, Salud, Cuidados) y restauración visual completa con activos locales.
   - ✅ **Identidad Corporativa Protegida**: Logo de la marca (Pico & Amor) restaurado en local para cabecera, footer y página de contacto, asegurando que la marca siempre esté visible.
 

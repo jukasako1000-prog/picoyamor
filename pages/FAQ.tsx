@@ -51,7 +51,7 @@ const FAQ: React.FC = () => {
         },
         {
             question: "¿Hacéis envíos a Canarias, Baleares, Ceuta y Melilla?",
-            answer: "Sí, realizamos envíos a todo el territorio nacional. Los gastos de envío son de 7€ (Gratis en pedidos de más de 25€) para fuera de la península."
+            answer: "Sí, realizamos envíos a todo el territorio nacional. Los gastos de envío son de 8€ (Gratis en pedidos de más de 30€) para fuera de la península."
         },
         {
             question: "¿Puedo devolver un producto si no le gusta a mi ave?",
