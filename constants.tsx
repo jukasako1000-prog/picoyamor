@@ -70,6 +70,7 @@ const IMG_COLGANTE_AROMAS = '/AROMASCOLGANTE.png';
 const IMG_COLUMPIO_TRICOLOR = '/columpiotricolor.png';
 const IMG_COLUMPIO_FORRAJEO = '/columpioforrajeo.png';
 const IMG_PROD_HENO_CORTEZA = '/PACKHENOYCORTEZAS.png';
+const IMG_CORTEZA_ALCORNOQUE = '/cortezadealcornoque.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -296,6 +297,15 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_FORRAJEO,
     category: 'Columpios',
     badge: 'Premium'
+  },
+  {
+    id: 'p37',
+    name: 'Corteza de alcornoque',
+    price: 8.50,
+    description: 'Corteza de alcornoque ya tratado para eliminar cualquier impureza o insecto ideal para jaulas ideal para las aves exóticas que les encanta picar y entretiene muchísimo al ser una pieza única natural. Sus medidas son orientativas.\nMedidas : 16 cm de largo por 12 de ancho.',
+    image: IMG_CORTEZA_ALCORNOQUE,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
   }
 ];
 
