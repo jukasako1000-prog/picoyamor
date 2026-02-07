@@ -75,24 +75,6 @@ const IMG_CUERDA_SISAL = '/cuerdasisal.png';
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'p37',
-    name: 'Corteza de alcornoque',
-    price: 8.50,
-    description: 'Corteza de alcornoque ya tratado para eliminar cualquier impureza o insecto ideal para jaulas ideal para las aves exóticas que les encanta picar y entretiene muchísimo al ser una pieza única natural. Sus medidas son orientativas.\nMedidas : 16 cm de largo por 12 de ancho.',
-    image: IMG_CORTEZA_ALCORNOQUE,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
-  },
-  {
-    id: 'p38',
-    name: 'Cuerda sisal natural',
-    price: 6.75,
-    description: 'Cuerda natural para aves exóticas para colgar en jaula o hacer su juguete. Incluye flor de hojas de palmera seca con una estrella de corcho natural, elementos pensados para estimular el forrajeo y el juego. Perfecto para picotear, deshilachar y mantener a las aves entretenidas de forma segura y natural, favoreciendo su bienestar.\nMedidas : 90 cm de cuerda.',
-    image: IMG_CUERDA_SISAL,
-    category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
-  },
-  {
     id: 'p1',
     name: 'Pack Aventura',
     price: 14.90,
@@ -274,6 +256,24 @@ export const PRODUCTS: Product[] = [
     price: 14.75,
     description: 'Juguete ejercicio y eliminador del aburrimiento. Material mimbre, fibra de coco, mazorca, bolita de enriquecimiento, bolita de rattán, corteza y piña. Se puede colgar fácilmente adaptando según la jaula. Medidas: 19cm de ancho por 24cm de alto.',
     image: IMG_FORRAJEO_MINIPARQUE,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p37',
+    name: 'Corteza de alcornoque',
+    price: 8.50,
+    description: 'Corteza de alcornoque ya tratado para eliminar cualquier impureza o insecto ideal para jaulas ideal para las aves exóticas que les encanta picar y entretiene muchísimo al ser una pieza única natural. Sus medidas son orientativas.\nMedidas : 16 cm de largo por 12 de ancho.',
+    image: IMG_CORTEZA_ALCORNOQUE,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p38',
+    name: 'Cuerda sisal natural',
+    price: 6.75,
+    description: 'Cuerda natural para aves exóticas para colgar en jaula o hacer su juguete. Incluye flor de hojas de palmera seca con una estrella de corcho natural, elementos pensados para estimular el forrajeo y el juego. Perfecto para picotear, deshilachar y mantener a las aves entretenidas de forma segura y natural, favoreciendo su bienestar.\nMedidas : 90 cm de cuerda.',
+    image: IMG_CUERDA_SISAL,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   },
