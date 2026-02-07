@@ -72,6 +72,7 @@ const IMG_COLUMPIO_FORRAJEO = '/columpioforrajeo.png';
 const IMG_PROD_HENO_CORTEZA = '/PACKHENOYCORTEZAS.png';
 const IMG_CORTEZA_ALCORNOQUE = '/cortezadealcornoque.png';
 const IMG_CUERDA_SISAL = '/cuerdasisal.png';
+const IMG_JUGUETE_BALANCEO = '/juguetebalanceo.PNG';
 
 export const PRODUCTS: Product[] = [
   {
@@ -274,6 +275,15 @@ export const PRODUCTS: Product[] = [
     price: 6.75,
     description: 'Cuerda natural para aves exóticas para colgar en jaula o hacer su juguete. Incluye flor de hojas de palmera seca con una estrella de corcho natural, elementos pensados para estimular el forrajeo y el juego. Perfecto para picotear, deshilachar y mantener a las aves entretenidas de forma segura y natural, favoreciendo su bienestar.\nMedidas : 90 cm de cuerda.',
     image: IMG_CUERDA_SISAL,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p39',
+    name: 'Juguete Balanceo',
+    price: 13.85,
+    description: 'Elemento natural de corcho con cuerda de sisal, ideal como juguete de distracción, balanceo y estimulación de la curiosidad para aves. Su textura natural invita al picoteo y al entretenimiento, ayudando a mantenerlas activas dentro de la jaula. Se puede colgar fácilmente en cualquier jaula o voladera y permite ajustar la altura mediante un nudo inferior.\nMedidas : 20 cm de largo por 14 cm de ancho.',
+    image: IMG_JUGUETE_BALANCEO,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   },
