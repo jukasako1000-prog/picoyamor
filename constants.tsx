@@ -149,15 +149,6 @@ export const PRODUCTS: Product[] = [
     scale: 1.3
   },
   {
-    id: 'p12',
-    name: 'Bolsita de Forrajeo (PRUEBA)',
-    price: 1.00,
-    description: 'Bolsita de heno para realizar prueba real de pago. Se quitará tras la verificación.',
-    image: IMG_FORRAJEO_CAJA,
-    category: 'Forrajeo/Colgantes',
-    badge: 'PRUEBA'
-  },
-  {
     id: 'p36',
     name: 'Heno más corteza de pino natural',
     price: 5.85,
