@@ -9,6 +9,8 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Seguridad Admin Reforzada**: Blindaje del acceso a privilegios de administrador. Ahora, el envío gratis y el modo test solo se activan para el email oficial si el usuario está **autenticado con contraseña** (`!isGuest`), eliminando la vulnerabilidad del campo de email en el modo invitado.
   - ✅ **Nueva Política de Envíos**: Actualizado el umbral de envío gratuito para la Península de **15€ a 20€**. Para **Otros Destinos** (Islas, Ceuta y Melilla), la tarifa plana sube de **7€ a 8€** y el envío gratuito de **25€ a 30€**, unificando la lógica en Checkout, Carrito y documentación.
   - ✅ **Optimización del Blog**: Reordenación estratégica de categorías (Todos, Juegos, Salud, Cuidados) y restauración visual completa con activos locales.
+  - ✅ **Migración a Stripe LIVE (MODO REAL)**: Se ha completado la transición del sistema de pagos de 'test' a 'live'. Se ha actualizado la Clave Pública en el frontend (`pk_live...`) y se ha preparado la lógica de las Edge Functions para operar con transacciones reales.
+  - ✅ **Expansión del Catálogo y Tarifas**: Añadidos 5 nuevos productos (Corteza alcornoque, Cuerda sisal, Juguete Balanceo, Columpio Naturaleza y Combo Forrajeo renovado). Actualizadas las tarifas de envío para Otros Destinos (8€ / Gratis desde 30€).
   - ✅ **Identidad Corporativa Protegida**: Logo de la marca (Pico & Amor) restaurado en local para cabecera, footer y página de contacto, asegurando que la marca siempre esté visible.
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
