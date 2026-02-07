@@ -115,7 +115,7 @@ export const PRODUCTS: Product[] = [
     id: 'p19',
     name: 'Columpio Básico Artesanal',
     price: 7.50,
-    description: 'La esencia de la sencillez. Percha de madera natural y cuerda de sisal resistente. Un clásico imprescindible para el descanso diario.',
+    description: 'La esencia de la sencillez. Percha de madera natural y cuerda de sisal resistente. Un clásico imprescindible para el descanso diario. Ideal para aves pequeñas como agapornis o periquitos.\nMedidas : 17 cm de largo por 16 de ancho.',
     image: IMG_COLUMPIO_BASICO,
     category: 'Columpios'
   },
