@@ -37,7 +37,7 @@ const ShippingReturns: React.FC = () => {
                                 <h4 className="font-black text-xs uppercase tracking-widest text-primary mb-2">Destino Península</h4>
                                 <ul className="list-none p-0 space-y-1">
                                     <li className="flex items-center gap-2 font-bold"><span className="size-1.5 rounded-full bg-primary" /> Tarifa Plana: 4,00€</li>
-                                    <li className="flex items-center gap-2 text-primary font-black"><span className="size-1.5 rounded-full bg-primary" /> Gratis desde 20€</li>
+                                    <li className="flex items-center gap-2 text-primary font-black"><span className="size-1.5 rounded-full bg-primary" /> Gratis desde 18€</li>
                                     <li className="flex items-center gap-2 opacity-70"><span className="size-1.5 rounded-full bg-text-muted" /> Entrega: 24-72h</li>
                                 </ul>
                             </div>
