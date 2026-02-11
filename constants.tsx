@@ -74,6 +74,7 @@ const IMG_CORTEZA_ALCORNOQUE = '/cortezadealcornoque.png';
 const IMG_CUERDA_SISAL = '/cuerdasisal.png';
 const IMG_JUGUETE_BALANCEO = '/juguetebalanceo.PNG';
 const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
+const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -327,6 +328,15 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_FORRAJEO,
     category: 'Columpios',
     badge: 'Premium'
+  },
+  {
+    id: 'p41',
+    name: 'Colgante Piedra Mineral',
+    price: 4.20,
+    description: 'Este colgante es ideal para que tus agapornis se limen las uñas y el piquito. Importante: Antes de su uso, quitar plástico. Medidas: 28cm de largo por 5cm de ancho',
+    image: IMG_COLGANTE_PIEDRA_MINERAL,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
   },
 ];
 
