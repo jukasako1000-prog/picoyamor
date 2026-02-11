@@ -333,7 +333,7 @@ export const PRODUCTS: Product[] = [
     id: 'p41',
     name: 'Colgante Piedra Mineral',
     price: 4.20,
-    description: 'Este colgante es ideal para que tus agapornis se limen las uñas y el piquito. Importante: Antes de su uso, quitar plástico. Medidas: 28cm de largo por 5cm de ancho',
+    description: 'Este colgante es ideal para que tu ave se lime las uñas y el piquito. Importante: Antes de su uso, quitar plástico. Medidas: 28cm de largo por 5cm de ancho',
     image: IMG_COLGANTE_PIEDRA_MINERAL,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
