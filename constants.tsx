@@ -249,7 +249,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p30',
     name: 'Colgante Pajarita',
-    price: 6.50,
+    price: 5.60,
     description: 'Colgante con bola de enriquecimiento, trozos de corcho y pajarita de rafia. Envuelto en sisal natural para el picoteo y entretenimiento. Medidas: 26 cm de largo.',
     image: IMG_COLGANTE_PAJARITA,
     category: 'Forrajeo/Colgantes',
@@ -267,7 +267,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p31',
     name: 'Forrajeo Mini Parque',
-    price: 14.75,
+    price: 12.75,
     description: 'Juguete ejercicio y eliminador del aburrimiento. Material mimbre, fibra de coco, mazorca, bolita de enriquecimiento, bolita de rattán, corteza y piña. Se puede colgar fácilmente adaptando según la jaula. Medidas: 19cm de ancho por 24cm de alto.',
     image: IMG_FORRAJEO_MINIPARQUE,
     category: 'Forrajeo/Colgantes',
@@ -285,7 +285,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p38',
     name: 'Cuerda sisal natural',
-    price: 6.75,
+    price: 5.80,
     description: 'Cuerda natural para aves exóticas para colgar en jaula o hacer su juguete. Incluye flor de hojas de palmera seca con una estrella de corcho natural, elementos pensados para estimular el forrajeo y el juego. Perfecto para picotear, deshilachar y mantener a las aves entretenidas de forma segura y natural, favoreciendo su bienestar.\nMedidas : 90 cm de cuerda.',
     image: IMG_CUERDA_SISAL,
     category: 'Forrajeo/Colgantes',
@@ -294,7 +294,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p39',
     name: 'Juguete Balanceo',
-    price: 13.85,
+    price: 10.50,
     description: 'Elemento natural de corcho con cuerda de sisal, ideal como juguete de distracción, balanceo y estimulación de la curiosidad para aves. Su textura natural invita al picoteo y al entretenimiento, ayudando a mantenerlas activas dentro de la jaula. Se puede colgar fácilmente en cualquier jaula o voladera y permite ajustar la altura mediante un nudo inferior.\nMedidas : 20 cm de largo por 14 cm de ancho.',
     image: IMG_JUGUETE_BALANCEO,
     category: 'Forrajeo/Colgantes',
@@ -303,7 +303,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p33',
     name: 'Colgante Aromas',
-    price: 7.50,
+    price: 5.80,
     description: 'Mini aro de cuerda de algodón y colgante para aves pequeñas. Incluye mazorca, cuentas de madera, taco de árbol y fruta de caoba para una distracción total. Medidas: 16x17 cm.',
     image: IMG_COLGANTE_AROMAS,
     category: 'Forrajeo/Colgantes',
@@ -313,7 +313,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p34',
     name: 'Columpio Tricolor',
-    price: 7.85,
+    price: 5.75,
     description: 'Este columpio está hecho con cuentas de maderas y colores, no tóxicos, entretenido y sobre todo duradero. Para aves pequeñas y medianas. Medidas: 16cm de alto x 14,30cm de ancho.',
     image: IMG_COLUMPIO_TRICOLOR,
     category: 'Columpios',
