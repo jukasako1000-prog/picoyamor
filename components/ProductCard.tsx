@@ -44,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
               </div>
             ) : stock > 0 && stock <= 5 ? (
               <div className="absolute top-4 left-4 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg animate-pulse">
-                Quedan {stock} unidades
+                Pocas unidades
               </div>
             ) : null}
           </>
