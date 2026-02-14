@@ -75,8 +75,18 @@ const IMG_CUERDA_SISAL = '/cuerdasisal.png';
 const IMG_JUGUETE_BALANCEO = '/juguetebalanceo.PNG';
 const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
 const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.png';
+const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.png';
 
 export const PRODUCTS: Product[] = [
+  {
+    id: 'p42',
+    name: 'Columpio artesanal y cuerda de sisal',
+    price: 12.85,
+    description: 'Columpio artesanal con barra forrada de cuerda de yute para mejor agarre y descanso. Incluye una bolita de rattan para un juego más entretenido.\nIncluye cuerda de sisal de 100cm de largo por 10mm de ancho para hacer juguetes o colgar en la jaula.\nMedidas columpio: 20cm de largo por 18cm de ancho.',
+    image: IMG_PROD_COLUMPIO_ARTESANAL,
+    category: 'Packs',
+    badge: 'Nuevo'
+  },
   {
     id: 'p36',
     name: 'Heno más corteza de pino natural',
