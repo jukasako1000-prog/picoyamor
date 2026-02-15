@@ -346,7 +346,8 @@ export const PRODUCTS: Product[] = [
     description: 'Colgante de colores no tóxicos en cuentas de madera natural y cuerda de sisal. La punta va envuelta en cuerda de fibra de coco para mayor seguridad. Un colgante divertido y duradero.\nMedidas: 24cm de largo.',
     image: IMG_PROD_COLGANTE_COLORES,
     category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.25
   },
 ];
 
