@@ -76,6 +76,7 @@ const IMG_JUGUETE_BALANCEO = '/juguetebalanceo.PNG';
 const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
 const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.png';
 const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.png';
+const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -335,6 +336,15 @@ export const PRODUCTS: Product[] = [
     price: 4.20,
     description: 'Este colgante es ideal para que tu ave se lime las uñas y el piquito. Importante: Antes de su uso, quitar plástico. Medidas: 28cm de largo por 5cm de ancho',
     image: IMG_COLGANTE_PIEDRA_MINERAL,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p43',
+    name: 'Colgante de colores',
+    price: 12.50,
+    description: 'Colgante de colores no tóxicos en cuentas de madera natural y cuerda de sisal. La punta va envuelta en cuerda de fibra de coco para mayor seguridad. Un colgante divertido y duradero.\nMedidas: 24cm de largo.',
+    image: IMG_PROD_COLGANTE_COLORES,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   },
