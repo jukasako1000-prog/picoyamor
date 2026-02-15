@@ -11,6 +11,10 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Optimización del Blog**: Reordenación estratégica de categorías (Todos, Juegos, Salud, Cuidados) y restauración visual completa con activos locales.
   - ✅ **Verificación Stripe LIVE (ÉXITO)**: Primera transacción real de 1€ completada con éxito. El sistema está 100% operativo tanto en frontend como en el backend de Supabase.
   - ✅ **Flujo de Trabajo Profesional**: Implementado sistema de ramas (branches). Se ha creado la rama `feature/actualizaciones` como laboratorio de pruebas, manteniendo `main` como la versión estable de producción.
+  - ✅ **Actualización de Catálogo y Precios (15 Feb 2026)**: 
+    - 🏷️ **Ajuste de Precios**: Reducción estratégica del precio de la *Tarta de Corcho* (9.85€) y el *Columpio Naturaleza* (10.50€).
+    - 🧹 **Optimización de Inventario**: Eliminado el producto *Columpio Diversión Rattan* para evitar duplicidades con la sección de packs.
+    - ✨ **Nuevo Lanzamiento**: Añadido el *Colgante de colores* a la sección de Forrajeo/Colgantes, optimizando su escala visual (1.25) para una mejor presentación.
   - ✅ **Identidad Corporativa Protegida**: Logo de la marca (Pico & Amor) restaurado en local para cabecera, footer y página de contacto, asegurando que la marca siempre esté visible.
 
 ### 💎 Hitos de Estabilización y Mejoras Recientes
