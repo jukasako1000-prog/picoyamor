@@ -118,16 +118,6 @@ export const PRODUCTS: Product[] = [
     badge: 'Más vendido'
   },
   {
-    id: 'p14',
-    name: 'Columpio más cuerda',
-    price: 12.75,
-    description: 'Columpio en cuerda de sisal. Barrita forrada en cuerda de yute para mejor agarre y comodidad de sus patitas más cuerda de sisal para jaula. Para aves medianas y pequeñas. Medidas cuerda: 10 MM por 80 CM.',
-    image: IMG_PROD_NATURA,
-    category: 'Packs',
-    badge: 'Nuevo',
-    scale: 1.35
-  },
-  {
     id: 'p16',
     name: 'Pack Olivo',
     price: 13.90,
