@@ -153,7 +153,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p20',
     name: 'Tarta de Corcho',
-    price: 13.85,
+    price: 9.85,
     description: 'Corcho auténtico en formato tarta con bolita de enriquecimiento. Textura irresistible para picar y jugar. Un pastel de diversión natural.',
     image: IMG_COLUMPIO_CORCHO,
     category: 'Columpios',
@@ -172,7 +172,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p40',
     name: 'Columpio Naturaleza',
-    price: 13.85,
+    price: 10.50,
     description: 'Hermoso columpio fabricado con corteza de pino natural, cuerda de fibra de coco y una piña colgante que estimula la curiosidad y el juego de las aves. Su diseño natural favorece el balanceo, el entretenimiento y el enriquecimiento ambiental dentro de la jaula. Incluye mosquetones de acero inoxidable y permite ajustar la altura mediante un nudo. Ideal para aves grandes y medianas.\nAncho : 27 cm\nLargo : 26 cm',
     image: IMG_COLUMPIO_NATURALEZA,
     category: 'Columpios',
@@ -214,16 +214,6 @@ export const PRODUCTS: Product[] = [
     image: IMG_COLUMPIO_YUTE,
     category: 'Columpios',
     badge: 'Nuevo',
-    scale: 1.35
-  },
-  {
-    id: 'p25',
-    name: "Columpio 'Diversión Rattan'",
-    price: 13.80,
-    description: 'Este columpio ofrece mayor diversión, incluye una bolita de Rattan amarilla (el color puede variar). Seguro y duradero para aves medianas y pequeñas. Medidas: 22cm alto x 18cm ancho.',
-    image: IMG_COLUMPIO_RATTAN,
-    category: 'Columpios',
-    badge: 'Popular',
     scale: 1.35
   },
   {
