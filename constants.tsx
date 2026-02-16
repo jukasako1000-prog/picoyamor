@@ -77,6 +77,7 @@ const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
 const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.png';
 const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.png';
 const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.png';
+const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.jpg';
 
 export const PRODUCTS: Product[] = [
   {
@@ -338,6 +339,15 @@ export const PRODUCTS: Product[] = [
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo',
     scale: 1.25
+  },
+  {
+    id: 'p44',
+    name: 'Parquecito para aves pequeñas',
+    price: 7.50,
+    description: 'Parquecito diseñado para el recreo de aves pequeñas. Fabricado con materiales naturales para un juego seguro y entretenido.\nMedidas: 22cm de largo por 18cm de ancho.',
+    image: IMG_PROD_PARQUECITO_AVES,
+    category: 'Columpios',
+    badge: 'Nuevo'
   },
 ];
 

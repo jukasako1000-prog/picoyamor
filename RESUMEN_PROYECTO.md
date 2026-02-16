@@ -11,6 +11,8 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Optimización del Blog**: Reordenación estratégica de categorías (Todos, Juegos, Salud, Cuidados) y restauración visual completa con activos locales.
   - ✅ **Verificación Stripe LIVE (ÉXITO)**: Primera transacción real de 1€ completada con éxito. El sistema está 100% operativo tanto en frontend como en el backend de Supabase.
   - ✅ **Flujo de Trabajo Profesional**: Implementado sistema de ramas (branches). Se ha creado la rama `feature/actualizaciones` como laboratorio de pruebas, manteniendo `main` como la versión estable de producción.
+  - ✅ **Expansión del Catálogo (16 Feb 2026)**:
+    - ✨ **Nuevo Lanzamiento**: Añadido el *Parquecito para aves pequeñas* a la sección de Columpios, manteniendo la línea de materiales naturales y seguridad.
   - ✅ **Actualización de Catálogo y Precios (15 Feb 2026)**: 
     - 🏷️ **Ajuste de Precios**: Reducción estratégica del precio de la *Tarta de Corcho* (9.85€) y el *Columpio Naturaleza* (10.50€).
     - 🧹 **Optimización de Inventario**: Eliminados los productos *Columpio Diversión Rattan* y *Columpio más cuerda* para evitar duplicidades con las nuevas piezas del catálogo.
