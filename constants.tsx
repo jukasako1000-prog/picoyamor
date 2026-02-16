@@ -347,7 +347,8 @@ export const PRODUCTS: Product[] = [
     description: 'Parquecito diseñado para el recreo de aves pequeñas. Fabricado con materiales naturales para un juego seguro y entretenido.\nMedidas: 22cm de largo por 18cm de ancho.',
     image: IMG_PROD_PARQUECITO_AVES,
     category: 'Columpios',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.25
   },
 ];
 
