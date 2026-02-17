@@ -13,7 +13,7 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Flujo de Trabajo Profesional**: Implementado sistema de ramas (branches). Se ha creado la rama `feature/actualizaciones` como laboratorio de pruebas, manteniendo `main` como la versión estable de producción.
   - ✅ **Actualización de Catálogo (17 Feb 2026)**:
     - ✨ **Nuevo Lanzamiento**: Añadido el *Mini columpio* a la sección de Columpios.
-    - 🏷️ **Cambio de Nombre**: El producto *Colgante Aromas* pasa a llamarse *Aro mas colgante*.
+    - 🏷️ **Cambio de Nombre**: El producto *Colgante Aromas* pasa a llamarse *Aro más colgante*.
   - ✅ **Expansión del Catálogo (16 Feb 2026)**:
     - ✨ **Nuevo Lanzamiento**: Añadido el *Parquecito para aves pequeñas* a la sección de Columpios, manteniendo la línea de materiales naturales y seguridad.
   - ✅ **Actualización de Catálogo y Precios (15 Feb 2026)**: 
