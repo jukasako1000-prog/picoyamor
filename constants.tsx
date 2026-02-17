@@ -358,7 +358,8 @@ export const PRODUCTS: Product[] = [
     description: 'Mini columpio para aves pequeñas como Agapornis, periquitos o canarios. Fabricado con corteza de pino natural, caoba seco, estrellita de cartón y detalles en cuerda de yute y rafia seca.\nMedidas: 22cm de largo (ajustable) por 14cm de ancho.',
     image: IMG_PROD_MINI_COLUMPIO,
     category: 'Columpios',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.4
   },
 ];
 
