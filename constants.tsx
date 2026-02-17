@@ -78,6 +78,7 @@ const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.png';
 const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.png';
 const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.png';
 const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.jpg';
+const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -349,6 +350,16 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Nuevo',
     scale: 1.25
+  },
+  {
+    id: 'p45',
+    name: 'Mini columpio',
+    price: 4.50,
+    description: 'Mini columpio para aves pequeñas como Agapornis, periquitos o canarios. Fabricado con corteza de pino natural, caoba seco, estrellita de cartón y detalles en cuerda de yute y rafia seca.\nMedidas: 22cm de largo (ajustable) por 14cm de ancho.',
+    image: IMG_PROD_MINI_COLUMPIO,
+    category: 'Columpios',
+    badge: 'Nuevo',
+    scale: 1.4
   },
 ];
 
