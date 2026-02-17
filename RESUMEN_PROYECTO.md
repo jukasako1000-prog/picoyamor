@@ -12,7 +12,8 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Verificación Stripe LIVE (ÉXITO)**: Primera transacción real de 1€ completada con éxito. El sistema está 100% operativo tanto en frontend como en el backend de Supabase.
   - ✅ **Flujo de Trabajo Profesional**: Implementado sistema de ramas (branches). Se ha creado la rama `feature/actualizaciones` como laboratorio de pruebas, manteniendo `main` como la versión estable de producción.
   - ✅ **Actualización de Catálogo (17 Feb 2026)**:
-    - ✨ **Nuevo Lanzamiento**: Añadido el *Mini columpio* a la sección de Columpios, destacando su diseño natural con corteza de pino y caoba.
+    - ✨ **Nuevo Lanzamiento**: Añadido el *Mini columpio* a la sección de Columpios.
+    - 🏷️ **Cambio de Nombre**: El producto *Colgante Aromas* pasa a llamarse *Aro más colgante*.
   - ✅ **Expansión del Catálogo (16 Feb 2026)**:
     - ✨ **Nuevo Lanzamiento**: Añadido el *Parquecito para aves pequeñas* a la sección de Columpios, con escala visual optimizada (1.25) para resaltar su diseño artesanal.
   - ✅ **Actualización de Catálogo y Precios (15 Feb 2026)**: 

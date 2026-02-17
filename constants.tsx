@@ -295,7 +295,7 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: 'p33',
-    name: 'Colgante Aromas',
+    name: 'Aro más colgante',
     price: 5.80,
     description: 'Mini aro de cuerda de algodón y colgante para aves pequeñas. Incluye mazorca, cuentas de madera, taco de árbol y fruta de caoba para una distracción total. Medidas: 16x17 cm.',
     image: IMG_COLGANTE_AROMAS,
