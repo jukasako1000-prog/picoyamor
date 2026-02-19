@@ -12,7 +12,7 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Verificación Stripe LIVE (ÉXITO)**: Primera transacción real de 1€ completada con éxito. El sistema está 100% operativo tanto en frontend como en el backend de Supabase.
   - ✅ **Flujo de Trabajo Profesional**: Implementado sistema de ramas (branches). Se ha creado la rama `feature/actualizaciones` como laboratorio de pruebas, manteniendo `main` como la versión estable de producción.
   - ✅ **Ajustes de Catálogo (19 Feb 2026)**:
-    - 🏷️ **Ajuste de Precios**: Actualizado el precio del *Columpio Globo* a **11.50€** y el *Pack Aventura* a **9.50€**.
+    - 🏷️ **Ajuste de Precios**: Actualizados los precios: *Columpio Globo* (11.50€), *Pack Aventura* (9.50€) y *Juguete Balanceo* (8.50€).
   - ✅ **Actualización de Catálogo (17 Feb 2026)**:
     - ✨ **Nuevo Lanzamiento**: Añadido el *Mini columpio* a la sección de Columpios.
     - 🏷️ **Cambio de Nombre**: El producto *Colgante Aromas* pasa a llamarse *Aro más colgante*.

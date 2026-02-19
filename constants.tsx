@@ -287,7 +287,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p39',
     name: 'Juguete Balanceo',
-    price: 10.50,
+    price: 8.50,
     description: 'Elemento natural de corcho con cuerda de sisal, ideal como juguete de distracción, balanceo y estimulación de la curiosidad para aves. Su textura natural invita al picoteo y al entretenimiento, ayudando a mantenerlas activas dentro de la jaula. Se puede colgar fácilmente en cualquier jaula o voladera y permite ajustar la altura mediante un nudo inferior.\nMedidas : 20 cm de largo por 14 cm de ancho.',
     image: IMG_JUGUETE_BALANCEO,
     category: 'Forrajeo/Colgantes',
