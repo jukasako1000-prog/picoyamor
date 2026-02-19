@@ -113,7 +113,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p1',
     name: 'Pack Aventura',
-    price: 14.90,
+    price: 9.50,
     description: 'Ideal para exploradores. Incluye columpio de madera natural y bolsita de forrajeo para máxima diversión.',
     image: IMG_PROD_AVENTURA,
     category: 'Packs',
