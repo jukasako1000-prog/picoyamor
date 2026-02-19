@@ -102,7 +102,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p32',
     name: 'Columpio Globo',
-    price: 16.90,
+    price: 11.50,
     description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
     image: IMG_COLUMPIO_GLOBO,
     category: 'Columpios',
