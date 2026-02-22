@@ -79,6 +79,7 @@ const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.png';
 const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.png';
 const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.jpg';
 const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.png';
+const IMG_COL_PIEDRA_MINERAL_MINI = '/colgantepiedramineralmini.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -360,6 +361,15 @@ export const PRODUCTS: Product[] = [
     category: 'Columpios',
     badge: 'Nuevo',
     scale: 1.4
+  },
+  {
+    id: 'p46',
+    name: 'Colgante Piedra Mineral Mini',
+    price: 3.20,
+    description: 'Colgante para aves para limar las uñas y el piquito. Quitar plástico que envuelve la piedra.\nMedidas 20 cm de alto y 5 cm de ancho.',
+    image: IMG_COL_PIEDRA_MINERAL_MINI,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
   },
 ];
 
