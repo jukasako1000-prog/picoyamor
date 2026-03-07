@@ -81,6 +81,7 @@ const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.jpg';
 const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.png';
 const IMG_COL_PIEDRA_MINERAL_MINI = '/colgantepiedramineralmini.png';
 const IMG_COMBO_MIX_FORRAJEO = '/combomixforrajeo.jpg';
+const IMG_RAMITAS_MIJO = '/ramitasmijo.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -104,7 +105,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'p32',
     name: 'Columpio Globo',
-    price: 11.50,
+    price: 8.75,
     description: 'Este columpio 100% natural está fabricado en corcho, cadena de bambú y rattan, materiales ideales para destruir a picotazos. Ofrece gran entretenimiento y balanceo mientras destrozan sus piezas. Medidas: 19x23 cm.',
     image: IMG_COLUMPIO_GLOBO,
     category: 'Columpios',
@@ -379,6 +380,15 @@ export const PRODUCTS: Product[] = [
     description: 'Columpio en cuerda de sisal con bolita de rattan, bolita de enriquecimiento y cortezas de pino natural.\nPiña natural y rafia seca.\nCuerda de sisal de 100cm.',
     image: IMG_COMBO_MIX_FORRAJEO,
     category: 'Packs',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p48',
+    name: 'Ramas de Mijo Natural para Aves – Snack Saludable y Entretenimiento',
+    price: 4.75,
+    description: '5 unidades Ramas de mijo natural 100% ideales para agapornis, periquitos, ninfas, canarios y otras aves pequeñas. Este alimento complementario les proporciona un snack nutritivo y divertido, estimulando su instinto natural de picoteo mientras disfrutan de una fuente rica en energía.',
+    image: IMG_RAMITAS_MIJO,
+    category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   },
 ];
