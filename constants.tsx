@@ -80,6 +80,7 @@ const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.png';
 const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.jpg';
 const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.png';
 const IMG_COL_PIEDRA_MINERAL_MINI = '/colgantepiedramineralmini.png';
+const IMG_COMBO_MIX_FORRAJEO = '/combomixforrajeo.jpg';
 
 export const PRODUCTS: Product[] = [
   {
@@ -369,6 +370,15 @@ export const PRODUCTS: Product[] = [
     description: 'Colgante para aves para limar las uñas y el piquito. Quitar plástico que envuelve la piedra.\nMedidas 20 cm de alto y 5 cm de ancho.',
     image: IMG_COL_PIEDRA_MINERAL_MINI,
     category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p47',
+    name: 'Combo Mix Forrajeo',
+    price: 14.75,
+    description: 'Columpio en cuerda de sisal con bolita de rattan, bolita de enriquecimiento y cortezas de pino natural.\nPiña natural y rafia seca.\nCuerda de sisal de 100cm.',
+    image: IMG_COMBO_MIX_FORRAJEO,
+    category: 'Packs',
     badge: 'Nuevo'
   },
 ];
