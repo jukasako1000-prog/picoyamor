@@ -399,7 +399,8 @@ export const PRODUCTS: Product[] = [
     description: 'Espiral para colgar en jaula. Cuerda de sisal y mide 54cm.',
     image: IMG_PROD_ESPIRAL_COLGADOR,
     category: 'Forrajeo/Colgantes',
-    badge: 'Nuevo'
+    badge: 'Nuevo',
+    scale: 1.4
   },
 ];
 
