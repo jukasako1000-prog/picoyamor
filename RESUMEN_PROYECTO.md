@@ -3,7 +3,7 @@
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
 ## 🚀- **Estado Actual**: ¡Listo para Lanzamiento! 🚀
-- **Última Actualización**: 6 de febrero, 2026 - 16:00h
+- **Última Actualización**: 23 de marzo, 2026 - 22:30h
 - **Hitos Recientes**: 
   - ✅ **Blindaje de Activos (Inmortalidad Visual)**: Migración masiva de imágenes críticas (Logo, Productos, Blog, Nosotros, Contacto) de servidores externos (Postimages) a archivos locales en la carpeta `public`. La web es ahora mucho más rápida y 100% independiente de caídas externas.
   - ✅ **Seguridad Admin Reforzada**: Blindaje del acceso a privilegios de administrador. Ahora, el envío gratis y el modo test solo se activan para el email oficial si el usuario está **autenticado con contraseña** (`!isGuest`), eliminando la vulnerabilidad del campo de email en el modo invitado.
@@ -11,6 +11,8 @@ Este archivo sirve como guía maestra para cualquier desarrollador o agente de I
   - ✅ **Optimización del Blog**: Reordenación estratégica de categorías (Todos, Juegos, Salud, Cuidados) y restauración visual completa con activos locales.
   - ✅ **Verificación Stripe LIVE (ÉXITO)**: Primera transacción real de 1€ completada con éxito. El sistema está 100% operativo tanto en frontend como en el backend de Supabase.
   - ✅ **Flujo de Trabajo Profesional**: Implementado sistema de ramas (branches). Se ha creado la rama `feature/actualizaciones` como laboratorio de pruebas, manteniendo `main` como la versión estable de producción.
+  - ✅ **Actualización de Catálogo (23 Mar 2026)**:
+    - ✨ **Nuevo Lanzamiento**: Añadido el *Espiral colgador* (Sisál 54cm) a la sección de Forrajeo/Colgantes, con escala visual optimizada (1.4).
   - ✅ **Actualización de Catálogo (22 Feb 2026)**:
     - ✨ **Nuevo Lanzamiento**: Añadido el *Colgante Piedra Mineral Mini* a la sección de Forrajeo/Colgantes.
   - ✅ **Ajustes de Catálogo (19 Feb 2026)**:
