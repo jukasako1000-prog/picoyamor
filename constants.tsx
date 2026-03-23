@@ -82,6 +82,7 @@ const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.png';
 const IMG_COL_PIEDRA_MINERAL_MINI = '/colgantepiedramineralmini.png';
 const IMG_COMBO_MIX_FORRAJEO = '/combomixforrajeo.jpg';
 const IMG_RAMITAS_MIJO = '/ramitasmijo.png';
+const IMG_PROD_ESPIRAL_COLGADOR = '/espiralcolgador.png';
 
 export const PRODUCTS: Product[] = [
   {
@@ -388,6 +389,15 @@ export const PRODUCTS: Product[] = [
     price: 4.75,
     description: '5 unidades Ramas de mijo natural 100% ideales para agapornis, periquitos, ninfas, canarios y otras aves pequeñas. Este alimento complementario les proporciona un snack nutritivo y divertido, estimulando su instinto natural de picoteo mientras disfrutan de una fuente rica en energía.',
     image: IMG_RAMITAS_MIJO,
+    category: 'Forrajeo/Colgantes',
+    badge: 'Nuevo'
+  },
+  {
+    id: 'p49',
+    name: 'Espiral colgador',
+    price: 6,
+    description: 'Espiral para colgar en jaula. Cuerda de sisal y mide 54cm.',
+    image: IMG_PROD_ESPIRAL_COLGADOR,
     category: 'Forrajeo/Colgantes',
     badge: 'Nuevo'
   },
