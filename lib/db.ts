@@ -48,14 +48,16 @@ export const updateStock = async (items: { id: string, quantity: number }[]) => 
 };
 
 export const saveOrder = async (orderData: any) => {
-    const { data, error } = await supabase
+    // Generamos el id en el cliente y no releemos la fila tras insertarla:
+    // un invitado (sin sesión) no tiene permiso de lectura sobre `orders` por
+    // seguridad, así que un INSERT ... SELECT fallaría por RLS para invitados.
+    const id = crypto.randomUUID();
+    const { error } = await supabase
         .from('orders')
-        .insert([orderData])
-        .select()
-        .single();
+        .insert([{ id, ...orderData }]);
 
     if (error) throw error;
-    return data;
+    return { id, ...orderData };
 };
 
 export const saveProfile = async (userId: string, profileData: any) => {
