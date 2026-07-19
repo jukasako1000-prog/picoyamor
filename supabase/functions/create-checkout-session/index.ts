@@ -53,6 +53,11 @@ serve(async (req) => {
 
         if (!order_id) throw new Error("Falta order_id");
 
+        // Si el navegador no manda una cabecera Origin válida (puede pasar con ciertas
+        // extensiones o modos de depuración), usamos el dominio real como respaldo para
+        // que ni las imágenes ni success_url/cancel_url queden mal formadas para Stripe.
+        const origin = req.headers.get("origin") || "https://www.picoyamor.com";
+
         // 1. Recuperamos el pedido real guardado en la base de datos (para conocer la dirección de envío)
         const { data: order, error: orderError } = await supabaseAdmin
             .from("orders")
@@ -106,17 +111,29 @@ serve(async (req) => {
             .eq("id", order_id);
 
         // 5. Construimos los line items de Stripe con los precios de confianza.
-        const line_items: any[] = trustedItems.map((item: any) => ({
-            price_data: {
-                currency: "eur",
-                product_data: {
-                    name: item.name,
-                    images: item.image ? [item.image] : [],
+        //    Stripe exige URLs absolutas para las imágenes; las rutas locales de los
+        //    productos son relativas (ej: "/colgantecolores.webp"), así que hay que
+        //    completarlas con el dominio antes de enviarlas.
+        const toAbsoluteImageUrl = (img: string | undefined) => {
+            if (!img) return undefined;
+            if (/^https?:\/\//i.test(img)) return img;
+            return `${origin}${img.startsWith("/") ? "" : "/"}${img}`;
+        };
+
+        const line_items: any[] = trustedItems.map((item: any) => {
+            const absoluteImage = toAbsoluteImageUrl(item.image);
+            return {
+                price_data: {
+                    currency: "eur",
+                    product_data: {
+                        name: item.name,
+                        images: absoluteImage ? [absoluteImage] : [],
+                    },
+                    unit_amount: Math.round(item.price * 100),
                 },
-                unit_amount: Math.round(item.price * 100),
-            },
-            quantity: item.quantity,
-        }));
+                quantity: item.quantity,
+            };
+        });
 
         if (shippingFee > 0) {
             line_items.push({
@@ -128,11 +145,6 @@ serve(async (req) => {
                 quantity: 1,
             });
         }
-
-        // Si el navegador no manda una cabecera Origin válida (puede pasar con ciertas
-        // extensiones o modos de depuración), usamos el dominio real como respaldo para
-        // que Stripe nunca reciba una success_url/cancel_url mal formada.
-        const origin = req.headers.get("origin") || "https://www.picoyamor.com";
 
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
