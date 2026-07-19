@@ -17,6 +17,13 @@ Stripe.
 **Único paso siguiente pendiente**: configurar el webhook de Stripe. Ver sección "Pasos manuales
 pendientes" más abajo, punto 3. Todo lo demás de la auditoría ya está hecho.
 
+**Google Search Console: HECHO (19 julio 2026)**, directamente sobre `main` (no hacía falta
+esperar al resto): propiedad `https://picoyamor.com/` verificada (archivo
+`public/google237d70cf1314c28b.html` — no lo borres, mantiene la verificación) y `sitemap.xml`
+enviado y aceptado. De paso se detectó y corrigió que `public/robots.txt` **nunca había llegado a
+`main`** (solo existía en `seo-mejoras`), así que hasta esta fecha `/admin` no estaba realmente
+bloqueado para buscadores en producción — ya está corregido y en producción.
+
 **Datos clave para no tener que volver a buscarlos**:
 - Proyecto Supabase: `xmxidbtrntbnykufucwi` (ya enlazado localmente con `supabase link`, el CLI
   ya tiene sesión iniciada en esta máquina — `npx supabase ...` funciona directo, sin volver a
