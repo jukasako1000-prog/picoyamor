@@ -2,6 +2,43 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
+## 🤖 LEE ESTO PRIMERO — Estado para el próximo agente/sesión (19 julio 2026)
+
+**Rama activa: `seo-mejoras`** (no fusionada a `main`, no desplegada en producción todavía).
+Todo lo de esta rama ya está commiteado y subido a GitHub (`origin/seo-mejoras`).
+
+**Contexto en una frase**: se hizo una auditoría de seguridad/rendimiento/SEO de esta tienda
+online real (con ventas reales), se encontraron 3 fallos de seguridad serios en el checkout
+(precio manipulable, confirmación de pago sin verificar, y RLS de la base de datos abierta de
+par en par), y se han corregido y desplegado en producción casi todos excepto el último paso,
+que está bloqueado esperando que la propietaria (hermana del usuario) dé acceso a su cuenta de
+Stripe.
+
+**Único paso siguiente pendiente**: configurar el webhook de Stripe. Ver sección "Pasos manuales
+pendientes" más abajo, punto 3. Todo lo demás de la auditoría ya está hecho.
+
+**Datos clave para no tener que volver a buscarlos**:
+- Proyecto Supabase: `xmxidbtrntbnykufucwi` (ya enlazado localmente con `supabase link`, el CLI
+  ya tiene sesión iniciada en esta máquina — `npx supabase ...` funciona directo, sin volver a
+  hacer login).
+- URL del webhook a dar de alta en Stripe: `https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`
+- Email de administradora: `infopicoyamor@gmail.com` (hardcodeado como constante `ADMIN_EMAIL`
+  en varios sitios: `pages/Admin.tsx`, `pages/Checkout.tsx`, las políticas RLS, y el mapa de
+  precios de `create-checkout-session`).
+- La clave pública de Stripe en `lib/stripe.ts` es **LIVE** (`pk_live_...`), no de pruebas — no
+  hay tarjetas de prueba tipo 4242, cualquier pago completo de verdad cobra dinero real.
+- Para ejecutar SQL contra la base de datos real desde terminal:
+  `npx supabase db query --linked --file archivo.sql` (o pasando SQL directo entre comillas).
+  Para auditar seguridad: `npx supabase db advisors --linked --type security`.
+
+**Qué NO hacer sin preguntar primero**:
+- No ejecutar `supabase_rls_hardening_part2_orders_pending_webhook.sql` hasta que el webhook de
+  Stripe esté configurado y probado (si no, los pedidos reales se quedarían sin poder marcarse
+  como pagados — ver explicación completa más abajo).
+- No fusionar `seo-mejoras` a `main` por el mismo motivo (el `OrderSuccess.tsx` nuevo depende del
+  webhook para funcionar).
+- No hacer `git push --force` ni tocar `main` directamente.
+
 ## 🔧 Auditoría y endurecimiento (rama `seo-mejoras`, 19 julio 2026)
 
 Se hizo una auditoría completa (seguridad, rendimiento, SEO) y se aplicaron los arreglos en esta
