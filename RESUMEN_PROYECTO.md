@@ -2,49 +2,86 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🤖 LEE ESTO PRIMERO — Estado para el próximo agente/sesión (19 julio 2026)
+## 🤖 LEE ESTO PRIMERO — Estado para el próximo agente/sesión (19 julio 2026, actualizado por la tarde)
 
-**Rama activa: `seo-mejoras`** (no fusionada a `main`, no desplegada en producción todavía).
-Todo lo de esta rama ya está commiteado y subido a GitHub (`origin/seo-mejoras`).
+**Toda la auditoría de seguridad/rendimiento/SEO está COMPLETA y verificada con un pago real
+de principio a fin.** Lo único que falta es decidir cuándo fusionar `seo-mejoras` → `main`
+(actualmente `main` ya tiene, sueltos, los arreglos más urgentes — ver más abajo — pero el resto
+de mejoras de `seo-mejoras`, como Tailwind compilado e imágenes optimizadas, siguen sin fusionar).
 
-**Contexto en una frase**: se hizo una auditoría de seguridad/rendimiento/SEO de esta tienda
-online real (con ventas reales), se encontraron 3 fallos de seguridad serios en el checkout
-(precio manipulable, confirmación de pago sin verificar, y RLS de la base de datos abierta de
-par en par), y se han corregido y desplegado en producción casi todos excepto el último paso,
-que está bloqueado esperando que la propietaria (hermana del usuario) dé acceso a su cuenta de
-Stripe.
+### ✅ Verificado con una compra real (pedido `#AC89EAE9`, 3,50€, cuenta admin)
+Checkout → Stripe → webhook → pedido marcado "pagado" automáticamente → email al cliente y a la
+tienda. Todo el circuito funciona de extremo a extremo, en producción, con dinero real.
 
-**Único paso siguiente pendiente**: configurar el webhook de Stripe. Ver sección "Pasos manuales
-pendientes" más abajo, punto 3. Todo lo demás de la auditoría ya está hecho.
+### 🔧 Bugs reales encontrados y arreglados durante esta verificación (no estaban en el plan original)
+1. **CORS**: `create-checkout-session` no permitía la cabecera `x-supabase-client-platform` que
+   manda el cliente de Supabase actual → arreglado, añadida a `Access-Control-Allow-Headers`.
+2. **URL de origen ausente**: si el navegador no mandaba `Origin`, `success_url`/`cancel_url`
+   quedaban mal formadas para Stripe → arreglado con un dominio de respaldo
+   (`https://www.picoyamor.com`).
+3. **Imágenes relativas**: Stripe exige URLs absolutas en `product_data.images`, y las imágenes
+   de producto son rutas relativas (`/colgantecolores.webp`) → arreglado, se completan con el
+   dominio antes de mandarlas a Stripe.
+4. **🔴 El más importante — RLS rompió el checkout de invitado**: al aplicar
+   `supabase_rls_hardening_part2_orders_pending_webhook.sql` (ya ejecutado, ver abajo),
+   `saveOrder()` en `lib/db.ts` dejó de funcionar para invitados sin sesión, porque hacía
+   `insert().select().single()` y un invitado ya no tiene permiso de **lectura** sobre `orders`.
+   Se arregló generando el `id` en el cliente (`crypto.randomUUID()`) y quitando el `.select()`
+   posterior. **Este arreglo ya está desplegado directamente en `main` (producción) además de en
+   `seo-mejoras`**, porque afectaba a la web real ahora mismo. Si en el futuro se toca `saveOrder`
+   otra vez, tener esto en cuenta: cualquier `insert().select()` sobre `orders` como invitado
+   volverá a romperse mientras la política de SELECT solo cubra `authenticated`.
 
-**Google Search Console: HECHO (19 julio 2026)**, directamente sobre `main` (no hacía falta
-esperar al resto): propiedad `https://picoyamor.com/` verificada (archivo
-`public/google237d70cf1314c28b.html` — no lo borres, mantiene la verificación) y `sitemap.xml`
-enviado y aceptado. De paso se detectó y corrigió que `public/robots.txt` **nunca había llegado a
-`main`** (solo existía en `seo-mejoras`), así que hasta esta fecha `/admin` no estaba realmente
-bloqueado para buscadores en producción — ya está corregido y en producción.
+### ✅ Ya ejecutado en la base de datos real (Supabase)
+- `supabase_rls_hardening_part1_safe_now.sql` — products/profiles/reviews/contact_messages +
+  revoke de `decrement_stock`.
+- `supabase_rls_hardening_part2_orders_pending_webhook.sql` — tabla `orders`. **Ya no está
+  pendiente, ya se ejecutó** (el nombre del archivo quedó desactualizado, pero el contenido es
+  correcto, no hace falta volver a tocarlo).
+- Verificado con peticiones HTTP reales (no solo mirando las políticas): un usuario anónimo no
+  puede leer/actualizar pedidos ajenos, pero sí puede crear uno nuevo (checkout de invitado).
 
-**Datos clave para no tener que volver a buscarlos**:
-- Proyecto Supabase: `xmxidbtrntbnykufucwi` (ya enlazado localmente con `supabase link`, el CLI
-  ya tiene sesión iniciada en esta máquina — `npx supabase ...` funciona directo, sin volver a
-  hacer login).
-- URL del webhook a dar de alta en Stripe: `https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`
-- Email de administradora: `infopicoyamor@gmail.com` (hardcodeado como constante `ADMIN_EMAIL`
-  en varios sitios: `pages/Admin.tsx`, `pages/Checkout.tsx`, las políticas RLS, y el mapa de
-  precios de `create-checkout-session`).
-- La clave pública de Stripe en `lib/stripe.ts` es **LIVE** (`pk_live_...`), no de pruebas — no
-  hay tarjetas de prueba tipo 4242, cualquier pago completo de verdad cobra dinero real.
-- Para ejecutar SQL contra la base de datos real desde terminal:
-  `npx supabase db query --linked --file archivo.sql` (o pasando SQL directo entre comillas).
-  Para auditar seguridad: `npx supabase db advisors --linked --type security`.
+### ✅ Webhook de Stripe: configurado y funcionando
+Endpoint activo en Stripe (nombre `engaging-jubilee` en el Dashboard) apuntando a
+`https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`, secreto guardado en
+Supabase como `STRIPE_WEBHOOK_SECRET`. El primer secreto se vio parcialmente en una captura
+compartida por el usuario durante la configuración — se roló a uno nuevo por precaución, así que
+el que hay activo ahora nunca ha aparecido en ninguna conversación.
 
-**Qué NO hacer sin preguntar primero**:
-- No ejecutar `supabase_rls_hardening_part2_orders_pending_webhook.sql` hasta que el webhook de
-  Stripe esté configurado y probado (si no, los pedidos reales se quedarían sin poder marcarse
-  como pagados — ver explicación completa más abajo).
-- No fusionar `seo-mejoras` a `main` por el mismo motivo (el `OrderSuccess.tsx` nuevo depende del
-  webhook para funcionar).
-- No hacer `git push --force` ni tocar `main` directamente.
+### Google Search Console: HECHO
+Propiedad correcta verificada: **`https://www.picoyamor.com/`** (con www — la apex `picoyamor.com`
+redirige a www con 307 en todo el sitio, así que las URLs canónicas/OG/sitemap usan la versión
+con www). Sitemap enviado y aceptado (8 páginas, "Correcto"). `robots.txt` corregido y en
+producción.
+
+### 📌 Único pendiente real: decidir cuándo fusionar `seo-mejoras` → `main`
+`main` ya tiene sueltos (commits directos, fuera de la fusión completa): el archivo de
+verificación de Google, `robots.txt`/`sitemap.xml` corregidos, y el arreglo urgente de
+`saveOrder`. Lo que **falta por fusionar** de `seo-mejoras` es todo lo demás: Tailwind compilado,
+imágenes/vídeos optimizados, meta tags SEO completas en `index.html`, eliminación del código
+muerto de Pico Bot, etc. Es una decisión del usuario, no un bloqueo técnico — todo lo crítico de
+seguridad ya está en producción funcionando correctamente.
+
+### Datos clave para no tener que volver a buscarlos
+- Proyecto Supabase: `xmxidbtrntbnykufucwi` (ya enlazado con `supabase link`, sesión CLI activa en
+  esta máquina — `npx supabase ...` funciona directo). **Ojo**: esta máquina también tiene acceso
+  a otro proyecto Supabase distinto (`geminisfoto-esp`, cuenta personal del usuario) — si
+  `supabase projects list` muestra ese proyecto en vez de `picoyamor`, la sesión CLI ha cambiado
+  de cuenta sin querer; hay que volver a hacer `npx supabase login` con la cuenta correcta
+  (`jukasako1000@gmail.com`) antes de continuar.
+- Dominio canónico real: **`https://www.picoyamor.com`** (con www).
+- Email de administradora: `infopicoyamor@gmail.com` (hardcodeado como `ADMIN_EMAIL` en varios
+  sitios: `pages/Admin.tsx`, `pages/Checkout.tsx`, las políticas RLS, y el mapa de precios de
+  `create-checkout-session`).
+- La clave pública de Stripe en `lib/stripe.ts` es **LIVE** (`pk_live_...`), no de pruebas.
+- Para ejecutar SQL contra la base de datos real: `npx supabase db query --linked --file
+  archivo.sql` (o SQL directo entre comillas). Para auditar seguridad:
+  `npx supabase db advisors --linked --type security`. Para ver políticas de una tabla:
+  `npx supabase db query --linked "select policyname, cmd, roles from pg_policies where
+  tablename='orders';"`.
+- Comando de despliegue de una función: `npx supabase functions deploy <nombre> --project-ref
+  xmxidbtrntbnykufucwi` (añadir `--no-verify-jwt` solo para `stripe-webhook`, que la llama Stripe
+  directamente, no un usuario logueado).
 
 ## 🔧 Auditoría y endurecimiento (rama `seo-mejoras`, 19 julio 2026)
 

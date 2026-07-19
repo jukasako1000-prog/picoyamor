@@ -1,7 +1,20 @@
 -- ============================================================================
 -- ENDURECIMIENTO DE POLÍTICAS RLS — Pico & Amor — PARTE 2 (tabla `orders`)
 -- ============================================================================
--- ⚠️ NO EJECUTAR TODAVÍA.
+-- ✅ YA EJECUTADO (19 julio 2026) contra el proyecto real, tras verificar el
+-- webhook de Stripe con un pago real completo. No hace falta volver a
+-- ejecutarlo. El nombre del archivo ("pending_webhook") quedó desactualizado
+-- pero se deja así para no romper el historial; el contenido es correcto tal
+-- cual y sirve de referencia de qué políticas hay activas en `orders`.
+--
+-- NOTA IMPORTANTE descubierta al aplicarlo: esto rompió el checkout de
+-- invitado en producción, porque `saveOrder()` en lib/db.ts releía el pedido
+-- justo tras crearlo (insert().select().single()), y un invitado no tiene
+-- permiso de lectura sobre `orders`. Se arregló generando el id en el
+-- cliente y quitando esa relectura (ver commit correspondiente en main y
+-- seo-mejoras). Si se vuelve a tocar la política de SELECT de `orders`,
+-- revisar que ese código siga funcionando para invitados.
+-- ⚠️ Instrucciones originales (contexto histórico, ya no aplican):
 --
 -- Solo ejecutar esto cuando se cumplan AMBAS condiciones:
 --   1. El webhook de Stripe (función stripe-webhook) está configurado y
