@@ -24,11 +24,17 @@ manuales de despliegue antes de fusionar a `main`.
    enlazados a ningún sitio de la web (no se usaban). Se han borrado junto con la dependencia
    `@google/genai` y la `GEMINI_API_KEY` incrustada en `vite.config.ts`, que quedaba expuesta en
    el JavaScript público aunque el asistente no estuviera activo.
-4. **Script de endurecimiento de RLS**: `supabase_rls_hardening.sql` (nuevo, en la raíz).
-   Reescribe las políticas de `products`, `orders`, `profiles`, `reviews` y `contact_messages`
-   para que solo el admin pueda escribir/borrar datos ajenos. **Hay que revisarlo y ejecutarlo a
-   mano en el editor SQL de Supabase** — trae instrucciones de prueba y de cómo revertirlo si algo
-   se rompe.
+4. **Endurecimiento de RLS, dividido en dos partes**:
+   - `supabase_rls_hardening_part1_safe_now.sql` — **YA EJECUTADO contra producción y verificado**
+     (19 julio 2026): `products`, `profiles`, `reviews`, `contact_messages` y el permiso de
+     `decrement_stock` (antes cualquiera podía llamarlo directamente y manipular el stock sin
+     comprar). Comprobado con peticiones reales: la tienda pública sigue funcionando y un usuario
+     anónimo ya NO puede cambiar el stock de un producto ni ejecutar `decrement_stock`.
+   - `supabase_rls_hardening_part2_orders_pending_webhook.sql` — **pendiente**. Solo la tabla
+     `orders`. Se deja aparte a propósito: la web en producción todavía marca el pedido como
+     pagado desde el navegador del cliente, así que aplicar esto antes de tener el webhook de
+     Stripe listo dejaría los pedidos reales sin poder confirmarse. Ejecutar solo cuando el
+     webhook esté configurado y probado.
 5. **Imágenes y vídeos comprimidos**: las ~49 imágenes de producto se han convertido de
    PNG/JPEG a WebP (de ~26 MB a ~2,9 MB) y los 7 vídeos de portada se han recomprimido quitando el
    audio silencioso (de ~8,5 MB a ~2,5 MB). Todas las referencias en el código se han actualizado.
@@ -45,24 +51,31 @@ manuales de despliegue antes de fusionar a `main`.
    toda la app en rojo).
 
 ### ⏳ Pasos manuales pendientes antes de fusionar a `main`
-1. **Revisar y ejecutar `supabase_rls_hardening.sql`** en el editor SQL de Supabase.
-2. **Desplegar las funciones edge modificadas/nuevas**:
-   `supabase functions deploy create-checkout-session` y
-   `supabase functions deploy stripe-webhook --no-verify-jwt`.
-3. **Configurar el webhook de Stripe**: en el Dashboard de Stripe → Developers → Webhooks → Add
-   endpoint, apuntando a la URL de la función `stripe-webhook`, escuchando los eventos
+1. ✅ ~~Desplegar las funciones edge~~ — **HECHO** (19 julio 2026): `create-checkout-session` y
+   `stripe-webhook` ya están desplegadas en el proyecto real (hubo que cambiar el import de
+   `@supabase/supabase-js` de `esm.sh` a `npm:` porque el bundler remoto no resolvía esm.sh).
+2. ✅ ~~Ejecutar la parte segura del RLS~~ — **HECHO y verificado** (ver punto 4 arriba).
+3. **Configurar el webhook de Stripe** ← siguiente paso, bloqueado a la espera del acceso de la
+   propietaria a la cuenta de Stripe. En el Dashboard de Stripe → Developers → Webhooks → Add
+   endpoint, apuntando a:
+   `https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`, escuchando los eventos
    `checkout.session.completed` y `checkout.session.async_payment_succeeded`. Copiar el "Signing
    secret" (`whsec_...`) y guardarlo como secreto de la función:
    `supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_...`.
-4. **Rotar la `GEMINI_API_KEY`** en Google AI Studio (se ha eliminado del código, pero la clave
-   antigua ya estuvo publicada, así que hay que darla por comprometida y generar una nueva si se
-   usa para cualquier otra cosa).
-5. **Analítica pendiente de credenciales**: no se ha instalado Google Analytics ni Meta Pixel
+4. **Ejecutar `supabase_rls_hardening_part2_orders_pending_webhook.sql`** — solo después del
+   paso 3, para no dejar pedidos reales sin poder confirmarse durante la transición.
+5. ✅ ~~Rotar la `GEMINI_API_KEY`~~ — **HECHO** (19 julio 2026): las dos claves antiguas del
+   proyecto en Google AI Studio se borraron. No hace falta clave nueva porque Pico Bot ya no
+   existe en el código.
+6. **Analítica pendiente de credenciales**: no se ha instalado Google Analytics ni Meta Pixel
    porque hace falta que la propietaria cree la cuenta (o pase el ID si ya existe). En cuanto se
    tenga el ID de medición (GA4: `G-XXXXXXX`, o el Pixel ID de Meta), añadirlo es cuestión de
    pegar el script correspondiente en `index.html`.
-6. Revisar visualmente la web en `npm run dev` tras el despliegue para confirmar que no hay
+7. Revisar visualmente la web en `npm run dev` tras el despliegue para confirmar que no hay
    regresiones visuales del cambio de Tailwind.
+8. (Opcional, detectado por el auditor de seguridad de Supabase, no bloqueante): activar
+   "Leaked Password Protection" en Authentication → Settings del Dashboard de Supabase, y revisar
+   la política del bucket de Storage `reviews` (permite listar todos los ficheros subidos).
 
 ### 📝 Nota para el futuro sobre HashRouter
 La web usa `HashRouter` (URLs tipo `/#/tienda`), lo que limita el posicionamiento en Google frente
