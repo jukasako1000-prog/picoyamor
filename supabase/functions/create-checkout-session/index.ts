@@ -129,13 +129,18 @@ serve(async (req) => {
             });
         }
 
+        // Si el navegador no manda una cabecera Origin válida (puede pasar con ciertas
+        // extensiones o modos de depuración), usamos el dominio real como respaldo para
+        // que Stripe nunca reciba una success_url/cancel_url mal formada.
+        const origin = req.headers.get("origin") || "https://www.picoyamor.com";
+
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ["card"],
             customer_email: order.customer_email || customer_email,
             line_items,
             mode: "payment",
-            success_url: `${req.headers.get("origin")}/#/order-success?session_id={CHECKOUT_SESSION_ID}`,
-            cancel_url: `${req.headers.get("origin")}/#/checkout`,
+            success_url: `${origin}/#/order-success?session_id={CHECKOUT_SESSION_ID}`,
+            cancel_url: `${origin}/#/checkout`,
             metadata: {
                 order_id: order_id,
             },
