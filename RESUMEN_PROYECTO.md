@@ -54,13 +54,13 @@ redirige a www con 307 en todo el sitio, así que las URLs canónicas/OG/sitemap
 con www). Sitemap enviado y aceptado (8 páginas, "Correcto"). `robots.txt` corregido y en
 producción.
 
-### 📌 Único pendiente real: decidir cuándo fusionar `seo-mejoras` → `main`
-`main` ya tiene sueltos (commits directos, fuera de la fusión completa): el archivo de
-verificación de Google, `robots.txt`/`sitemap.xml` corregidos, y el arreglo urgente de
-`saveOrder`. Lo que **falta por fusionar** de `seo-mejoras` es todo lo demás: Tailwind compilado,
-imágenes/vídeos optimizados, meta tags SEO completas en `index.html`, eliminación del código
-muerto de Pico Bot, etc. Es una decisión del usuario, no un bloqueo técnico — todo lo crítico de
-seguridad ya está en producción funcionando correctamente.
+### ✅ FUSIONADO A MAIN (19 julio 2026, commit 5641508)
+`seo-mejoras` se fusionó a `main` sin conflictos (verificado con `git merge --no-commit` antes de
+confirmar), build correcto, smoke-test en `vite preview` correcto. **Toda la auditoría está ahora
+en producción**: checkout blindado, webhook de Stripe, RLS completo, imágenes/vídeos optimizados,
+Tailwind compilado, SEO básico. Si el hosting (Vercel/Netlify) tiene despliegue automático al
+hacer push a `main`, la web debería actualizarse sola en unos minutos — conviene revisar
+visualmente `www.picoyamor.com` una vez desplegado para confirmar que no hay regresiones.
 
 ### Datos clave para no tener que volver a buscarlos
 - Proyecto Supabase: `xmxidbtrntbnykufucwi` (ya enlazado con `supabase link`, sesión CLI activa en
