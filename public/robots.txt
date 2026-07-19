@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin
 
-Sitemap: https://picoyamor.com/sitemap.xml
+Sitemap: https://www.picoyamor.com/sitemap.xml

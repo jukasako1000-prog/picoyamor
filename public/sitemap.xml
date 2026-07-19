@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://picoyamor.com/</loc>
+    <loc>https://www.picoyamor.com/</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/tienda</loc>
+    <loc>https://www.picoyamor.com/#/tienda</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/novedades</loc>
+    <loc>https://www.picoyamor.com/#/novedades</loc>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/blog</loc>
+    <loc>https://www.picoyamor.com/#/blog</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/about</loc>
+    <loc>https://www.picoyamor.com/#/about</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/club-pico</loc>
+    <loc>https://www.picoyamor.com/#/club-pico</loc>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/contact</loc>
+    <loc>https://www.picoyamor.com/#/contact</loc>
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://picoyamor.com/#/faq</loc>
+    <loc>https://www.picoyamor.com/#/faq</loc>
     <priority>0.3</priority>
   </url>
 </urlset>
