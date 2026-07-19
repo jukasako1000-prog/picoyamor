@@ -15,7 +15,7 @@ const Footer: React.FC = () => {
             <div className="flex items-center gap-4 mb-6">
               <div className="size-12 bg-white rounded-full overflow-hidden border-2 border-white/20 shadow-lg">
                 <img
-                  src="/LOGOPICOYAMOR.jpeg"
+                  src="/LOGOPICOYAMOR.webp"
                   alt="Pico & Amor Logo"
                   className="w-full h-full object-cover"
                 />

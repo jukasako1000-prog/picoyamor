@@ -13,21 +13,21 @@ const NewArrivals: React.FC = () => {
             name: 'CORTE NATURAL',
             description: 'Seleccionamos y preparamos a mano cada pieza de madera natural. Sin procesos industriales, respetando la textura y la esencia de la madera para un limado de pico y uñas perfecto.',
             status: 'Paso 1',
-            image: '/cortepalo.png'
+            image: '/cortepalo.webp'
         },
         {
             id: 'step-2',
             name: 'MANOS QUE CREAN',
             description: 'El corazón de Pico & Amor. Con paciencia y dedicación, damos forma a cada juguete, trenzando fibras naturales y ensamblando piezas seguras pensadas para la felicidad de tu ave.',
             status: 'Paso 2',
-            image: '/manosquecrean.png'
+            image: '/manosquecrean.webp'
         },
         {
             id: 'step-3',
             name: 'HILANDO FINO',
             description: 'El último paso es el más importante. Revisamos cada nudo, cada acabado y cada detalle para asegurar que cada pieza sea pura magia y 100% segura para tu bandada.',
             status: 'Paso 3',
-            image: '/hilandofino.png'
+            image: '/hilandofino.webp'
         }
     ];
 

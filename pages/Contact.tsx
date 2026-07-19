@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
       <div className="absolute top-40 right-6 md:top-60 md:right-16 lg:right-32 z-30 pointer-events-none select-none">
         <div className="size-16 md:size-32 lg:size-36 rounded-full border-[5px] md:border-[7px] border-white shadow-[0_30px_70px_rgba(0,0,0,0.2)] overflow-hidden animate-float-slow bg-white">
           <img
-            src="/LOGOPICOYAMOR.jpeg"
+            src="/LOGOPICOYAMOR.webp"
             alt="Pico & Amor Seal"
             className="w-full h-full object-cover"
           />

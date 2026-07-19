@@ -2,6 +2,74 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
+## 🔧 Auditoría y endurecimiento (rama `seo-mejoras`, 19 julio 2026)
+
+Se hizo una auditoría completa (seguridad, rendimiento, SEO) y se aplicaron los arreglos en esta
+rama. **Nada de esto está desplegado todavía en producción** — hace falta completar los pasos
+manuales de despliegue antes de fusionar a `main`.
+
+### ✅ Cambios ya hechos en el código de esta rama
+1. **Precio del checkout blindado**: `create-checkout-session` ahora recalcula precio y envío en
+   el servidor a partir de un mapa de precios de confianza (`PRODUCT_PRICES` dentro de la propia
+   función) y de la dirección guardada del pedido, ignorando por completo lo que mande el
+   navegador. **Importante**: si añades o cambias un precio en `constants.tsx`, tienes que
+   actualizar también ese mapa en `supabase/functions/create-checkout-session/index.ts` y volver
+   a desplegar la función.
+2. **Confirmación de pago movida al servidor**: se ha creado la función `stripe-webhook`. Antes,
+   `OrderSuccess.tsx` marcaba el pedido como "pagado" directamente desde el navegador del cliente
+   al volver de Stripe, sin comprobar que el pago se hubiese completado de verdad — cualquiera
+   podía marcar un pedido como pagado sin pagar. Ahora solo el webhook de Stripe (verificando la
+   firma) marca el pedido como pagado, y de paso descuenta el stock automáticamente.
+3. **Código muerto de "Pico Bot" eliminado**: `AIAssistant.tsx` y `geminiService.ts` no estaban
+   enlazados a ningún sitio de la web (no se usaban). Se han borrado junto con la dependencia
+   `@google/genai` y la `GEMINI_API_KEY` incrustada en `vite.config.ts`, que quedaba expuesta en
+   el JavaScript público aunque el asistente no estuviera activo.
+4. **Script de endurecimiento de RLS**: `supabase_rls_hardening.sql` (nuevo, en la raíz).
+   Reescribe las políticas de `products`, `orders`, `profiles`, `reviews` y `contact_messages`
+   para que solo el admin pueda escribir/borrar datos ajenos. **Hay que revisarlo y ejecutarlo a
+   mano en el editor SQL de Supabase** — trae instrucciones de prueba y de cómo revertirlo si algo
+   se rompe.
+5. **Imágenes y vídeos comprimidos**: las ~49 imágenes de producto se han convertido de
+   PNG/JPEG a WebP (de ~26 MB a ~2,9 MB) y los 7 vídeos de portada se han recomprimido quitando el
+   audio silencioso (de ~8,5 MB a ~2,5 MB). Todas las referencias en el código se han actualizado.
+6. **Tailwind compilado en vez de CDN**: se ha quitado el script `cdn.tailwindcss.com` (pensado
+   solo para desarrollo) y se ha instalado Tailwind v3 de verdad (`tailwind.config.js`,
+   `postcss.config.js`, `index.css` con `@tailwind` importado desde `index.tsx`). Misma paleta,
+   tipografía y plugins (`forms`, `container-queries`) que antes, verificado que compilan igual.
+7. **SEO básico**: meta description, Open Graph/Twitter Card (con imagen `og-image.jpg` generada
+   a partir del logo), favicon y apple-touch-icon, y `sitemap.xml`. `robots.txt` ya existía y
+   bloqueaba `/admin` correctamente.
+8. Limpieza menor: quitado el `importmap` de `esm.sh` (vestigio del scaffold de AI Studio, ya no
+   hace falta porque Vite empaqueta React localmente) e instalados `@types/react`/`@types/react-dom`
+   que faltaban (el build funcionaba igual porque Vite no comprueba tipos, pero el editor marcaba
+   toda la app en rojo).
+
+### ⏳ Pasos manuales pendientes antes de fusionar a `main`
+1. **Revisar y ejecutar `supabase_rls_hardening.sql`** en el editor SQL de Supabase.
+2. **Desplegar las funciones edge modificadas/nuevas**:
+   `supabase functions deploy create-checkout-session` y
+   `supabase functions deploy stripe-webhook --no-verify-jwt`.
+3. **Configurar el webhook de Stripe**: en el Dashboard de Stripe → Developers → Webhooks → Add
+   endpoint, apuntando a la URL de la función `stripe-webhook`, escuchando los eventos
+   `checkout.session.completed` y `checkout.session.async_payment_succeeded`. Copiar el "Signing
+   secret" (`whsec_...`) y guardarlo como secreto de la función:
+   `supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_...`.
+4. **Rotar la `GEMINI_API_KEY`** en Google AI Studio (se ha eliminado del código, pero la clave
+   antigua ya estuvo publicada, así que hay que darla por comprometida y generar una nueva si se
+   usa para cualquier otra cosa).
+5. **Analítica pendiente de credenciales**: no se ha instalado Google Analytics ni Meta Pixel
+   porque hace falta que la propietaria cree la cuenta (o pase el ID si ya existe). En cuanto se
+   tenga el ID de medición (GA4: `G-XXXXXXX`, o el Pixel ID de Meta), añadirlo es cuestión de
+   pegar el script correspondiente en `index.html`.
+6. Revisar visualmente la web en `npm run dev` tras el despliegue para confirmar que no hay
+   regresiones visuales del cambio de Tailwind.
+
+### 📝 Nota para el futuro sobre HashRouter
+La web usa `HashRouter` (URLs tipo `/#/tienda`), lo que limita el posicionamiento en Google frente
+a URLs normales. Migrar a `BrowserRouter` mejoraría el SEO pero requiere configurar reglas de
+redirección en el hosting (Vercel/Netlify) para que cualquier ruta sirva `index.html`. No se ha
+tocado en esta pasada por ser un cambio más grande; queda como mejora futura opcional.
+
 ## 🚀- **Estado Actual**: ¡Listo para Lanzamiento! 🚀
 - **Última Actualización**: 23 de marzo, 2026 - 22:30h
 - **Hitos Recientes**: 

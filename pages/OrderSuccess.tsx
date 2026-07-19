@@ -1,7 +1,6 @@
 
 import React, { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { supabase } from '../lib/supabase';
 
 interface OrderSuccessProps {
     onClearCart: () => void;
@@ -24,34 +23,21 @@ const OrderSuccess: React.FC<OrderSuccessProps> = ({ onClearCart }) => {
         // Limpiamos el carrito
         onClearCart();
 
-        // BUSCAR EL ID DEL PEDIDO Y MARCARLO COMO PAGADO
-        const finalizePayment = async () => {
+        // MOSTRAR EL NÚMERO DE PEDIDO
+        // NOTA DE SEGURIDAD: el pedido YA NO se marca como "pagado" desde aquí.
+        // Antes lo hacía el propio navegador al volver de Stripe, lo que permitía
+        // marcar cualquier pedido como pagado sin haber pagado nada. Ahora es la
+        // función `stripe-webhook` la que confirma el pago con Stripe y actualiza
+        // el estado en el servidor, así que aquí solo mostramos el número de pedido.
+        const showOrderNumber = () => {
             const lastId = localStorage.getItem('pico_last_order_id');
             const state = location.state as { orderId?: string } | null;
             const realOrderId = lastId || state?.orderId;
 
-            if (realOrderId) {
-                setOrderNumber(realOrderId.slice(0, 8).toUpperCase());
-
-                // HILAR FINO: Actualizamos el estado a 'pagado' en Supabase
-                // Esto hará que el Webhook handle-new-order detecte el cambio y envíe los emails
-                try {
-                    const { error } = await supabase
-                        .from('orders')
-                        .update({ status: 'pagado' })
-                        .eq('id', realOrderId);
-
-                    if (error) throw error;
-                    console.log('Pedido marcado como pagado con éxito');
-                } catch (err) {
-                    console.error('Error al actualizar estado del pedido:', err);
-                }
-            } else {
-                setOrderNumber('CONFIRMADO');
-            }
+            setOrderNumber(realOrderId ? realOrderId.slice(0, 8).toUpperCase() : 'CONFIRMADO');
         };
 
-        finalizePayment();
+        showOrderNumber();
     }, [location.state, onClearCart]);
 
     return (

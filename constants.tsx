@@ -6,8 +6,8 @@ import { Product, Testimonial } from './types';
  */
 
 // --- ICONOS DE SILUETAS (TESTIMONIOS) ---
-export const ICON_FEMALE = '/ICONOMUJER.png';
-export const ICON_MALE = '/ICONOHOMBRE.png';
+export const ICON_FEMALE = '/ICONOMUJER.webp';
+export const ICON_MALE = '/ICONOHOMBRE.webp';
 
 // --- CARRUSEL PRINCIPAL (HOME HERO) ---
 export const IMG_HERO_SLIDE_1 = 'https://i.postimg.cc/m289NTF5/Whisk_730685564a8a287af1246ccd07793773dr.png';
@@ -41,48 +41,48 @@ export const HERO_SLIDES = [
 
 // --- SECCIONES EXCLUSIVAS ---
 export const IMG_ABOUT_MAIN = 'https://i.postimg.cc/yxrnjMFW/Whisk_ym2njlzy5y2ywiwytmwozgtlhzwm00czxumytyg.jpg';
-export const IMG_ABOUT_STORY = '/nosotrosfoto.jpeg';
-export const IMG_CONTACT_MAIN = '/MISION.jpeg';
+export const IMG_ABOUT_STORY = '/nosotrosfoto.webp';
+export const IMG_CONTACT_MAIN = '/MISION.webp';
 
 // --- CATÁLOGO DE PRODUCTOS ---
-const IMG_PROD_AVENTURA = '/packaventura.jpeg';
-const IMG_PROD_NATURA = '/columpiomascuerda.jpeg';
-const IMG_PACK_OLIVO = '/pack-bolsaolivo.png';
-const IMG_COLUMPIO_PLATAFORMA = '/COLUMPIOA.png';
-const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.png';
-const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.jpeg';
-const IMG_COLUMPIO_CORCHO = '/columpio-AVE.png';
-const IMG_FORRAJEO_CAJA = '/bolsadeheno.png';
+const IMG_PROD_AVENTURA = '/packaventura.webp';
+const IMG_PROD_NATURA = '/columpiomascuerda.webp';
+const IMG_PACK_OLIVO = '/pack-bolsaolivo.webp';
+const IMG_COLUMPIO_PLATAFORMA = '/COLUMPIOA.webp';
+const IMG_COLUMPIO_CORTEZA = '/COLUMPIO-CORTEZA.webp';
+const IMG_COLUMPIO_BASICO = '/COLUMPIO-BASICO.webp';
+const IMG_COLUMPIO_CORCHO = '/columpio-AVE.webp';
+const IMG_FORRAJEO_CAJA = '/bolsadeheno.webp';
 const IMG_FORRAJEO_BUSCADOR = 'https://i.postimg.cc/g2VNFNNd/Captura_de_pantalla_2026_01_11_191640.png';
-const IMG_FORRAJEO_COMBO = '/combogrande.png';
-const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.png';
-const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.png';
-const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.png';
-const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.png';
-const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.jpeg';
-const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.png';
-const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.png';
-const IMG_COLGANTE_PAJARITA = '/colgantepajarita.png';
-const IMG_COLGANTE_NEW = '/COLGANTENEW.png';
-const IMG_FORRAJEO_MINIPARQUE = '/forrajeominiparque.jpg';
-const IMG_COLUMPIO_GLOBO = '/columpioglobo.png';
-const IMG_COLGANTE_AROMAS = '/AROMASCOLGANTE.png';
-const IMG_COLUMPIO_TRICOLOR = '/columpiotricolor.png';
-const IMG_COLUMPIO_FORRAJEO = '/columpioforrajeo.png';
-const IMG_PROD_HENO_CORTEZA = '/PACKHENOYCORTEZAS.png';
-const IMG_CORTEZA_ALCORNOQUE = '/cortezadealcornoque.png';
-const IMG_CUERDA_SISAL = '/cuerdasisal.png';
-const IMG_JUGUETE_BALANCEO = '/juguetebalanceo.PNG';
-const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.png';
-const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.png';
-const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.png';
-const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.png';
-const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.jpg';
-const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.png';
-const IMG_COL_PIEDRA_MINERAL_MINI = '/colgantepiedramineralmini.png';
-const IMG_COMBO_MIX_FORRAJEO = '/combomixforrajeo.jpg';
-const IMG_RAMITAS_MIJO = '/ramitasmijo.png';
-const IMG_PROD_ESPIRAL_COLGADOR = '/espiralcolgador.png';
+const IMG_FORRAJEO_COMBO = '/combogrande.webp';
+const IMG_FORRAJEO_RAFIA = '/BOLSADERAFIA.webp';
+const IMG_RAMILLETE_OLIVO = '/ramilletedeolivo.webp';
+const IMG_COLUMPIO_YUTE = '/COLUMPIOAB.webp';
+const IMG_COLUMPIO_RATTAN = '/COLUMPIOABC.webp';
+const IMG_FORRAJEO_COMBO_RAFIA = '/Comboforrajeo.webp';
+const IMG_COLUMPIO_MAZORCA = '/COLUMPIOMAZORCA.webp';
+const IMG_COLGANTE_MAZORCAS = '/ColganteMazorcas.webp';
+const IMG_COLGANTE_PAJARITA = '/colgantepajarita.webp';
+const IMG_COLGANTE_NEW = '/COLGANTENEW.webp';
+const IMG_FORRAJEO_MINIPARQUE = '/forrajeominiparque.webp';
+const IMG_COLUMPIO_GLOBO = '/columpioglobo.webp';
+const IMG_COLGANTE_AROMAS = '/AROMASCOLGANTE.webp';
+const IMG_COLUMPIO_TRICOLOR = '/columpiotricolor.webp';
+const IMG_COLUMPIO_FORRAJEO = '/columpioforrajeo.webp';
+const IMG_PROD_HENO_CORTEZA = '/PACKHENOYCORTEZAS.webp';
+const IMG_CORTEZA_ALCORNOQUE = '/cortezadealcornoque.webp';
+const IMG_CUERDA_SISAL = '/cuerdasisal.webp';
+const IMG_JUGUETE_BALANCEO = '/juguetebalanceo.webp';
+const IMG_COLUMPIO_NATURALEZA = '/columpionaturaleza.webp';
+const IMG_COLGANTE_PIEDRA_MINERAL = '/COLGANTEPIEDRAMINERAL.webp';
+const IMG_PROD_COLUMPIO_ARTESANAL = '/Columpioartesanal.webp';
+const IMG_PROD_COLGANTE_COLORES = '/colgantecolores.webp';
+const IMG_PROD_PARQUECITO_AVES = '/parquecitoaves.webp';
+const IMG_PROD_MINI_COLUMPIO = '/minicolumpio.webp';
+const IMG_COL_PIEDRA_MINERAL_MINI = '/colgantepiedramineralmini.webp';
+const IMG_COMBO_MIX_FORRAJEO = '/combomixforrajeo.webp';
+const IMG_RAMITAS_MIJO = '/ramitasmijo.webp';
+const IMG_PROD_ESPIRAL_COLGADOR = '/espiralcolgador.webp';
 
 export const PRODUCTS: Product[] = [
   {
@@ -487,7 +487,7 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>No necesitas gastar mucho. Puedes empezar envolviendo algunas semillas en papel de seda limpio o escondiéndolas dentro de tapones de corcho natural (sin pegamento). Verás cómo su curiosidad natural se activa de inmediato.</p>
     `,
     category: 'Juegos',
-    image: '/juegos.png',
+    image: '/juegos.webp',
     date: '12 ENE 2024',
     readTime: '4 min'
   },
@@ -517,7 +517,7 @@ export const BLOG_POSTS: BlogPost[] = [
       </ul>
     `,
     category: 'Salud',
-    image: '/salud.jpeg',
+    image: '/salud.webp',
     date: '08 ENE 2024',
     readTime: '6 min'
   },
@@ -543,7 +543,7 @@ export const BLOG_POSTS: BlogPost[] = [
       <p>Recuerda que crear un vínculo lleva tiempo. Empieza hablándole suavemente y ofreciéndole premios a través de los barrotes antes de intentar cualquier contacto físico directo.</p>
     `,
     category: 'Cuidados',
-    image: '/cuidados.jpeg',
+    image: '/cuidados.webp',
     date: '05 ENE 2024',
     readTime: '5 min'
   }
