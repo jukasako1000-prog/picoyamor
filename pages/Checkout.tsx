@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserProfile, CartItem } from '../types';
 import { useNavigate } from 'react-router-dom';
-import { saveOrder, updateStock } from '../lib/db';
+import { saveOrder } from '../lib/db';
 import { supabase } from '../lib/supabase';
 
 interface CheckoutProps {

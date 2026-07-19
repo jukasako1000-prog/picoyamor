@@ -2,6 +2,168 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
+## 🤖 LEE ESTO PRIMERO — Estado para el próximo agente/sesión (19 julio 2026, actualizado por la tarde)
+
+**Toda la auditoría de seguridad/rendimiento/SEO está COMPLETA y verificada con un pago real
+de principio a fin.** Lo único que falta es decidir cuándo fusionar `seo-mejoras` → `main`
+(actualmente `main` ya tiene, sueltos, los arreglos más urgentes — ver más abajo — pero el resto
+de mejoras de `seo-mejoras`, como Tailwind compilado e imágenes optimizadas, siguen sin fusionar).
+
+### ✅ Verificado con una compra real (pedido `#AC89EAE9`, 3,50€, cuenta admin)
+Checkout → Stripe → webhook → pedido marcado "pagado" automáticamente → email al cliente y a la
+tienda. Todo el circuito funciona de extremo a extremo, en producción, con dinero real.
+
+### 🔧 Bugs reales encontrados y arreglados durante esta verificación (no estaban en el plan original)
+1. **CORS**: `create-checkout-session` no permitía la cabecera `x-supabase-client-platform` que
+   manda el cliente de Supabase actual → arreglado, añadida a `Access-Control-Allow-Headers`.
+2. **URL de origen ausente**: si el navegador no mandaba `Origin`, `success_url`/`cancel_url`
+   quedaban mal formadas para Stripe → arreglado con un dominio de respaldo
+   (`https://www.picoyamor.com`).
+3. **Imágenes relativas**: Stripe exige URLs absolutas en `product_data.images`, y las imágenes
+   de producto son rutas relativas (`/colgantecolores.webp`) → arreglado, se completan con el
+   dominio antes de mandarlas a Stripe.
+4. **🔴 El más importante — RLS rompió el checkout de invitado**: al aplicar
+   `supabase_rls_hardening_part2_orders_pending_webhook.sql` (ya ejecutado, ver abajo),
+   `saveOrder()` en `lib/db.ts` dejó de funcionar para invitados sin sesión, porque hacía
+   `insert().select().single()` y un invitado ya no tiene permiso de **lectura** sobre `orders`.
+   Se arregló generando el `id` en el cliente (`crypto.randomUUID()`) y quitando el `.select()`
+   posterior. **Este arreglo ya está desplegado directamente en `main` (producción) además de en
+   `seo-mejoras`**, porque afectaba a la web real ahora mismo. Si en el futuro se toca `saveOrder`
+   otra vez, tener esto en cuenta: cualquier `insert().select()` sobre `orders` como invitado
+   volverá a romperse mientras la política de SELECT solo cubra `authenticated`.
+
+### ✅ Ya ejecutado en la base de datos real (Supabase)
+- `supabase_rls_hardening_part1_safe_now.sql` — products/profiles/reviews/contact_messages +
+  revoke de `decrement_stock`.
+- `supabase_rls_hardening_part2_orders_pending_webhook.sql` — tabla `orders`. **Ya no está
+  pendiente, ya se ejecutó** (el nombre del archivo quedó desactualizado, pero el contenido es
+  correcto, no hace falta volver a tocarlo).
+- Verificado con peticiones HTTP reales (no solo mirando las políticas): un usuario anónimo no
+  puede leer/actualizar pedidos ajenos, pero sí puede crear uno nuevo (checkout de invitado).
+
+### ✅ Webhook de Stripe: configurado y funcionando
+Endpoint activo en Stripe (nombre `engaging-jubilee` en el Dashboard) apuntando a
+`https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`, secreto guardado en
+Supabase como `STRIPE_WEBHOOK_SECRET`. El primer secreto se vio parcialmente en una captura
+compartida por el usuario durante la configuración — se roló a uno nuevo por precaución, así que
+el que hay activo ahora nunca ha aparecido en ninguna conversación.
+
+### Google Search Console: HECHO
+Propiedad correcta verificada: **`https://www.picoyamor.com/`** (con www — la apex `picoyamor.com`
+redirige a www con 307 en todo el sitio, así que las URLs canónicas/OG/sitemap usan la versión
+con www). Sitemap enviado y aceptado (8 páginas, "Correcto"). `robots.txt` corregido y en
+producción.
+
+### 📌 Único pendiente real: decidir cuándo fusionar `seo-mejoras` → `main`
+`main` ya tiene sueltos (commits directos, fuera de la fusión completa): el archivo de
+verificación de Google, `robots.txt`/`sitemap.xml` corregidos, y el arreglo urgente de
+`saveOrder`. Lo que **falta por fusionar** de `seo-mejoras` es todo lo demás: Tailwind compilado,
+imágenes/vídeos optimizados, meta tags SEO completas en `index.html`, eliminación del código
+muerto de Pico Bot, etc. Es una decisión del usuario, no un bloqueo técnico — todo lo crítico de
+seguridad ya está en producción funcionando correctamente.
+
+### Datos clave para no tener que volver a buscarlos
+- Proyecto Supabase: `xmxidbtrntbnykufucwi` (ya enlazado con `supabase link`, sesión CLI activa en
+  esta máquina — `npx supabase ...` funciona directo). **Ojo**: esta máquina también tiene acceso
+  a otro proyecto Supabase distinto (`geminisfoto-esp`, cuenta personal del usuario) — si
+  `supabase projects list` muestra ese proyecto en vez de `picoyamor`, la sesión CLI ha cambiado
+  de cuenta sin querer; hay que volver a hacer `npx supabase login` con la cuenta correcta
+  (`jukasako1000@gmail.com`) antes de continuar.
+- Dominio canónico real: **`https://www.picoyamor.com`** (con www).
+- Email de administradora: `infopicoyamor@gmail.com` (hardcodeado como `ADMIN_EMAIL` en varios
+  sitios: `pages/Admin.tsx`, `pages/Checkout.tsx`, las políticas RLS, y el mapa de precios de
+  `create-checkout-session`).
+- La clave pública de Stripe en `lib/stripe.ts` es **LIVE** (`pk_live_...`), no de pruebas.
+- Para ejecutar SQL contra la base de datos real: `npx supabase db query --linked --file
+  archivo.sql` (o SQL directo entre comillas). Para auditar seguridad:
+  `npx supabase db advisors --linked --type security`. Para ver políticas de una tabla:
+  `npx supabase db query --linked "select policyname, cmd, roles from pg_policies where
+  tablename='orders';"`.
+- Comando de despliegue de una función: `npx supabase functions deploy <nombre> --project-ref
+  xmxidbtrntbnykufucwi` (añadir `--no-verify-jwt` solo para `stripe-webhook`, que la llama Stripe
+  directamente, no un usuario logueado).
+
+## 🔧 Auditoría y endurecimiento (rama `seo-mejoras`, 19 julio 2026)
+
+Se hizo una auditoría completa (seguridad, rendimiento, SEO) y se aplicaron los arreglos en esta
+rama. **Nada de esto está desplegado todavía en producción** — hace falta completar los pasos
+manuales de despliegue antes de fusionar a `main`.
+
+### ✅ Cambios ya hechos en el código de esta rama
+1. **Precio del checkout blindado**: `create-checkout-session` ahora recalcula precio y envío en
+   el servidor a partir de un mapa de precios de confianza (`PRODUCT_PRICES` dentro de la propia
+   función) y de la dirección guardada del pedido, ignorando por completo lo que mande el
+   navegador. **Importante**: si añades o cambias un precio en `constants.tsx`, tienes que
+   actualizar también ese mapa en `supabase/functions/create-checkout-session/index.ts` y volver
+   a desplegar la función.
+2. **Confirmación de pago movida al servidor**: se ha creado la función `stripe-webhook`. Antes,
+   `OrderSuccess.tsx` marcaba el pedido como "pagado" directamente desde el navegador del cliente
+   al volver de Stripe, sin comprobar que el pago se hubiese completado de verdad — cualquiera
+   podía marcar un pedido como pagado sin pagar. Ahora solo el webhook de Stripe (verificando la
+   firma) marca el pedido como pagado, y de paso descuenta el stock automáticamente.
+3. **Código muerto de "Pico Bot" eliminado**: `AIAssistant.tsx` y `geminiService.ts` no estaban
+   enlazados a ningún sitio de la web (no se usaban). Se han borrado junto con la dependencia
+   `@google/genai` y la `GEMINI_API_KEY` incrustada en `vite.config.ts`, que quedaba expuesta en
+   el JavaScript público aunque el asistente no estuviera activo.
+4. **Endurecimiento de RLS, dividido en dos partes**:
+   - `supabase_rls_hardening_part1_safe_now.sql` — **YA EJECUTADO contra producción y verificado**
+     (19 julio 2026): `products`, `profiles`, `reviews`, `contact_messages` y el permiso de
+     `decrement_stock` (antes cualquiera podía llamarlo directamente y manipular el stock sin
+     comprar). Comprobado con peticiones reales: la tienda pública sigue funcionando y un usuario
+     anónimo ya NO puede cambiar el stock de un producto ni ejecutar `decrement_stock`.
+   - `supabase_rls_hardening_part2_orders_pending_webhook.sql` — **pendiente**. Solo la tabla
+     `orders`. Se deja aparte a propósito: la web en producción todavía marca el pedido como
+     pagado desde el navegador del cliente, así que aplicar esto antes de tener el webhook de
+     Stripe listo dejaría los pedidos reales sin poder confirmarse. Ejecutar solo cuando el
+     webhook esté configurado y probado.
+5. **Imágenes y vídeos comprimidos**: las ~49 imágenes de producto se han convertido de
+   PNG/JPEG a WebP (de ~26 MB a ~2,9 MB) y los 7 vídeos de portada se han recomprimido quitando el
+   audio silencioso (de ~8,5 MB a ~2,5 MB). Todas las referencias en el código se han actualizado.
+6. **Tailwind compilado en vez de CDN**: se ha quitado el script `cdn.tailwindcss.com` (pensado
+   solo para desarrollo) y se ha instalado Tailwind v3 de verdad (`tailwind.config.js`,
+   `postcss.config.js`, `index.css` con `@tailwind` importado desde `index.tsx`). Misma paleta,
+   tipografía y plugins (`forms`, `container-queries`) que antes, verificado que compilan igual.
+7. **SEO básico**: meta description, Open Graph/Twitter Card (con imagen `og-image.jpg` generada
+   a partir del logo), favicon y apple-touch-icon, y `sitemap.xml`. `robots.txt` ya existía y
+   bloqueaba `/admin` correctamente.
+8. Limpieza menor: quitado el `importmap` de `esm.sh` (vestigio del scaffold de AI Studio, ya no
+   hace falta porque Vite empaqueta React localmente) e instalados `@types/react`/`@types/react-dom`
+   que faltaban (el build funcionaba igual porque Vite no comprueba tipos, pero el editor marcaba
+   toda la app en rojo).
+
+### ⏳ Pasos manuales pendientes antes de fusionar a `main`
+1. ✅ ~~Desplegar las funciones edge~~ — **HECHO** (19 julio 2026): `create-checkout-session` y
+   `stripe-webhook` ya están desplegadas en el proyecto real (hubo que cambiar el import de
+   `@supabase/supabase-js` de `esm.sh` a `npm:` porque el bundler remoto no resolvía esm.sh).
+2. ✅ ~~Ejecutar la parte segura del RLS~~ — **HECHO y verificado** (ver punto 4 arriba).
+3. **Configurar el webhook de Stripe** ← siguiente paso, bloqueado a la espera del acceso de la
+   propietaria a la cuenta de Stripe. En el Dashboard de Stripe → Developers → Webhooks → Add
+   endpoint, apuntando a:
+   `https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`, escuchando los eventos
+   `checkout.session.completed` y `checkout.session.async_payment_succeeded`. Copiar el "Signing
+   secret" (`whsec_...`) y guardarlo como secreto de la función:
+   `supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_...`.
+4. **Ejecutar `supabase_rls_hardening_part2_orders_pending_webhook.sql`** — solo después del
+   paso 3, para no dejar pedidos reales sin poder confirmarse durante la transición.
+5. ✅ ~~Rotar la `GEMINI_API_KEY`~~ — **HECHO** (19 julio 2026): las dos claves antiguas del
+   proyecto en Google AI Studio se borraron. No hace falta clave nueva porque Pico Bot ya no
+   existe en el código.
+6. **Analítica pendiente de credenciales**: no se ha instalado Google Analytics ni Meta Pixel
+   porque hace falta que la propietaria cree la cuenta (o pase el ID si ya existe). En cuanto se
+   tenga el ID de medición (GA4: `G-XXXXXXX`, o el Pixel ID de Meta), añadirlo es cuestión de
+   pegar el script correspondiente en `index.html`.
+7. Revisar visualmente la web en `npm run dev` tras el despliegue para confirmar que no hay
+   regresiones visuales del cambio de Tailwind.
+8. (Opcional, detectado por el auditor de seguridad de Supabase, no bloqueante): activar
+   "Leaked Password Protection" en Authentication → Settings del Dashboard de Supabase, y revisar
+   la política del bucket de Storage `reviews` (permite listar todos los ficheros subidos).
+
+### 📝 Nota para el futuro sobre HashRouter
+La web usa `HashRouter` (URLs tipo `/#/tienda`), lo que limita el posicionamiento en Google frente
+a URLs normales. Migrar a `BrowserRouter` mejoraría el SEO pero requiere configurar reglas de
+redirección en el hosting (Vercel/Netlify) para que cualquier ruta sirva `index.html`. No se ha
+tocado en esta pasada por ser un cambio más grande; queda como mejora futura opcional.
+
 ## 🚀- **Estado Actual**: ¡Listo para Lanzamiento! 🚀
 - **Última Actualización**: 23 de marzo, 2026 - 22:30h
 - **Hitos Recientes**: 

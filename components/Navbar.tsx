@@ -76,7 +76,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
             >
               <div className={`overflow-hidden rounded-full border-2 border-primary/20 shadow-sm transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 ${isScrolled ? 'size-7 md:size-8' : 'size-9 md:size-10'}`}>
                 <img
-                  src="/LOGOPICOYAMOR.jpeg"
+                  src="/LOGOPICOYAMOR.webp"
                   alt="Pico & Amor Logo"
                   className="w-full h-full object-cover"
                 />
@@ -163,7 +163,7 @@ const Navbar: React.FC<NavbarProps> = ({ cart, onOpenCart, onOpenAuth, user, onL
           <div className="p-8 flex items-center justify-between border-b border-background-light">
             <div className="flex items-center gap-3">
               <div className="size-10 rounded-full overflow-hidden border-2 border-primary/20">
-                <img src="/LOGOPICOYAMOR.jpeg" alt="Logo" className="w-full h-full object-cover" />
+                <img src="/LOGOPICOYAMOR.webp" alt="Logo" className="w-full h-full object-cover" />
               </div>
               <span className="font-black text-text-main">Menú</span>
             </div>
