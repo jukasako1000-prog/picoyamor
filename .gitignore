@@ -10,6 +10,9 @@
 /build
 /dist
 
+# Supabase CLI local cache
+supabase/.temp
+
 # misc
 .DS_Store
 .env.local
