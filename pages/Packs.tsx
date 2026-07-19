@@ -54,12 +54,21 @@ const Packs: React.FC<PacksProps> = ({ onAddToCart, onImageClick }) => {
     }
   };
 
-  const filteredProducts = PRODUCTS.filter(p => {
-    const matchesCategory = filter === 'Todos' || p.category === filter;
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      p.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  const filteredProducts = PRODUCTS
+    .filter(p => {
+      const matchesCategory = filter === 'Todos' || p.category === filter;
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchesCategory && matchesSearch;
+    })
+    // Los agotados se muestran igual (con su aviso) pero al final, para no dar la
+    // impresión de que la tienda está mayormente vacía de stock.
+    .sort((a, b) => {
+      const aOut = (stockLevels[a.id] ?? 0) <= 0;
+      const bOut = (stockLevels[b.id] ?? 0) <= 0;
+      if (aOut === bOut) return 0;
+      return aOut ? 1 : -1;
+    });
 
   return (
     <div className="pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto space-y-10">

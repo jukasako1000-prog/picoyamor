@@ -22,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
         <img
           src={product.image}
           alt=""
-          className={`w-full h-full object-contain p-0 transition-transform duration-700 group-hover:scale-110`}
+          className={`w-full h-full object-contain p-0 transition-transform duration-700 group-hover:scale-110 ${isOutOfStock ? 'opacity-40 grayscale' : ''}`}
           style={{
             transform: `${product.scale ? `scale(${product.scale})` : 'scale(1)'} ${product.translateY ? `translateY(${product.translateY}px)` : ''}`
           }}
@@ -46,7 +46,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onAddToCart, onImage
               <div className="absolute top-4 left-4 bg-orange-500 text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg animate-pulse">
                 Pocas unidades
               </div>
-            ) : null}
+            ) : (
+              <div className="absolute top-4 left-4 bg-text-muted text-white text-[9px] font-black uppercase px-2 py-1 rounded-lg shadow-lg">
+                Agotado
+              </div>
+            )}
           </>
         )}
       </div>
