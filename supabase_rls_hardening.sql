@@ -222,6 +222,14 @@ create policy "contact_messages_delete_admin_only"
   to authenticated
   using (auth.jwt() ->> 'email' = 'infopicoyamor@gmail.com');
 
+-- ============================================================================
+-- 6. FUNCIÓN decrement_stock: solo el sistema (webhook de Stripe con clave de
+--    servicio) debe poder ejecutarla. Detectado por el auditor de Supabase que
+--    cualquier visitante podía llamarla directamente vía
+--    /rest/v1/rpc/decrement_stock y manipular el stock sin haber comprado nada.
+-- ============================================================================
+revoke execute on function public.decrement_stock(jsonb) from anon, authenticated;
+
 -- Limpieza de la función auxiliar (ya no hace falta una vez aplicado el script)
 drop function if exists public._drop_all_policies(text);
 
