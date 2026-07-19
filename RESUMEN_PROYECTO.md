@@ -2,12 +2,12 @@
 
 Este archivo sirve como guía maestra para cualquier desarrollador o agente de IA que continúe este proyecto.
 
-## 🤖 LEE ESTO PRIMERO — Estado para el próximo agente/sesión (19 julio 2026, actualizado por la tarde)
+## 🤖 LEE ESTO PRIMERO — Estado para el próximo agente/sesión (19 julio 2026)
 
-**Toda la auditoría de seguridad/rendimiento/SEO está COMPLETA y verificada con un pago real
-de principio a fin.** Lo único que falta es decidir cuándo fusionar `seo-mejoras` → `main`
-(actualmente `main` ya tiene, sueltos, los arreglos más urgentes — ver más abajo — pero el resto
-de mejoras de `seo-mejoras`, como Tailwind compilado e imágenes optimizadas, siguen sin fusionar).
+**Toda la auditoría de seguridad/rendimiento/SEO está COMPLETA, fusionada a `main` y verificada
+en producción con un pago real de principio a fin.** No queda ningún paso técnico pendiente de
+esta auditoría. Lo único abierto es la analítica (Google Analytics/Meta Pixel), que espera a que
+la propietaria decida y cree la cuenta — ver el punto correspondiente más abajo.
 
 ### ✅ Verificado con una compra real (pedido `#AC89EAE9`, 3,50€, cuenta admin)
 Checkout → Stripe → webhook → pedido marcado "pagado" automáticamente → email al cliente y a la
@@ -83,13 +83,9 @@ visualmente `www.picoyamor.com` una vez desplegado para confirmar que no hay reg
   xmxidbtrntbnykufucwi` (añadir `--no-verify-jwt` solo para `stripe-webhook`, que la llama Stripe
   directamente, no un usuario logueado).
 
-## 🔧 Auditoría y endurecimiento (rama `seo-mejoras`, 19 julio 2026)
+## 🔧 Detalle de la auditoría y endurecimiento (19 julio 2026, ya en `main`)
 
-Se hizo una auditoría completa (seguridad, rendimiento, SEO) y se aplicaron los arreglos en esta
-rama. **Nada de esto está desplegado todavía en producción** — hace falta completar los pasos
-manuales de despliegue antes de fusionar a `main`.
-
-### ✅ Cambios ya hechos en el código de esta rama
+### ✅ Cambios de código de esta auditoría (todos ya en `main`)
 1. **Precio del checkout blindado**: `create-checkout-session` ahora recalcula precio y envío en
    el servidor a partir de un mapa de precios de confianza (`PRODUCT_PRICES` dentro de la propia
    función) y de la dirección guardada del pedido, ignorando por completo lo que mande el
@@ -105,17 +101,15 @@ manuales de despliegue antes de fusionar a `main`.
    enlazados a ningún sitio de la web (no se usaban). Se han borrado junto con la dependencia
    `@google/genai` y la `GEMINI_API_KEY` incrustada en `vite.config.ts`, que quedaba expuesta en
    el JavaScript público aunque el asistente no estuviera activo.
-4. **Endurecimiento de RLS, dividido en dos partes**:
-   - `supabase_rls_hardening_part1_safe_now.sql` — **YA EJECUTADO contra producción y verificado**
-     (19 julio 2026): `products`, `profiles`, `reviews`, `contact_messages` y el permiso de
-     `decrement_stock` (antes cualquiera podía llamarlo directamente y manipular el stock sin
-     comprar). Comprobado con peticiones reales: la tienda pública sigue funcionando y un usuario
-     anónimo ya NO puede cambiar el stock de un producto ni ejecutar `decrement_stock`.
-   - `supabase_rls_hardening_part2_orders_pending_webhook.sql` — **pendiente**. Solo la tabla
-     `orders`. Se deja aparte a propósito: la web en producción todavía marca el pedido como
-     pagado desde el navegador del cliente, así que aplicar esto antes de tener el webhook de
-     Stripe listo dejaría los pedidos reales sin poder confirmarse. Ejecutar solo cuando el
-     webhook esté configurado y probado.
+4. **Endurecimiento de RLS, ejecutado en dos partes (las dos ya aplicadas y verificadas)**:
+   - `supabase_rls_hardening_part1_safe_now.sql` — `products`, `profiles`, `reviews`,
+     `contact_messages` y el permiso de `decrement_stock` (antes cualquiera podía llamarlo
+     directamente y manipular el stock sin comprar).
+   - `supabase_rls_hardening_part2_orders_pending_webhook.sql` — tabla `orders` (el nombre del
+     archivo quedó desactualizado, ya se ejecutó). Al aplicarla rompió el checkout de invitado
+     (ver el bug #4 explicado arriba, en "LEE ESTO PRIMERO") — ya arreglado.
+   - Verificado con peticiones HTTP reales: un usuario anónimo no puede leer/escribir datos
+     ajenos, pero la tienda pública y el checkout de invitado siguen funcionando.
 5. **Imágenes y vídeos comprimidos**: las ~49 imágenes de producto se han convertido de
    PNG/JPEG a WebP (de ~26 MB a ~2,9 MB) y los 7 vídeos de portada se han recomprimido quitando el
    audio silencioso (de ~8,5 MB a ~2,5 MB). Todas las referencias en el código se han actualizado.
@@ -131,32 +125,16 @@ manuales de despliegue antes de fusionar a `main`.
    que faltaban (el build funcionaba igual porque Vite no comprueba tipos, pero el editor marcaba
    toda la app en rojo).
 
-### ⏳ Pasos manuales pendientes antes de fusionar a `main`
-1. ✅ ~~Desplegar las funciones edge~~ — **HECHO** (19 julio 2026): `create-checkout-session` y
-   `stripe-webhook` ya están desplegadas en el proyecto real (hubo que cambiar el import de
-   `@supabase/supabase-js` de `esm.sh` a `npm:` porque el bundler remoto no resolvía esm.sh).
-2. ✅ ~~Ejecutar la parte segura del RLS~~ — **HECHO y verificado** (ver punto 4 arriba).
-3. **Configurar el webhook de Stripe** ← siguiente paso, bloqueado a la espera del acceso de la
-   propietaria a la cuenta de Stripe. En el Dashboard de Stripe → Developers → Webhooks → Add
-   endpoint, apuntando a:
-   `https://xmxidbtrntbnykufucwi.supabase.co/functions/v1/stripe-webhook`, escuchando los eventos
-   `checkout.session.completed` y `checkout.session.async_payment_succeeded`. Copiar el "Signing
-   secret" (`whsec_...`) y guardarlo como secreto de la función:
-   `supabase secrets set STRIPE_WEBHOOK_SECRET=whsec_...`.
-4. **Ejecutar `supabase_rls_hardening_part2_orders_pending_webhook.sql`** — solo después del
-   paso 3, para no dejar pedidos reales sin poder confirmarse durante la transición.
-5. ✅ ~~Rotar la `GEMINI_API_KEY`~~ — **HECHO** (19 julio 2026): las dos claves antiguas del
-   proyecto en Google AI Studio se borraron. No hace falta clave nueva porque Pico Bot ya no
-   existe en el código.
-6. **Analítica pendiente de credenciales**: no se ha instalado Google Analytics ni Meta Pixel
-   porque hace falta que la propietaria cree la cuenta (o pase el ID si ya existe). En cuanto se
-   tenga el ID de medición (GA4: `G-XXXXXXX`, o el Pixel ID de Meta), añadirlo es cuestión de
-   pegar el script correspondiente en `index.html`.
-7. Revisar visualmente la web en `npm run dev` tras el despliegue para confirmar que no hay
-   regresiones visuales del cambio de Tailwind.
-8. (Opcional, detectado por el auditor de seguridad de Supabase, no bloqueante): activar
+### ⏳ Lo único que queda abierto
+1. **Analítica**: no se ha instalado Google Analytics ni Meta Pixel porque hace falta que la
+   propietaria cree la cuenta (o pase el ID si ya existe). En cuanto se tenga el ID de medición
+   (GA4: `G-XXXXXXX`, o el Pixel ID de Meta), añadirlo es cuestión de pegar el script
+   correspondiente en `index.html`.
+2. (Opcional, detectado por el auditor de seguridad de Supabase, no bloqueante): activar
    "Leaked Password Protection" en Authentication → Settings del Dashboard de Supabase, y revisar
    la política del bucket de Storage `reviews` (permite listar todos los ficheros subidos).
+3. (Opcional) Google Business Profile: se empezó a configurar pero se aparcó — no es prioritario
+   para un negocio 100% online, el SEO real ya está cubierto por Search Console.
 
 ### 📝 Nota para el futuro sobre HashRouter
 La web usa `HashRouter` (URLs tipo `/#/tienda`), lo que limita el posicionamiento en Google frente
