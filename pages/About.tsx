@@ -57,6 +57,14 @@ const About: React.FC = () => {
         </div>
       </section>
 
+      {/* Selección de confianza */}
+      <section className="bg-primary/15 border-2 border-primary/30 rounded-[3rem] p-10 md:p-16 text-center max-w-4xl mx-auto space-y-4">
+        <span className="material-symbols-outlined text-primary text-5xl">verified</span>
+        <p className="text-lg md:text-xl text-text-main leading-relaxed font-semibold">
+          Además de nuestras piezas artesanales, seleccionamos con cariño <span className="text-primary font-black">productos de otras marcas de confianza</span> para ofrecerte siempre lo mejor para tu ave.
+        </p>
+      </section>
+
       {/* Values */}
       <section className="text-center space-y-20 py-10">
         <div className="max-w-3xl mx-auto space-y-6">
