@@ -135,6 +135,15 @@ visualmente `www.picoyamor.com` una vez desplegado para confirmar que no hay reg
    la política del bucket de Storage `reviews` (permite listar todos los ficheros subidos).
 3. (Opcional) Google Business Profile: se empezó a configurar pero se aparcó — no es prioritario
    para un negocio 100% online, el SEO real ya está cubierto por Search Console.
+4. (Opcional, detectado en revisión de salud del 14 agosto 2026): la política RLS
+   `products_insert_public_sync` permite que cualquiera (incluso sin login, con la clave pública
+   de Supabase) inserte filas nuevas en la tabla `products` sin ninguna restricción
+   (`with_check: true`). Es intencional para que la web auto-sincronice productos nuevos desde
+   `constants.tsx` con stock 0, pero en teoría alguien podría insertar productos falsos/basura.
+   No es tan grave como un fallo de lectura de pedidos (verificado que `orders`/`contact_messages`
+   están bien acotadas), pero convendría acotarlo más adelante (por ejemplo, restringir con qué
+   valores se puede insertar, o mover la sincronización a una función de servidor en vez de INSERT
+   directo desde el cliente).
 
 ### 📝 Nota para el futuro sobre HashRouter
 La web usa `HashRouter` (URLs tipo `/#/tienda`), lo que limita el posicionamiento en Google frente
